@@ -3,9 +3,9 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
-using Skoruba.IdentityServer4.Admin.Helpers;
+using Skoruba.Admin.Helpers;
 
-namespace Skoruba.IdentityServer4.Admin.Controllers
+namespace Skoruba.Admin.Controllers
 {
     public class BaseController : Controller
     {

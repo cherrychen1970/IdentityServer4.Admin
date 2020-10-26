@@ -1,9 +1,9 @@
 ﻿using AutoMapper;
-using Skoruba.IdentityServer4.Admin.Api.Dtos.Roles;
-using Skoruba.IdentityServer4.Admin.Api.Dtos.Users;
-using Skoruba.IdentityServer4.Admin.BusinessLogic.Identity.Dtos.Identity;
+using Skoruba.Admin.Api.Dtos.Roles;
+using Skoruba.Admin.Api.Dtos.Users;
+using Skoruba.Admin.BusinessLogic.Identity.Dtos.Identity;
 
-namespace Skoruba.IdentityServer4.Admin.Api.Mappers
+namespace Skoruba.Admin.Api.Mappers
 {
     public class IdentityMapperProfile<TRoleDto, TUserRolesDto, TKey, TUserClaimsDto, TUserClaimDto, TUserProviderDto, TUserProvidersDto, TUserChangePasswordDto, TRoleClaimDto, TRoleClaimsDto> : Profile
         where TUserClaimsDto : UserClaimsDto<TUserClaimDto, TKey>

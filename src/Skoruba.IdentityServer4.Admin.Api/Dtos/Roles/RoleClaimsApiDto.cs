@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Skoruba.IdentityServer4.Admin.Api.Dtos.Roles
+namespace Skoruba.Admin.Api.Dtos.Roles
 {
     public class RoleClaimsApiDto<TKey>
     {

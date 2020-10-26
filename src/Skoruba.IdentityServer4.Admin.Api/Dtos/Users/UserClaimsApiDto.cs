@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Skoruba.IdentityServer4.Admin.Api.Dtos.Users
+namespace Skoruba.Admin.Api.Dtos.Users
 {
     public class UserClaimsApiDto<TKey>
     {

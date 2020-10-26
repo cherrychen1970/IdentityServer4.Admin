@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Razor.TagHelpers;
 using Newtonsoft.Json;
 
-namespace Skoruba.IdentityServer4.Admin.Helpers.TagHelpers
+namespace Skoruba.Admin.Helpers.TagHelpers
 {
     [HtmlTargetElement("picker")]
     public class PickerTagHelper : TagHelper

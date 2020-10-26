@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Skoruba.IdentityServer4.Admin.BusinessLogic.Identity.Resources {
+namespace Skoruba.Admin.BusinessLogic.Identity.Resources {
     /// <summary>
     ///   A strongly-typed resource class, for looking up localized strings, etc.
     /// </summary>

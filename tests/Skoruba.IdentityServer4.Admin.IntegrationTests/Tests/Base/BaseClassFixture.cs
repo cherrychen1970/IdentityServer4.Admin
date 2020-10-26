@@ -1,12 +1,12 @@
 ﻿using System.Net.Http;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.Extensions.DependencyInjection;
-using Skoruba.IdentityServer4.Admin.Configuration.Interfaces;
-using Skoruba.IdentityServer4.Admin.Configuration.Test;
-using Skoruba.IdentityServer4.Admin.IntegrationTests.Common;
+using Skoruba.Admin.Configuration.Interfaces;
+using Skoruba.Admin.Configuration.Test;
+using Skoruba.Admin.IntegrationTests.Common;
 using Xunit;
 
-namespace Skoruba.IdentityServer4.Admin.IntegrationTests.Tests.Base
+namespace Skoruba.Admin.IntegrationTests.Tests.Base
 {
     public class BaseClassFixture : IClassFixture<WebApplicationFactory<StartupTest>>
     {

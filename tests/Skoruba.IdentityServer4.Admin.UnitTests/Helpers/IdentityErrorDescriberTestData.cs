@@ -1,8 +1,8 @@
-﻿using Skoruba.IdentityServer4.Admin.Helpers.Identity;
+﻿using Skoruba.Admin.Helpers.Identity;
 using System.Collections;
 using System.Collections.Generic;
 
-namespace Skoruba.IdentityServer4.Admin.UnitTests.Helpers
+namespace Skoruba.Admin.UnitTests.Helpers
 {
     public class IdentityErrorDescriberTestData : IEnumerable<object[]>
     {

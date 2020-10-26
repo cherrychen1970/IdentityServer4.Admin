@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Threading.Tasks;
 using Skoruba.AuditLogging.EntityFramework.Entities;
-using Skoruba.IdentityServer4.Admin.EntityFramework.Extensions.Common;
+using Skoruba.Admin.EntityFramework.Extensions.Common;
 
-namespace Skoruba.IdentityServer4.Admin.EntityFramework.Repositories.Interfaces
+namespace Skoruba.Admin.EntityFramework.Repositories.Interfaces
 {
     public interface IAuditLogRepository<TAuditLog> where TAuditLog : AuditLog
     {

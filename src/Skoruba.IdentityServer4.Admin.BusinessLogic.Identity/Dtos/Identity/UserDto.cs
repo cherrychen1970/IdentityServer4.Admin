@@ -1,9 +1,9 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
-using Skoruba.IdentityServer4.Admin.BusinessLogic.Identity.Dtos.Identity.Base;
-using Skoruba.IdentityServer4.Admin.BusinessLogic.Identity.Dtos.Identity.Interfaces;
+using Skoruba.Admin.BusinessLogic.Identity.Dtos.Identity.Base;
+using Skoruba.Admin.BusinessLogic.Identity.Dtos.Identity.Interfaces;
 
-namespace Skoruba.IdentityServer4.Admin.BusinessLogic.Identity.Dtos.Identity
+namespace Skoruba.Admin.BusinessLogic.Identity.Dtos.Identity
 {
     public class UserDto<TKey> : BaseUserDto<TKey>, IUserDto
     {        

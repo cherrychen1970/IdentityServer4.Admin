@@ -1,4 +1,4 @@
-﻿namespace Skoruba.IdentityServer4.Admin.Api.Dtos.ApiResources
+﻿namespace Skoruba.Admin.Api.Dtos.ApiResources
 {
     public class ApiResourcePropertyApiDto
     {

@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Threading.Tasks;
-using Skoruba.IdentityServer4.Admin.BusinessLogic.Dtos.Log;
+using Skoruba.Admin.BusinessLogic.Dtos.Log;
 
-namespace Skoruba.IdentityServer4.Admin.BusinessLogic.Services.Interfaces
+namespace Skoruba.Admin.BusinessLogic.Services.Interfaces
 {
     public interface IAuditLogService
     {

@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Skoruba.IdentityServer4.Admin.Configuration.Identity
+namespace Skoruba.Admin.Configuration.Identity
 {
     public class User
     {

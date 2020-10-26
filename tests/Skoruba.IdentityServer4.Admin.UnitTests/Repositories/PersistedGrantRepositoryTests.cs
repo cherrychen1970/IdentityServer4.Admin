@@ -3,14 +3,14 @@ using System.Threading.Tasks;
 using FluentAssertions;
 using IdentityServer4.EntityFramework.Options;
 using Microsoft.EntityFrameworkCore;
-using Skoruba.IdentityServer4.Admin.EntityFramework.Identity.Repositories;
-using Skoruba.IdentityServer4.Admin.EntityFramework.Identity.Repositories.Interfaces;
-using Skoruba.IdentityServer4.Admin.EntityFramework.Shared.DbContexts;
-using Skoruba.IdentityServer4.Admin.EntityFramework.Shared.Entities.Identity;
-using Skoruba.IdentityServer4.Admin.UnitTests.Mocks;
+using Skoruba.Admin.EntityFramework.Identity.Repositories;
+using Skoruba.Admin.EntityFramework.Identity.Repositories.Interfaces;
+using Skoruba.Admin.EntityFramework.Shared.DbContexts;
+using Skoruba.Admin.EntityFramework.Shared.Entities.Identity;
+using Skoruba.Admin.UnitTests.Mocks;
 using Xunit;
 
-namespace Skoruba.IdentityServer4.Admin.UnitTests.Repositories
+namespace Skoruba.Admin.UnitTests.Repositories
 {
     public class PersistedGrantRepositoryTests
     {

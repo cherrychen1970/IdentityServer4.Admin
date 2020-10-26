@@ -1,10 +1,10 @@
 ﻿using System.Linq;
 using FluentAssertions;
-using Skoruba.IdentityServer4.Admin.BusinessLogic.Mappers;
-using Skoruba.IdentityServer4.Admin.UnitTests.Mocks;
+using Skoruba.Admin.BusinessLogic.Mappers;
+using Skoruba.Admin.UnitTests.Mocks;
 using Xunit;
 
-namespace Skoruba.IdentityServer4.Admin.UnitTests.Mappers
+namespace Skoruba.Admin.UnitTests.Mappers
 {
     public class IdentityResourceMappers
     {

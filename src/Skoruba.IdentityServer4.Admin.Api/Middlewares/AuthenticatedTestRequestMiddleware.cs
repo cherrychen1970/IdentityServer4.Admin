@@ -6,7 +6,7 @@ using IdentityModel;
 using IdentityServer4.AccessTokenValidation;
 using Microsoft.AspNetCore.Http;
 
-namespace Skoruba.IdentityServer4.Admin.Api.Middlewares
+namespace Skoruba.Admin.Api.Middlewares
 {
     public class AuthenticatedTestRequestMiddleware
     {

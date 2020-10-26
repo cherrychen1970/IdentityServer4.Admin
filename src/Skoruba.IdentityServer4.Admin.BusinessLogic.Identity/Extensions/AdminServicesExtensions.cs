@@ -4,14 +4,14 @@ using AutoMapper;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using Skoruba.IdentityServer4.Admin.BusinessLogic.Identity.Dtos.Identity;
-using Skoruba.IdentityServer4.Admin.BusinessLogic.Identity.Mappers.Configuration;
-using Skoruba.IdentityServer4.Admin.BusinessLogic.Identity.Resources;
-using Skoruba.IdentityServer4.Admin.BusinessLogic.Identity.Services;
-using Skoruba.IdentityServer4.Admin.BusinessLogic.Identity.Services.Interfaces;
-using Skoruba.IdentityServer4.Admin.EntityFramework.Identity.Repositories;
-using Skoruba.IdentityServer4.Admin.EntityFramework.Identity.Repositories.Interfaces;
-using Skoruba.IdentityServer4.Admin.EntityFramework.Interfaces;
+using Skoruba.Admin.BusinessLogic.Identity.Dtos.Identity;
+using Skoruba.Admin.BusinessLogic.Identity.Mappers.Configuration;
+using Skoruba.Admin.BusinessLogic.Identity.Resources;
+using Skoruba.Admin.BusinessLogic.Identity.Services;
+using Skoruba.Admin.BusinessLogic.Identity.Services.Interfaces;
+using Skoruba.Admin.EntityFramework.Identity.Repositories;
+using Skoruba.Admin.EntityFramework.Identity.Repositories.Interfaces;
+using Skoruba.Admin.EntityFramework.Interfaces;
 
 namespace Microsoft.Extensions.DependencyInjection
 {

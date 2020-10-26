@@ -1,4 +1,4 @@
-﻿namespace Skoruba.IdentityServer4.Admin.BusinessLogic.Helpers
+﻿namespace Skoruba.Admin.BusinessLogic.Helpers
 {
     public static class ViewHelpers
     {

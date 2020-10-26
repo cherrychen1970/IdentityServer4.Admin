@@ -1,7 +1,7 @@
-﻿using Skoruba.IdentityServer4.Admin.BusinessLogic.Shared.Dtos.Common;
+﻿using Skoruba.Admin.BusinessLogic.Shared.Dtos.Common;
 using System.Collections.Generic;
 
-namespace Skoruba.IdentityServer4.Admin.BusinessLogic.Identity.Dtos.Identity.Interfaces
+namespace Skoruba.Admin.BusinessLogic.Identity.Dtos.Identity.Interfaces
 {
     public interface IUserRolesDto : IBaseUserRolesDto
     {

@@ -1,6 +1,6 @@
 ﻿using Skoruba.AuditLogging.Events;
 
-namespace Skoruba.IdentityServer4.Admin.BusinessLogic.Identity.Events.Identity
+namespace Skoruba.Admin.BusinessLogic.Identity.Events.Identity
 {
     public class RoleClaimsSavedEvent<TRoleClaimsDto> : AuditEvent
     {

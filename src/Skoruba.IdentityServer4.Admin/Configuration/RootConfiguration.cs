@@ -1,6 +1,6 @@
-﻿using Skoruba.IdentityServer4.Admin.Configuration.Interfaces;
+﻿using Skoruba.Admin.Configuration.Interfaces;
 
-namespace Skoruba.IdentityServer4.Admin.Configuration
+namespace Skoruba.Admin.Configuration
 {
     public class RootConfiguration : IRootConfiguration
     {

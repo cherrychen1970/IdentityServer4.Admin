@@ -2,13 +2,13 @@
 using System.Threading.Tasks;
 using FluentAssertions;
 using Microsoft.AspNetCore.Mvc.Testing;
-using Skoruba.IdentityServer4.Admin.Configuration.Constants;
-using Skoruba.IdentityServer4.Admin.Configuration.Test;
-using Skoruba.IdentityServer4.Admin.IntegrationTests.Common;
-using Skoruba.IdentityServer4.Admin.IntegrationTests.Tests.Base;
+using Skoruba.Admin.Configuration.Constants;
+using Skoruba.Admin.Configuration.Test;
+using Skoruba.Admin.IntegrationTests.Common;
+using Skoruba.Admin.IntegrationTests.Tests.Base;
 using Xunit;
 
-namespace Skoruba.IdentityServer4.Admin.IntegrationTests.Tests
+namespace Skoruba.Admin.IntegrationTests.Tests
 {
     public class GrantControllerTests : BaseClassFixture
     {

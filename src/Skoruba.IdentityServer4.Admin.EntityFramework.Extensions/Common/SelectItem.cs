@@ -1,4 +1,4 @@
-﻿namespace Skoruba.IdentityServer4.Admin.EntityFramework.Extensions.Common
+﻿namespace Skoruba.Admin.EntityFramework.Extensions.Common
 {
 	public class SelectItem
 	{

@@ -1,8 +1,8 @@
-﻿using Skoruba.IdentityServer4.Admin.BusinessLogic.Identity.Dtos.Identity.Interfaces;
+﻿using Skoruba.Admin.BusinessLogic.Identity.Dtos.Identity.Interfaces;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Skoruba.IdentityServer4.Admin.BusinessLogic.Identity.Dtos.Identity
+namespace Skoruba.Admin.BusinessLogic.Identity.Dtos.Identity
 {
     public class UserClaimsDto<TUserClaimDto, TKey> : UserClaimDto<TKey>, IUserClaimsDto
        where TUserClaimDto : UserClaimDto<TKey>

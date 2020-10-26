@@ -1,8 +1,8 @@
 using System;
 using System.ComponentModel.DataAnnotations;
-using Skoruba.IdentityServer4.Admin.EntityFramework.Helpers;
+using Skoruba.Admin.EntityFramework.Helpers;
 
-namespace Skoruba.IdentityServer4.Admin.Api.Dtos.Clients
+namespace Skoruba.Admin.Api.Dtos.Clients
 {
     public class ClientSecretApiDto
     {
@@ -29,7 +29,7 @@ namespace Skoruba.IdentityServer4.Admin.Api.Dtos.Clients
                     return result;
                 }
 
-                return Skoruba.IdentityServer4.Admin.EntityFramework.Helpers.HashType.Sha256;
+                return Skoruba.Admin.EntityFramework.Helpers.HashType.Sha256;
             }
         }
 

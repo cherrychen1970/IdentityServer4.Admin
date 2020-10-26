@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Skoruba.IdentityServer4.Admin.Api.Resources {
+namespace Skoruba.Admin.Api.Resources {
     using System;
     
     

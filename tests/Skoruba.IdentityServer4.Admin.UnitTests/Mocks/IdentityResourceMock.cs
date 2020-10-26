@@ -2,7 +2,7 @@
 using Bogus;
 using IdentityServer4.EntityFramework.Entities;
 
-namespace Skoruba.IdentityServer4.Admin.UnitTests.Mocks
+namespace Skoruba.Admin.UnitTests.Mocks
 {
     public static class IdentityResourceMock
     {

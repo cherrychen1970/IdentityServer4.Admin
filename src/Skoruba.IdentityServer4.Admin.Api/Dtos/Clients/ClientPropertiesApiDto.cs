@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Skoruba.IdentityServer4.Admin.Api.Dtos.Clients
+namespace Skoruba.Admin.Api.Dtos.Clients
 {
     public class ClientPropertiesApiDto
     {

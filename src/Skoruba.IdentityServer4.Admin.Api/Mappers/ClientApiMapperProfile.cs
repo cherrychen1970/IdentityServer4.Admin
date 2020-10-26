@@ -1,8 +1,8 @@
 ﻿using AutoMapper;
-using Skoruba.IdentityServer4.Admin.Api.Dtos.Clients;
-using Skoruba.IdentityServer4.Admin.BusinessLogic.Dtos.Configuration;
+using Skoruba.Admin.Api.Dtos.Clients;
+using Skoruba.Admin.BusinessLogic.Dtos.Configuration;
 
-namespace Skoruba.IdentityServer4.Admin.Api.Mappers
+namespace Skoruba.Admin.Api.Mappers
 {
     public class ClientApiMapperProfile : Profile
     {

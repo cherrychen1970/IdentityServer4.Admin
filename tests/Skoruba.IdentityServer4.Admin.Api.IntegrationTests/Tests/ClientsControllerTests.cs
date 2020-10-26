@@ -2,12 +2,12 @@
 using System.Threading.Tasks;
 using FluentAssertions;
 using Microsoft.AspNetCore.Mvc.Testing;
-using Skoruba.IdentityServer4.Admin.Api.Configuration.Test;
-using Skoruba.IdentityServer4.Admin.Api.IntegrationTests.Common;
-using Skoruba.IdentityServer4.Admin.Api.IntegrationTests.Tests.Base;
+using Skoruba.Admin.Api.Configuration.Test;
+using Skoruba.Admin.Api.IntegrationTests.Common;
+using Skoruba.Admin.Api.IntegrationTests.Tests.Base;
 using Xunit;
 
-namespace Skoruba.IdentityServer4.Admin.Api.IntegrationTests.Tests
+namespace Skoruba.Admin.Api.IntegrationTests.Tests
 {
     public class ClientsControllerTests : BaseClassFixture
     {

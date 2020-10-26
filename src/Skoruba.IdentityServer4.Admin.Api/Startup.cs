@@ -11,19 +11,19 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using Skoruba.AuditLogging.EntityFramework.Entities;
-using Skoruba.IdentityServer4.Admin.Api.Configuration;
-using Skoruba.IdentityServer4.Admin.Api.Configuration.Authorization;
-using Skoruba.IdentityServer4.Admin.Api.ExceptionHandling;
-using Skoruba.IdentityServer4.Admin.Api.Helpers;
-using Skoruba.IdentityServer4.Admin.Api.Mappers;
-using Skoruba.IdentityServer4.Admin.Api.Resources;
-using Skoruba.IdentityServer4.Admin.EntityFramework.Shared.DbContexts;
-using Skoruba.IdentityServer4.Admin.EntityFramework.Shared.Entities.Identity;
+using Skoruba.Admin.Api.Configuration;
+using Skoruba.Admin.Api.Configuration.Authorization;
+using Skoruba.Admin.Api.ExceptionHandling;
+using Skoruba.Admin.Api.Helpers;
+using Skoruba.Admin.Api.Mappers;
+using Skoruba.Admin.Api.Resources;
+using Skoruba.Admin.EntityFramework.Shared.DbContexts;
+using Skoruba.Admin.EntityFramework.Shared.Entities.Identity;
 using Skoruba.IdentityServer4.Shared.Dtos;
 using Skoruba.IdentityServer4.Shared.Dtos.Identity;
 using Skoruba.IdentityServer4.Shared.Helpers;
 
-namespace Skoruba.IdentityServer4.Admin.Api
+namespace Skoruba.Admin.Api
 {
     public class Startup
     {
@@ -43,17 +43,19 @@ namespace Skoruba.IdentityServer4.Admin.Api
             services.AddSingleton(adminApiConfiguration);
 
             // Add DbContexts
-            RegisterDbContexts(services);
+            RegisterDbContexts(services);                        
 
+#if DEBUG
             services.AddDataProtection()
                 .SetApplicationName("Skoruba.IdentityServer4")
                 .PersistKeysToDbContext<IdentityServerDataProtectionDbContext>();
+#endif
 
             // Add email senders which is currently setup for SendGrid and SMTP
             services.AddEmailSenders(Configuration);
 
             services.AddScoped<ControllerExceptionFilterAttribute>();
-            services.AddScoped<IApiErrorResources, ApiErrorResources>();
+            services.AddScoped<IApiErrorResources, ApiErrorResources>();            
 
             // Add authentication services
             RegisterAuthentication(services);
@@ -106,20 +108,21 @@ namespace Skoruba.IdentityServer4.Admin.Api
                 options.OperationFilter<AuthorizeCheckOperationFilter>();
             });
 
+            // CHERRY TESTING
             services.AddAuditEventLogging<AdminAuditLogDbContext, AuditLog>(Configuration);
 
             services.AddIdSHealthChecks<IdentityServerConfigurationDbContext, IdentityServerPersistedGrantDbContext, AdminIdentityDbContext, AdminLogDbContext, AdminAuditLogDbContext, IdentityServerDataProtectionDbContext>(Configuration, adminApiConfiguration);
         }
 
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, AdminApiConfiguration adminApiConfiguration)
-        {
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, AdminApiConfiguration adminApiConfiguration, IServiceProvider provider)
+        {                        
             app.AddForwardHeaders();
 
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-            }
-
+            }            
+            Migrate(provider);
             app.UseSwagger();
             app.UseSwaggerUI(c =>
             {
@@ -144,6 +147,12 @@ namespace Skoruba.IdentityServer4.Admin.Api
             });
         }
 
+        public virtual void Migrate(IServiceProvider provider)
+        {
+            provider.EnsureDatabasesMigrate<AdminLogDbContext>();
+            provider.EnsureDatabasesMigrate<AdminAuditLogDbContext>();
+            provider.EnsureDatabasesMigrate<IdentityServerDataProtectionDbContext>();            
+        }
         public virtual void RegisterDbContexts(IServiceCollection services)
         {
             services.AddDbContexts<AdminIdentityDbContext, IdentityServerConfigurationDbContext, IdentityServerPersistedGrantDbContext, AdminLogDbContext, AdminAuditLogDbContext, IdentityServerDataProtectionDbContext>(Configuration);

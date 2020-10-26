@@ -1,4 +1,4 @@
-﻿namespace Skoruba.IdentityServer4.Admin.EntityFramework.Helpers
+﻿namespace Skoruba.Admin.EntityFramework.Helpers
 {
 	public enum HashType
 	{

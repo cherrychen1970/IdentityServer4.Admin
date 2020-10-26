@@ -1,10 +1,10 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using Skoruba.IdentityServer4.Admin.BusinessLogic.Shared.Dtos.Common;
-using Skoruba.IdentityServer4.Admin.EntityFramework.Helpers;
+using Skoruba.Admin.BusinessLogic.Shared.Dtos.Common;
+using Skoruba.Admin.EntityFramework.Helpers;
 
-namespace Skoruba.IdentityServer4.Admin.BusinessLogic.Dtos.Configuration
+namespace Skoruba.Admin.BusinessLogic.Dtos.Configuration
 {
 	public class ApiSecretsDto
 	{

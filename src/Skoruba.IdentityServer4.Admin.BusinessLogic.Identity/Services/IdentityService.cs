@@ -6,16 +6,16 @@ using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Identity;
 using Skoruba.AuditLogging.Services;
-using Skoruba.IdentityServer4.Admin.BusinessLogic.Identity.Dtos.Identity;
-using Skoruba.IdentityServer4.Admin.BusinessLogic.Identity.Events.Identity;
-using Skoruba.IdentityServer4.Admin.BusinessLogic.Identity.Resources;
-using Skoruba.IdentityServer4.Admin.BusinessLogic.Identity.Services.Interfaces;
-using Skoruba.IdentityServer4.Admin.BusinessLogic.Shared.Dtos.Common;
-using Skoruba.IdentityServer4.Admin.BusinessLogic.Shared.ExceptionHandling;
-using Skoruba.IdentityServer4.Admin.EntityFramework.Extensions.Common;
-using Skoruba.IdentityServer4.Admin.EntityFramework.Identity.Repositories.Interfaces;
+using Skoruba.Admin.BusinessLogic.Identity.Dtos.Identity;
+using Skoruba.Admin.BusinessLogic.Identity.Events.Identity;
+using Skoruba.Admin.BusinessLogic.Identity.Resources;
+using Skoruba.Admin.BusinessLogic.Identity.Services.Interfaces;
+using Skoruba.Admin.BusinessLogic.Shared.Dtos.Common;
+using Skoruba.Admin.BusinessLogic.Shared.ExceptionHandling;
+using Skoruba.Admin.EntityFramework.Extensions.Common;
+using Skoruba.Admin.EntityFramework.Identity.Repositories.Interfaces;
 
-namespace Skoruba.IdentityServer4.Admin.BusinessLogic.Identity.Services
+namespace Skoruba.Admin.BusinessLogic.Identity.Services
 {
     public class IdentityService<TUserDto, TRoleDto, TUser, TRole, TKey, TUserClaim, TUserRole,
         TUserLogin, TRoleClaim, TUserToken,

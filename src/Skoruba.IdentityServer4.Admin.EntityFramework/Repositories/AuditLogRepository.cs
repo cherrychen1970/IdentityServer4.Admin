@@ -4,12 +4,12 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Skoruba.AuditLogging.EntityFramework.DbContexts;
 using Skoruba.AuditLogging.EntityFramework.Entities;
-using Skoruba.IdentityServer4.Admin.EntityFramework.Extensions.Common;
-using Skoruba.IdentityServer4.Admin.EntityFramework.Extensions.Enums;
-using Skoruba.IdentityServer4.Admin.EntityFramework.Extensions.Extensions;
-using Skoruba.IdentityServer4.Admin.EntityFramework.Repositories.Interfaces;
+using Skoruba.Admin.EntityFramework.Extensions.Common;
+using Skoruba.Admin.EntityFramework.Extensions.Enums;
+using Skoruba.Admin.EntityFramework.Extensions.Extensions;
+using Skoruba.Admin.EntityFramework.Repositories.Interfaces;
 
-namespace Skoruba.IdentityServer4.Admin.EntityFramework.Repositories
+namespace Skoruba.Admin.EntityFramework.Repositories
 {
     public class AuditLogRepository<TDbContext, TAuditLog> : IAuditLogRepository<TAuditLog>
         where TDbContext : IAuditLoggingDbContext<TAuditLog>

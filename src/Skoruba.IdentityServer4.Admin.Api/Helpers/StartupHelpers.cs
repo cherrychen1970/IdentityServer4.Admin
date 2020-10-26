@@ -15,21 +15,21 @@ using Skoruba.AuditLogging.EntityFramework.Entities;
 using Skoruba.AuditLogging.EntityFramework.Extensions;
 using Skoruba.AuditLogging.EntityFramework.Repositories;
 using Skoruba.AuditLogging.EntityFramework.Services;
-using Skoruba.IdentityServer4.Admin.Api.AuditLogging;
-using Skoruba.IdentityServer4.Admin.Api.Configuration;
-using Skoruba.IdentityServer4.Admin.Api.Configuration.ApplicationParts;
-using Skoruba.IdentityServer4.Admin.Api.Configuration.Constants;
-using Skoruba.IdentityServer4.Admin.Api.Helpers.Localization;
-using Skoruba.IdentityServer4.Admin.BusinessLogic.Identity.Dtos.Identity;
-using Skoruba.IdentityServer4.Admin.EntityFramework.Helpers;
-using Skoruba.IdentityServer4.Admin.EntityFramework.Interfaces;
-using Skoruba.IdentityServer4.Admin.EntityFramework.MySql.Extensions;
-using Skoruba.IdentityServer4.Admin.EntityFramework.PostgreSQL.Extensions;
-using Skoruba.IdentityServer4.Admin.EntityFramework.Shared.Configuration;
-using Skoruba.IdentityServer4.Admin.EntityFramework.SqlServer.Extensions;
+using Skoruba.Admin.Api.AuditLogging;
+using Skoruba.Admin.Api.Configuration;
+using Skoruba.Admin.Api.Configuration.ApplicationParts;
+using Skoruba.Admin.Api.Configuration.Constants;
+using Skoruba.Admin.Api.Helpers.Localization;
+using Skoruba.Admin.BusinessLogic.Identity.Dtos.Identity;
+using Skoruba.Admin.EntityFramework.Helpers;
+using Skoruba.Admin.EntityFramework.Interfaces;
+using Skoruba.Admin.EntityFramework.MySql.Extensions;
+using Skoruba.Admin.EntityFramework.PostgreSQL.Extensions;
+using Skoruba.Admin.EntityFramework.Shared.Configuration;
+using Skoruba.Admin.EntityFramework.SqlServer.Extensions;
 using Skoruba.IdentityServer4.Shared.Configuration.Identity;
 
-namespace Skoruba.IdentityServer4.Admin.Api.Helpers
+namespace Skoruba.Admin.Api.Helpers
 {
     public static class StartupHelpers
     {
@@ -42,8 +42,9 @@ namespace Skoruba.IdentityServer4.Admin.Api.Helpers
                 .Get<AuditLoggingConfiguration>();
             services.AddSingleton(auditLoggingConfiguration);
 
+            // TEST CHERRY
             services.AddAuditLogging(options => { options.Source = auditLoggingConfiguration.Source; })
-                .AddEventData<ApiAuditSubject, ApiAuditAction>()
+                .AddEventData<MockApiAuditSubject, ApiAuditAction>()
                 .AddAuditSinks<DatabaseAuditEventLoggerSink<TAuditLog>>();
 
             services
@@ -145,28 +146,23 @@ namespace Skoruba.IdentityServer4.Admin.Api.Helpers
             where TDataProtectionDbContext : DbContext, IDataProtectionKeyContext
         {
             var databaseProvider = configuration.GetSection(nameof(DatabaseProviderConfiguration)).Get<DatabaseProviderConfiguration>();
-
-            var identityConnectionString = configuration.GetConnectionString(ConfigurationConsts.IdentityDbConnectionStringKey);
-            var configurationConnectionString = configuration.GetConnectionString(ConfigurationConsts.ConfigurationDbConnectionStringKey);
-            var persistedGrantsConnectionString = configuration.GetConnectionString(ConfigurationConsts.PersistedGrantDbConnectionStringKey);
-            var errorLoggingConnectionString = configuration.GetConnectionString(ConfigurationConsts.AdminLogDbConnectionStringKey);
-            var auditLoggingConnectionString = configuration.GetConnectionString(ConfigurationConsts.AdminAuditLogDbConnectionStringKey);
-            var dataProtectionConnectionString = configuration.GetConnectionString(ConfigurationConsts.DataProtectionDbConnectionStringKey);
+            var i = configuration.GetConnectionString("IdentityConnection");
+            var c = configuration.GetConnectionString("SkorubaConnection");
 
             switch (databaseProvider.ProviderType)
             {
                 case DatabaseProviderType.SqlServer:
-                    services.RegisterSqlServerDbContexts<TIdentityDbContext, TConfigurationDbContext, TPersistedGrantDbContext, TLogDbContext, TAuditLoggingDbContext, TDataProtectionDbContext>(identityConnectionString, configurationConnectionString, persistedGrantsConnectionString, errorLoggingConnectionString, auditLoggingConnectionString, dataProtectionConnectionString);
+                    services.RegisterSqlServerDbContexts<TIdentityDbContext, TConfigurationDbContext, TPersistedGrantDbContext, TLogDbContext, TAuditLoggingDbContext, TDataProtectionDbContext>(i,i,i,c,c,c);
                     break;
                 case DatabaseProviderType.PostgreSQL:
-                    services.RegisterNpgSqlDbContexts<TIdentityDbContext, TConfigurationDbContext, TPersistedGrantDbContext, TLogDbContext, TAuditLoggingDbContext, TDataProtectionDbContext>(identityConnectionString, configurationConnectionString, persistedGrantsConnectionString, errorLoggingConnectionString, auditLoggingConnectionString, dataProtectionConnectionString);
+                    services.RegisterNpgSqlDbContexts<TIdentityDbContext, TConfigurationDbContext, TPersistedGrantDbContext, TLogDbContext, TAuditLoggingDbContext, TDataProtectionDbContext>(i,i,i,c,c,c);
                     break;
                 case DatabaseProviderType.MySql:
-                    services.RegisterMySqlDbContexts<TIdentityDbContext, TConfigurationDbContext, TPersistedGrantDbContext, TLogDbContext, TAuditLoggingDbContext, TDataProtectionDbContext>(identityConnectionString, configurationConnectionString, persistedGrantsConnectionString, errorLoggingConnectionString, auditLoggingConnectionString, dataProtectionConnectionString);
+                    services.RegisterMySqlDbContexts<TIdentityDbContext, TConfigurationDbContext, TPersistedGrantDbContext, TLogDbContext, TAuditLoggingDbContext, TDataProtectionDbContext>(i,i,i,c,c,c);
                     break;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(databaseProvider.ProviderType), $@"The value needs to be one of {string.Join(", ", Enum.GetNames(typeof(DatabaseProviderType)))}.");
-            }
+            }                        
         }
 
         /// <summary>

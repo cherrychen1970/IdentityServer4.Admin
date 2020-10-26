@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Skoruba.IdentityServer4.Admin.BusinessLogic.Shared.ExceptionHandling
+namespace Skoruba.Admin.BusinessLogic.Shared.ExceptionHandling
 {
     public class UserFriendlyErrorPageException : Exception
     {

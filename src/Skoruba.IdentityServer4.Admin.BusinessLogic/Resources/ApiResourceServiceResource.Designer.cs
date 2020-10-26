@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Skoruba.IdentityServer4.Admin.BusinessLogic.Resources {
+namespace Skoruba.Admin.BusinessLogic.Resources {
     using System;
     
     

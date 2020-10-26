@@ -6,7 +6,7 @@ using Microsoft.Extensions.Hosting;
 using Serilog;
 using Skoruba.IdentityServer4.Shared.Helpers;
 
-namespace Skoruba.IdentityServer4.Admin.Api
+namespace Skoruba.Admin.Api
 {
     public class Program
     {
@@ -85,5 +85,6 @@ namespace Skoruba.IdentityServer4.Admin.Api
                         .ReadFrom.Configuration(hostContext.Configuration)
                         .Enrich.WithProperty("ApplicationName", hostContext.HostingEnvironment.ApplicationName);
                 });
+               
     }
 }

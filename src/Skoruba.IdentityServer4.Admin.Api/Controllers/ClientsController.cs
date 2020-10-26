@@ -3,22 +3,17 @@ using System.Threading.Tasks;
 using IdentityServer4.AccessTokenValidation;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Skoruba.IdentityServer4.Admin.Api.Configuration.Constants;
-using Skoruba.IdentityServer4.Admin.Api.Dtos.Clients;
-using Skoruba.IdentityServer4.Admin.Api.ExceptionHandling;
-using Skoruba.IdentityServer4.Admin.Api.Mappers;
-using Skoruba.IdentityServer4.Admin.Api.Resources;
-using Skoruba.IdentityServer4.Admin.BusinessLogic.Dtos.Configuration;
-using Skoruba.IdentityServer4.Admin.BusinessLogic.Services.Interfaces;
+using Skoruba.Admin.Api.Configuration.Constants;
+using Skoruba.Admin.Api.Dtos.Clients;
+using Skoruba.Admin.Api.ExceptionHandling;
+using Skoruba.Admin.Api.Mappers;
+using Skoruba.Admin.Api.Resources;
+using Skoruba.Admin.BusinessLogic.Dtos.Configuration;
+using Skoruba.Admin.BusinessLogic.Services.Interfaces;
 
-namespace Skoruba.IdentityServer4.Admin.Api.Controllers
+namespace Skoruba.Admin.Api.Controllers
 {
-    [Route("api/[controller]")]
-    [ApiController]
-    [TypeFilter(typeof(ControllerExceptionFilterAttribute))]
-    [Produces("application/json", "application/problem+json")]
-    [Authorize(Policy = AuthorizationConsts.AdministrationPolicy)]
-    public class ClientsController : ControllerBase
+    public class ClientsController : BaseController
     {
         private readonly IClientService _clientService;
         private readonly IApiErrorResources _errorResources;

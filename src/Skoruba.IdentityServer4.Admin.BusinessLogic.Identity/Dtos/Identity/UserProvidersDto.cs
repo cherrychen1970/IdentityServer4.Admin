@@ -1,8 +1,8 @@
-﻿using Skoruba.IdentityServer4.Admin.BusinessLogic.Identity.Dtos.Identity.Interfaces;
+﻿using Skoruba.Admin.BusinessLogic.Identity.Dtos.Identity.Interfaces;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Skoruba.IdentityServer4.Admin.BusinessLogic.Identity.Dtos.Identity
+namespace Skoruba.Admin.BusinessLogic.Identity.Dtos.Identity
 {
     public class UserProvidersDto<TUserProviderDto, TKey> : UserProviderDto<TKey>, IUserProvidersDto
         where TUserProviderDto : UserProviderDto<TKey>

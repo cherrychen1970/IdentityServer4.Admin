@@ -6,10 +6,10 @@ using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Newtonsoft.Json;
-using Skoruba.IdentityServer4.Admin.BusinessLogic.Shared.ExceptionHandling;
-using Skoruba.IdentityServer4.Admin.Helpers;
+using Skoruba.Admin.BusinessLogic.Shared.ExceptionHandling;
+using Skoruba.Admin.Helpers;
 
-namespace Skoruba.IdentityServer4.Admin.ExceptionHandling
+namespace Skoruba.Admin.ExceptionHandling
 {
     public class ControllerExceptionFilterAttribute : ExceptionFilterAttribute
     {

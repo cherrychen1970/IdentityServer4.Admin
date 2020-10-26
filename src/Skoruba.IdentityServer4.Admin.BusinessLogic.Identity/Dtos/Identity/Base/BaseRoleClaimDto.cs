@@ -1,6 +1,6 @@
-﻿using Skoruba.IdentityServer4.Admin.BusinessLogic.Identity.Dtos.Identity.Interfaces;
+﻿using Skoruba.Admin.BusinessLogic.Identity.Dtos.Identity.Interfaces;
 
-namespace Skoruba.IdentityServer4.Admin.BusinessLogic.Identity.Dtos.Identity.Base
+namespace Skoruba.Admin.BusinessLogic.Identity.Dtos.Identity.Base
 {
     public class BaseRoleClaimDto<TRoleId> : IBaseRoleClaimDto
     {

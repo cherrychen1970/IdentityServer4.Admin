@@ -4,7 +4,7 @@ using System.Linq;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.Extensions;
 
-namespace Skoruba.IdentityServer4.Admin.Helpers
+namespace Skoruba.Admin.Helpers
 {
     public static class PagerHelpers
     {
