@@ -1,0 +1,18 @@
+version: '3'
+
+services:
+  id4:
+    image: id4
+    hostname: id4
+    expose:
+     - 80
+    restart: always
+    volumes:
+            - ./appsettings.json:/app/appsettings.json
+            - ./logs:/app/logs
+            - ./data:/app/data
+# behind nginx
+networks:
+    default:
+      external:
+        name: nginx_network

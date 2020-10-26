@@ -1,0 +1,29 @@
+@baseAuthUrl = https://localhost:5000
+
+
+###
+GET {{baseAuthUrl}}/_api/apiResources
+###
+GET {{baseAuthUrl}}/_api/apiResources/skoruba
+###
+DELETE {{baseAuthUrl}}/_api/apiResources/skoruba
+###
+POST {{baseAuthUrl}}/_api/apiResources
+Content-Type: application/json
+
+  {  
+    "name":"skoruba",
+    "scopes":[
+      {"name":"skoruba"},
+    ],      
+    //"userClaims":["sub","name","grole","gid","group","role","location","section"]
+    "userClaims":["role"]
+  }  
+###
+PATCH {{baseAuthUrl}}/_api/apiResources/skoruba
+Content-Type: application/json
+
+{  
+  "displayName": "skoruba",
+  "description": "skoruba"
+}    

@@ -63,10 +63,10 @@
         ],
         "ApiResources": [
             {
-                "Name": "skoruba_identity_admin_api",
+                "Name": "skoruba",
                 "Scopes": [
                     {
-                        "Name": "skoruba_identity_admin_api",
+                        "Name": "skoruba:api",
                         "DisplayName": "skoruba_identity_admin_api",
                         "Required": true,
                         "UserClaims": [
@@ -79,27 +79,27 @@
         ],
         "Clients": [
             {
-                "ClientId": "skoruba_identity_admin",
+                "ClientId": "skoruba",
                 "ClientName": "skoruba_identity_admin",
-                "ClientUri": "https://localhost:44303",
+                "ClientUri": "https://localhost:9000",
                 "AllowedGrantTypes": [
                     "authorization_code"
                 ],
                 "RequirePkce": true,
                 "ClientSecrets": [
                     {
-                        "Value": "skoruba_admin_client_secret"
+                        "Value": "P@ssw0rd1"
                     }
                 ],
                 "RedirectUris": [
-                    "https://localhost:44303/signin-oidc"
+                    "https://localhost:9000/signin-oidc"
                 ],
-                "FrontChannelLogoutUri": "https://localhost:44303/signout-oidc",
+                "FrontChannelLogoutUri": "https://localhost:9000/signout-oidc",
                 "PostLogoutRedirectUris": [
-                    "https://localhost:44303/signout-callback-oidc"
+                    "https://localhost:9000/signout-callback-oidc"
                 ],
                 "AllowedCorsOrigins": [
-                    "https://localhost:44303"
+                    "https://localhost:9000"
                 ],
                 "AllowedScopes": [
                     "openid",
@@ -117,13 +117,13 @@
                 "RequireClientSecret": false,
                 "RequirePkce": true,
                 "RedirectUris": [
-                    "https://localhost:44302/swagger/oauth2-redirect.html"
+                    "https://localhost:9000/swagger/oauth2-redirect.html"
                 ],
                 "AllowedScopes": [
-                    "skoruba_identity_admin_api"
+                    "skoruba:api"
                 ],
                 "AllowedCorsOrigins": [
-                    "https://localhost:44302"
+                    "https://localhost:9000"
                 ]
             }
         ]

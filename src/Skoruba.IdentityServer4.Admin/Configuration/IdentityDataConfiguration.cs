@@ -1,4 +1,4 @@
-﻿using Skoruba.Admin.EntityFramework.Configuration.Identity;
+﻿using Skoruba.Admin.Configuration.Identity;
 using System.Collections.Generic;
 
 namespace Skoruba.Admin.Configuration

@@ -1,0 +1,24 @@
+@baseAuthUrl = https://localhost:5000
+
+
+GET {{baseAuthUrl}}/_api/clients
+###
+DELETE {{baseAuthUrl}}/_api/clients/skoruba
+###
+POST {{baseAuthUrl}}/_api/clients
+Content-Type: application/json
+
+  {        
+    "clientId": "skoruba",        
+    "requireClientSecret": false,
+    "allowedGrantTypes": ["authorization_code","password"],
+    "allowOfflineAccess": false,
+    "requireConsent": false,
+    "redirectUris": ["https://localhost:9000/signin-oidc"],
+    "postLogoutRedirectUris": ["https://localhost:9000"],
+    "allowedScopes": [ "openid","profile","role","skoruba"],
+    "accessTokenLifetime":36000,
+    "allowAccessTokensViaBrowser": true,
+    "allowedCorsOrigins": ["https://localhost:9000"],
+  }  
+###

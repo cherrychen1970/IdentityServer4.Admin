@@ -99,12 +99,12 @@ namespace Skoruba.Admin.Helpers
         {
             var databaseProvider = configuration.GetSection(nameof(DatabaseProviderConfiguration)).Get<DatabaseProviderConfiguration>();
 
-            var identityConnectionString = configuration.GetConnectionString(ConfigurationConsts.IdentityDbConnectionStringKey);
-            var configurationConnectionString = configuration.GetConnectionString(ConfigurationConsts.ConfigurationDbConnectionStringKey);
-            var persistedGrantsConnectionString = configuration.GetConnectionString(ConfigurationConsts.PersistedGrantDbConnectionStringKey);
-            var errorLoggingConnectionString = configuration.GetConnectionString(ConfigurationConsts.AdminLogDbConnectionStringKey);
-            var auditLoggingConnectionString = configuration.GetConnectionString(ConfigurationConsts.AdminAuditLogDbConnectionStringKey);
-            var dataProtectionConnectionString = configuration.GetConnectionString(ConfigurationConsts.DataProtectionDbConnectionStringKey);
+            var identityConnectionString = configuration.GetConnectionString("IdentityConnection");
+            var configurationConnectionString = configuration.GetConnectionString("IdentityConnection");
+            var persistedGrantsConnectionString = configuration.GetConnectionString("IdentityConnection");
+            var errorLoggingConnectionString = configuration.GetConnectionString("IdentityConnection");
+            var auditLoggingConnectionString = configuration.GetConnectionString("IdentityConnection");
+            var dataProtectionConnectionString = configuration.GetConnectionString("IdentityConnection");
 
             switch (databaseProvider.ProviderType)
             {
