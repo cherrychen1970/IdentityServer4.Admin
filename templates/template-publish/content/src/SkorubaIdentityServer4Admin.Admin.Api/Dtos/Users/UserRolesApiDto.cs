@@ -2,14 +2,14 @@
 
 namespace SkorubaIdentityServer4Admin.Admin.Api.Dtos.Users
 {
-    public class UserRolesApiDto<TRoleDto>
+    public class UserRolesApiDto<RoleDto<TKey>>
     {
         public UserRolesApiDto()
         {
-            Roles = new List<TRoleDto>();
+            Roles = new List<RoleDto<TKey>>();
         }
 
-        public List<TRoleDto> Roles { get; set; }
+        public List<RoleDto<TKey>> Roles { get; set; }
 
         public int PageSize { get; set; }
 

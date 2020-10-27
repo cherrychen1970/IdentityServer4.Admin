@@ -2,7 +2,7 @@
 
 namespace SkorubaIdentityServer4Admin.Admin.EntityFramework.Shared.Entities.Identity
 {
-    public class UserIdentityUserClaim : IdentityUserClaim<string>
+    public class IdentityUserClaim<TKey> : IdentityUserClaim<string>
     {
     }
 }

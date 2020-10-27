@@ -67,8 +67,8 @@ namespace SkorubaIdentityServer4Admin.Admin.Api
             };
 
             services.AddAdminAspNetIdentityServices<AdminIdentityDbContext, IdentityServerPersistedGrantDbContext,
-                IdentityUserDto, IdentityRoleDto, UserIdentity, UserIdentityRole, string, UserIdentityUserClaim, UserIdentityUserRole,
-                UserIdentityUserLogin, UserIdentityRoleClaim, UserIdentityUserToken,
+                IdentityUserDto, IdentityRoleDto, UserIdentity, IdentityRole<TKey>, string, IdentityUserClaim<TKey>, IdentityUserRole<TKey>,
+                IdentityUserLogin<TKey>, IdentityRoleClaim<TKey>, IdentityUserToken<TKey>,
                 IdentityUsersDto, IdentityRolesDto, IdentityUserRolesDto,
                 IdentityUserClaimsDto, IdentityUserProviderDto, IdentityUserProvidersDto, IdentityUserChangePasswordDto,
                 IdentityRoleClaimsDto, IdentityUserClaimDto, IdentityRoleClaimDto>(profileTypes);
@@ -78,8 +78,8 @@ namespace SkorubaIdentityServer4Admin.Admin.Api
             services.AddAdminApiCors(adminApiConfiguration);
 
             services.AddMvcServices<IdentityUserDto, IdentityRoleDto,
-                UserIdentity, UserIdentityRole, string, UserIdentityUserClaim, UserIdentityUserRole,
-                UserIdentityUserLogin, UserIdentityRoleClaim, UserIdentityUserToken,
+                UserIdentity, IdentityRole<TKey>, string, IdentityUserClaim<TKey>, IdentityUserRole<TKey>,
+                IdentityUserLogin<TKey>, IdentityRoleClaim<TKey>, IdentityUserToken<TKey>,
                 IdentityUsersDto, IdentityRolesDto, IdentityUserRolesDto,
                 IdentityUserClaimsDto, IdentityUserProviderDto, IdentityUserProvidersDto, IdentityUserChangePasswordDto,
                 IdentityRoleClaimsDto, IdentityUserClaimDto, IdentityRoleClaimDto>();
@@ -151,7 +151,7 @@ namespace SkorubaIdentityServer4Admin.Admin.Api
 
         public virtual void RegisterAuthentication(IServiceCollection services)
         {
-            services.AddApiAuthentication<AdminIdentityDbContext, UserIdentity, UserIdentityRole>(Configuration);
+            services.AddApiAuthentication<AdminIdentityDbContext, UserIdentity, IdentityRole<TKey>>(Configuration);
         }
 
         public virtual void RegisterAuthorization(IServiceCollection services)

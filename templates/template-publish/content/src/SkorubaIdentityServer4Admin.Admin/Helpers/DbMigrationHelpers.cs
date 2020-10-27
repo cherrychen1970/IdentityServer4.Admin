@@ -26,18 +26,18 @@ namespace SkorubaIdentityServer4Admin.Admin.Helpers
         /// <param name="applyDbMigrationWithDataSeedFromProgramArguments"></param>
         /// <param name="seedConfiguration"></param>
         /// <param name="databaseMigrationsConfiguration"></param>
-        public static async Task ApplyDbMigrationsWithDataSeedAsync<TIdentityServerDbContext, TIdentityDbContext,
-            TPersistedGrantDbContext, TLogDbContext, TAuditLogDbContext, TDataProtectionDbContext, TUser, TRole>(
+        public static async Task ApplyDbMigrationsWithDataSeedAsync<TIdentityServerDbContext, AdminIdentityDbContext,
+            IdentityServerPersistedGrantDbContext, TLogDbContext, TAuditLogDbContext, IdentityServerDataProtectionDbContext, TUser, IdentityRole<TKey>>(
             IHost host, bool applyDbMigrationWithDataSeedFromProgramArguments, SeedConfiguration seedConfiguration,
             DatabaseMigrationsConfiguration databaseMigrationsConfiguration)
             where TIdentityServerDbContext : DbContext, IAdminConfigurationDbContext
-            where TIdentityDbContext : DbContext
-            where TPersistedGrantDbContext : DbContext, IAdminPersistedGrantDbContext
+            where AdminIdentityDbContext : DbContext
+            where IdentityServerPersistedGrantDbContext : DbContext, IAdminPersistedGrantDbContext
             where TLogDbContext : DbContext, IAdminLogDbContext
             where TAuditLogDbContext : DbContext, IAuditLoggingDbContext<AuditLog>
-            where TDataProtectionDbContext : DbContext, IDataProtectionKeyContext
+            where IdentityServerDataProtectionDbContext : DbContext, IDataProtectionKeyContext
             where TUser : IdentityUser, new()
-            where TRole : IdentityRole, new()
+            where IdentityRole<TKey> : IdentityRole, new()
         {
             using (var serviceScope = host.Services.CreateScope())
             {
@@ -46,38 +46,38 @@ namespace SkorubaIdentityServer4Admin.Admin.Helpers
                 if ((databaseMigrationsConfiguration != null && databaseMigrationsConfiguration.ApplyDatabaseMigrations) 
                     || (applyDbMigrationWithDataSeedFromProgramArguments))
                 {
-                    await EnsureDatabasesMigratedAsync<TIdentityDbContext, TIdentityServerDbContext, TPersistedGrantDbContext, TLogDbContext, TAuditLogDbContext, TDataProtectionDbContext>(services);
+                    await EnsureDatabasesMigratedAsync<AdminIdentityDbContext, TIdentityServerDbContext, IdentityServerPersistedGrantDbContext, TLogDbContext, TAuditLogDbContext, IdentityServerDataProtectionDbContext>(services);
                 }
 
                 if ((seedConfiguration != null && seedConfiguration.ApplySeed) 
                     || (applyDbMigrationWithDataSeedFromProgramArguments))
                 {
-                    await EnsureSeedDataAsync<TIdentityServerDbContext, TUser, TRole>(services);
+                    await EnsureSeedDataAsync<TIdentityServerDbContext, TUser, IdentityRole<TKey>>(services);
                 }
             }
         }
 
-        public static async Task EnsureDatabasesMigratedAsync<TIdentityDbContext, TConfigurationDbContext, TPersistedGrantDbContext, TLogDbContext, TAuditLogDbContext, TDataProtectionDbContext>(IServiceProvider services)
-            where TIdentityDbContext : DbContext
-            where TPersistedGrantDbContext : DbContext
-            where TConfigurationDbContext : DbContext
+        public static async Task EnsureDatabasesMigratedAsync<AdminIdentityDbContext, IdentityServerConfigurationDbContext, IdentityServerPersistedGrantDbContext, TLogDbContext, TAuditLogDbContext, IdentityServerDataProtectionDbContext>(IServiceProvider services)
+            where AdminIdentityDbContext : DbContext
+            where IdentityServerPersistedGrantDbContext : DbContext
+            where IdentityServerConfigurationDbContext : DbContext
             where TLogDbContext : DbContext
             where TAuditLogDbContext : DbContext
-            where TDataProtectionDbContext : DbContext
+            where IdentityServerDataProtectionDbContext : DbContext
         {
             using (var scope = services.GetRequiredService<IServiceScopeFactory>().CreateScope())
             {
-                using (var context = scope.ServiceProvider.GetRequiredService<TPersistedGrantDbContext>())
+                using (var context = scope.ServiceProvider.GetRequiredService<IdentityServerPersistedGrantDbContext>())
                 {
                     await context.Database.MigrateAsync();
                 }
 
-                using (var context = scope.ServiceProvider.GetRequiredService<TIdentityDbContext>())
+                using (var context = scope.ServiceProvider.GetRequiredService<AdminIdentityDbContext>())
                 {
                     await context.Database.MigrateAsync();
                 }
 
-                using (var context = scope.ServiceProvider.GetRequiredService<TConfigurationDbContext>())
+                using (var context = scope.ServiceProvider.GetRequiredService<IdentityServerConfigurationDbContext>())
                 {
                     await context.Database.MigrateAsync();
                 }
@@ -92,23 +92,23 @@ namespace SkorubaIdentityServer4Admin.Admin.Helpers
                     await context.Database.MigrateAsync();
                 }
 
-                using (var context = scope.ServiceProvider.GetRequiredService<TDataProtectionDbContext>())
+                using (var context = scope.ServiceProvider.GetRequiredService<IdentityServerDataProtectionDbContext>())
                 {
                     await context.Database.MigrateAsync();
                 }
             }
         }
 
-        public static async Task EnsureSeedDataAsync<TIdentityServerDbContext, TUser, TRole>(IServiceProvider serviceProvider)
+        public static async Task EnsureSeedDataAsync<TIdentityServerDbContext, TUser, IdentityRole<TKey>>(IServiceProvider serviceProvider)
         where TIdentityServerDbContext : DbContext, IAdminConfigurationDbContext
         where TUser : IdentityUser, new()
-        where TRole : IdentityRole, new()
+        where IdentityRole<TKey> : IdentityRole, new()
         {
             using (var scope = serviceProvider.GetRequiredService<IServiceScopeFactory>().CreateScope())
             {
                 var context = scope.ServiceProvider.GetRequiredService<TIdentityServerDbContext>();
                 var userManager = scope.ServiceProvider.GetRequiredService<UserManager<TUser>>();
-                var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<TRole>>();
+                var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole<TKey>>>();
                 var rootConfiguration = scope.ServiceProvider.GetRequiredService<IRootConfiguration>();
 
                 await EnsureSeedIdentityServerData(context, rootConfiguration.IdentityServerDataConfiguration);
@@ -119,10 +119,10 @@ namespace SkorubaIdentityServer4Admin.Admin.Helpers
         /// <summary>
         /// Generate default admin user / role
         /// </summary>
-        private static async Task EnsureSeedIdentityData<TUser, TRole>(UserManager<TUser> userManager,
-            RoleManager<TRole> roleManager, IdentityDataConfiguration identityDataConfiguration)
+        private static async Task EnsureSeedIdentityData<TUser, IdentityRole<TKey>>(UserManager<TUser> userManager,
+            RoleManager<IdentityRole<TKey>> roleManager, IdentityDataConfiguration identityDataConfiguration)
             where TUser : IdentityUser, new()
-            where TRole : IdentityRole, new()
+            where IdentityRole<TKey> : IdentityRole, new()
         {
             if (!await roleManager.Roles.AnyAsync())
             {
@@ -131,7 +131,7 @@ namespace SkorubaIdentityServer4Admin.Admin.Helpers
                 {
                     if (!await roleManager.RoleExistsAsync(r.Name))
                     {
-                        var role = new TRole
+                        var role = new IdentityRole<TKey>
                         {
                             Name = r.Name
                         };

@@ -81,7 +81,7 @@ namespace SkorubaIdentityServer4Admin.Admin.EntityFramework.MySql.Migrations.Ide
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("SkorubaIdentityServer4Admin.Admin.EntityFramework.Shared.Entities.Identity.UserIdentityRole", b =>
+            modelBuilder.Entity("SkorubaIdentityServer4Admin.Admin.EntityFramework.Shared.Entities.Identity.IdentityRole<TKey>", b =>
                 {
                     b.Property<string>("Id")
                         .HasColumnType("varchar(255) CHARACTER SET utf8mb4");
@@ -107,7 +107,7 @@ namespace SkorubaIdentityServer4Admin.Admin.EntityFramework.MySql.Migrations.Ide
                     b.ToTable("Roles");
                 });
 
-            modelBuilder.Entity("SkorubaIdentityServer4Admin.Admin.EntityFramework.Shared.Entities.Identity.UserIdentityRoleClaim", b =>
+            modelBuilder.Entity("SkorubaIdentityServer4Admin.Admin.EntityFramework.Shared.Entities.Identity.IdentityRoleClaim<TKey>", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -130,7 +130,7 @@ namespace SkorubaIdentityServer4Admin.Admin.EntityFramework.MySql.Migrations.Ide
                     b.ToTable("RoleClaims");
                 });
 
-            modelBuilder.Entity("SkorubaIdentityServer4Admin.Admin.EntityFramework.Shared.Entities.Identity.UserIdentityUserClaim", b =>
+            modelBuilder.Entity("SkorubaIdentityServer4Admin.Admin.EntityFramework.Shared.Entities.Identity.IdentityUserClaim<TKey>", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -153,7 +153,7 @@ namespace SkorubaIdentityServer4Admin.Admin.EntityFramework.MySql.Migrations.Ide
                     b.ToTable("UserClaims");
                 });
 
-            modelBuilder.Entity("SkorubaIdentityServer4Admin.Admin.EntityFramework.Shared.Entities.Identity.UserIdentityUserLogin", b =>
+            modelBuilder.Entity("SkorubaIdentityServer4Admin.Admin.EntityFramework.Shared.Entities.Identity.IdentityUserLogin<TKey>", b =>
                 {
                     b.Property<string>("LoginProvider")
                         .HasColumnType("varchar(255) CHARACTER SET utf8mb4");
@@ -175,7 +175,7 @@ namespace SkorubaIdentityServer4Admin.Admin.EntityFramework.MySql.Migrations.Ide
                     b.ToTable("UserLogins");
                 });
 
-            modelBuilder.Entity("SkorubaIdentityServer4Admin.Admin.EntityFramework.Shared.Entities.Identity.UserIdentityUserRole", b =>
+            modelBuilder.Entity("SkorubaIdentityServer4Admin.Admin.EntityFramework.Shared.Entities.Identity.IdentityUserRole<TKey>", b =>
                 {
                     b.Property<string>("UserId")
                         .HasColumnType("varchar(255) CHARACTER SET utf8mb4");
@@ -190,7 +190,7 @@ namespace SkorubaIdentityServer4Admin.Admin.EntityFramework.MySql.Migrations.Ide
                     b.ToTable("UserRoles");
                 });
 
-            modelBuilder.Entity("SkorubaIdentityServer4Admin.Admin.EntityFramework.Shared.Entities.Identity.UserIdentityUserToken", b =>
+            modelBuilder.Entity("SkorubaIdentityServer4Admin.Admin.EntityFramework.Shared.Entities.Identity.IdentityUserToken<TKey>", b =>
                 {
                     b.Property<string>("UserId")
                         .HasColumnType("varchar(255) CHARACTER SET utf8mb4");
@@ -209,16 +209,16 @@ namespace SkorubaIdentityServer4Admin.Admin.EntityFramework.MySql.Migrations.Ide
                     b.ToTable("UserTokens");
                 });
 
-            modelBuilder.Entity("SkorubaIdentityServer4Admin.Admin.EntityFramework.Shared.Entities.Identity.UserIdentityRoleClaim", b =>
+            modelBuilder.Entity("SkorubaIdentityServer4Admin.Admin.EntityFramework.Shared.Entities.Identity.IdentityRoleClaim<TKey>", b =>
                 {
-                    b.HasOne("SkorubaIdentityServer4Admin.Admin.EntityFramework.Shared.Entities.Identity.UserIdentityRole", null)
+                    b.HasOne("SkorubaIdentityServer4Admin.Admin.EntityFramework.Shared.Entities.Identity.IdentityRole<TKey>", null)
                         .WithMany()
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("SkorubaIdentityServer4Admin.Admin.EntityFramework.Shared.Entities.Identity.UserIdentityUserClaim", b =>
+            modelBuilder.Entity("SkorubaIdentityServer4Admin.Admin.EntityFramework.Shared.Entities.Identity.IdentityUserClaim<TKey>", b =>
                 {
                     b.HasOne("SkorubaIdentityServer4Admin.Admin.EntityFramework.Shared.Entities.Identity.UserIdentity", null)
                         .WithMany()
@@ -227,7 +227,7 @@ namespace SkorubaIdentityServer4Admin.Admin.EntityFramework.MySql.Migrations.Ide
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("SkorubaIdentityServer4Admin.Admin.EntityFramework.Shared.Entities.Identity.UserIdentityUserLogin", b =>
+            modelBuilder.Entity("SkorubaIdentityServer4Admin.Admin.EntityFramework.Shared.Entities.Identity.IdentityUserLogin<TKey>", b =>
                 {
                     b.HasOne("SkorubaIdentityServer4Admin.Admin.EntityFramework.Shared.Entities.Identity.UserIdentity", null)
                         .WithMany()
@@ -236,9 +236,9 @@ namespace SkorubaIdentityServer4Admin.Admin.EntityFramework.MySql.Migrations.Ide
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("SkorubaIdentityServer4Admin.Admin.EntityFramework.Shared.Entities.Identity.UserIdentityUserRole", b =>
+            modelBuilder.Entity("SkorubaIdentityServer4Admin.Admin.EntityFramework.Shared.Entities.Identity.IdentityUserRole<TKey>", b =>
                 {
-                    b.HasOne("SkorubaIdentityServer4Admin.Admin.EntityFramework.Shared.Entities.Identity.UserIdentityRole", null)
+                    b.HasOne("SkorubaIdentityServer4Admin.Admin.EntityFramework.Shared.Entities.Identity.IdentityRole<TKey>", null)
                         .WithMany()
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -251,7 +251,7 @@ namespace SkorubaIdentityServer4Admin.Admin.EntityFramework.MySql.Migrations.Ide
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("SkorubaIdentityServer4Admin.Admin.EntityFramework.Shared.Entities.Identity.UserIdentityUserToken", b =>
+            modelBuilder.Entity("SkorubaIdentityServer4Admin.Admin.EntityFramework.Shared.Entities.Identity.IdentityUserToken<TKey>", b =>
                 {
                     b.HasOne("SkorubaIdentityServer4Admin.Admin.EntityFramework.Shared.Entities.Identity.UserIdentity", null)
                         .WithMany()

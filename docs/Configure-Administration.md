@@ -23,7 +23,7 @@ services.AddDbContexts<AdminIdentityDbContext, IdentityServerConfigurationDbCont
 ### Configure authentication
 
 ```
-services.AddAuthenticationServices<AdminIdentityDbContext, UserIdentity, UserIdentityRole>(HostingEnvironment, rootConfiguration.AdminConfiguration);
+services.AddAuthenticationServices<AdminIdentityDbContext, UserIdentity, IdentityRole<TKey>>(HostingEnvironment, rootConfiguration.AdminConfiguration);
 ```
 
 This `AddAuthenticationServices` helper method is for registration authentication. For administration is used OpenIdConnect middleware which is connected to IdentityServer4.
@@ -42,8 +42,8 @@ This extension method `AddAdminServices` is for registration all dependencies - 
 
 ```
 services.AddAdminAspNetIdentityServices<AdminIdentityDbContext, IdentityServerPersistedGrantDbContext, UserDto<string>, string, RoleDto<string>, string, string, string,
-                                UserIdentity, UserIdentityRole, string, UserIdentityUserClaim, UserIdentityUserRole,
-                                UserIdentityUserLogin, UserIdentityRoleClaim, UserIdentityUserToken,
+                                UserIdentity, IdentityRole<TKey>, string, IdentityUserClaim<TKey>, IdentityUserRole<TKey>,
+                                IdentityUserLogin<TKey>, IdentityRoleClaim<TKey>, IdentityUserToken<TKey>,
                                 UsersDto<UserDto<string>, string>, RolesDto<RoleDto<string>, string>, UserRolesDto<RoleDto<string>, string, string>,
                                 UserClaimsDto<string>, UserProviderDto<string>, UserProvidersDto<string>, UserChangePasswordDto<string>,
                                 RoleClaimsDto<string>, UserClaimDto<string>, RoleClaimDto<string>>();
@@ -56,8 +56,8 @@ This is right place for changing Identity model - like change primary key from `
 
 ```
 services.AddMvcWithLocalization<UserDto<string>, string, RoleDto<string>, string, string, string,
-                UserIdentity, UserIdentityRole, string, UserIdentityUserClaim, UserIdentityUserRole,
-                UserIdentityUserLogin, UserIdentityRoleClaim, UserIdentityUserToken,
+                UserIdentity, IdentityRole<TKey>, string, IdentityUserClaim<TKey>, IdentityUserRole<TKey>,
+                IdentityUserLogin<TKey>, IdentityRoleClaim<TKey>, IdentityUserToken<TKey>,
                 UsersDto<UserDto<string>, string>, RolesDto<RoleDto<string>, string>, UserRolesDto<RoleDto<string>, string, string>,
                 UserClaimsDto<string>, UserProviderDto<string>, UserProvidersDto<string>, UserChangePasswordDto<string>,
                 RoleClaimsDto<string>>();
@@ -89,7 +89,7 @@ In this extension method `AddIdentityDbContext` is defined DbContext for Asp.Net
 In `StartupHelpers.cs` is another extension method for registration of DbContexts for IdentityServer4:
 
 ```
-AddIdentityServerStoresWithDbContexts<TConfigurationDbContext, TPersistedGrantDbContext>(configuration);
+AddIdentityServerStoresWithDbContexts<IdentityServerConfigurationDbContext, IdentityServerPersistedGrantDbContext>(configuration);
 ```
 
 ### Configuration of IdentityServer4 and Asp.Net Core Identity
@@ -97,7 +97,7 @@ AddIdentityServerStoresWithDbContexts<TConfigurationDbContext, TPersistedGrantDb
 - `Skoruba.IdentityServer4.STS.Identity` - `Startup.cs` - method `ConfigureServices`:
 
 ```
-services.AddAuthenticationServices<IdentityServerConfigurationDbContext, IdentityServerPersistedGrantDbContext, AdminIdentityDbContext, UserIdentity, UserIdentityRole>(Environment, Configuration, Logger);
+services.AddAuthenticationServices<IdentityServerConfigurationDbContext, IdentityServerPersistedGrantDbContext, AdminIdentityDbContext, UserIdentity, IdentityRole<TKey>>(Environment, Configuration, Logger);
 ```
 
 - This extension method is defined for registration of Asp.Net Core Identity and IdentityServer4 - including one external provider (GitHub).

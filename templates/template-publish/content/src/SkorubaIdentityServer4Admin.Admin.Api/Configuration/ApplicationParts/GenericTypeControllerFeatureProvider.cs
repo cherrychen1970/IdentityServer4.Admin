@@ -10,37 +10,37 @@ using Skoruba.IdentityServer4.Admin.BusinessLogic.Identity.Dtos.Identity;
 
 namespace SkorubaIdentityServer4Admin.Admin.Api.Configuration.ApplicationParts
 {
-    public class GenericTypeControllerFeatureProvider<TUserDto, TRoleDto, TUser, TRole, TKey, TUserClaim, TUserRole, TUserLogin, TRoleClaim, TUserToken,
-        TUsersDto, TRolesDto, TUserRolesDto, TUserClaimsDto,
-        TUserProviderDto, TUserProvidersDto, TUserChangePasswordDto, TRoleClaimsDto, TUserClaimDto, TRoleClaimDto> : IApplicationFeatureProvider<ControllerFeature>
+    public class GenericTypeControllerFeatureProvider<TUserDto, RoleDto<TKey>, TUser, IdentityRole<TKey>, TKey, IdentityUserClaim<TKey>, IdentityUserRole<TKey>, IdentityUserLogin<TKey>, IdentityRoleClaim<TKey>, IdentityUserToken<TKey>,
+        TUsersDto, IdentityRolesDto<TKey>, IdentityUserRole<TKey>sDto, IdentityUserClaim<TKey>sDto,
+        UserProviderDto<TKey>, TUserProvidersDto, UserChangePasswordDto<TKey>, IdentityRoleClaim<TKey>sDto, IdentityUserClaim<TKey>Dto, IdentityRoleClaim<TKey>Dto> : IApplicationFeatureProvider<ControllerFeature>
         where TUserDto : UserDto<TKey>, new()
-        where TRoleDto : RoleDto<TKey>, new()
+        where RoleDto<TKey> : RoleDto<TKey>, new()
         where TUser : IdentityUser<TKey>
-        where TRole : IdentityRole<TKey>
+        where IdentityRole<TKey> : IdentityRole<TKey>
         where TKey : IEquatable<TKey>
-        where TUserClaim : IdentityUserClaim<TKey>
-        where TUserRole : IdentityUserRole<TKey>
-        where TUserLogin : IdentityUserLogin<TKey>
-        where TRoleClaim : IdentityRoleClaim<TKey>
-        where TUserToken : IdentityUserToken<TKey>
+        where IdentityUserClaim<TKey> : IdentityUserClaim<TKey>
+        where IdentityUserRole<TKey> : IdentityUserRole<TKey>
+        where IdentityUserLogin<TKey> : IdentityUserLogin<TKey>
+        where IdentityRoleClaim<TKey> : IdentityRoleClaim<TKey>
+        where IdentityUserToken<TKey> : IdentityUserToken<TKey>
 
 
         where TUsersDto : UsersDto<TUserDto, TKey>
-        where TRolesDto : RolesDto<TRoleDto, TKey>
-        where TUserRolesDto : UserRolesDto<TRoleDto, TKey>
-        where TUserClaimsDto : UserClaimsDto<TUserClaimDto, TKey>
-        where TUserProviderDto : UserProviderDto<TKey>
-        where TUserProvidersDto : UserProvidersDto<TUserProviderDto, TKey>
-        where TUserChangePasswordDto : UserChangePasswordDto<TKey>
-        where TRoleClaimsDto : RoleClaimsDto<TRoleClaimDto, TKey>
-        where TUserClaimDto : UserClaimDto<TKey>
-        where TRoleClaimDto : RoleClaimDto<TKey>
+        where IdentityRolesDto<TKey> : RolesDto<RoleDto<TKey>, TKey>
+        where IdentityUserRole<TKey>sDto : UserRolesDto<RoleDto<TKey>, TKey>
+        where IdentityUserClaim<TKey>sDto : UserClaimsDto<IdentityUserClaim<TKey>Dto, TKey>
+        where UserProviderDto<TKey> : UserProviderDto<TKey>
+        where TUserProvidersDto : UserProvidersDto<UserProviderDto<TKey>, TKey>
+        where UserChangePasswordDto<TKey> : UserChangePasswordDto<TKey>
+        where IdentityRoleClaim<TKey>sDto : RoleClaimsDto<IdentityRoleClaim<TKey>Dto, TKey>
+        where IdentityUserClaim<TKey>Dto : UserClaimDto<TKey>
+        where IdentityRoleClaim<TKey>Dto : RoleClaimDto<TKey>
     {
         public void PopulateFeature(IEnumerable<ApplicationPart> parts, ControllerFeature feature)
         {
-            var currentAssembly = typeof(GenericTypeControllerFeatureProvider<TUserDto, TRoleDto, TUser, TRole, TKey, TUserClaim, TUserRole, TUserLogin, TRoleClaim, TUserToken,
-                TUsersDto, TRolesDto, TUserRolesDto, TUserClaimsDto,
-                TUserProviderDto, TUserProvidersDto, TUserChangePasswordDto, TRoleClaimsDto, TUserClaimDto, TRoleClaimDto>).Assembly;
+            var currentAssembly = typeof(GenericTypeControllerFeatureProvider<TUserDto, RoleDto<TKey>, TUser, IdentityRole<TKey>, TKey, IdentityUserClaim<TKey>, IdentityUserRole<TKey>, IdentityUserLogin<TKey>, IdentityRoleClaim<TKey>, IdentityUserToken<TKey>,
+                TUsersDto, IdentityRolesDto<TKey>, IdentityUserRole<TKey>sDto, IdentityUserClaim<TKey>sDto,
+                UserProviderDto<TKey>, TUserProvidersDto, UserChangePasswordDto<TKey>, IdentityRoleClaim<TKey>sDto, IdentityUserClaim<TKey>Dto, IdentityRoleClaim<TKey>Dto>).Assembly;
             var controllerTypes = currentAssembly.GetExportedTypes()
                                                  .Where(t => typeof(ControllerBase).IsAssignableFrom(t) && t.IsGenericTypeDefinition)
                                                  .Select(t => t.GetTypeInfo());

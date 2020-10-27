@@ -101,7 +101,7 @@ namespace SkorubaIdentityServer4Admin.STS.Identity
 
         public virtual void RegisterAuthentication(IServiceCollection services)
         {
-            services.AddAuthenticationServices<AdminIdentityDbContext, UserIdentity, UserIdentityRole>(Configuration);
+            services.AddAuthenticationServices<AdminIdentityDbContext, UserIdentity, IdentityRole<TKey>>(Configuration);
             services.AddIdentityServer<IdentityServerConfigurationDbContext, IdentityServerPersistedGrantDbContext, UserIdentity>(Configuration);
         }
 
