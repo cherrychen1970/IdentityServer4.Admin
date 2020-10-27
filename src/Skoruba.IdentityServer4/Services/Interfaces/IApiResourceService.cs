@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
-using Skoruba.Admin.BusinessLogic.Dtos.Configuration;
+using Skoruba.IdentityServer4.Dtos.Configuration;
 
-namespace Skoruba.Admin.BusinessLogic.Services.Interfaces
+namespace Skoruba.IdentityServer4.Services.Interfaces
 {
     public interface IApiResourceService
     {

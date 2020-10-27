@@ -8,9 +8,9 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Skoruba.AuditLogging.EntityFramework.Entities;
-using Skoruba.Admin.BusinessLogic.Identity.Dtos.Identity;
+using Skoruba.Identity.Dtos.Identity;
 using Skoruba.Admin.Configuration.Interfaces;
-using Skoruba.Admin.EntityFramework.Shared.DbContexts;
+using Skoruba.EntityFramework.Shared.DbContexts;
 using Skoruba.EntityFramework.Entities.Identity;
 using Skoruba.Admin.Helpers;
 using Skoruba.Admin.Configuration;
@@ -66,22 +66,12 @@ namespace Skoruba.Admin
 
             // Add all dependencies for Asp.Net Core Identity
             // If you want to change primary keys or use another db model for Asp.Net Core Identity:
-            services.AddAdminAspNetIdentityServices<AdminIdentityDbContext, IdentityServerPersistedGrantDbContext,
-                IdentityUserDto, IdentityRoleDto, UserIdentity, IdentityRole<TKey>, string, IdentityUserClaim<TKey>, IdentityUserRole<TKey>,
-                                IdentityUserLogin<TKey>, IdentityRoleClaim<TKey>, IdentityUserToken<TKey>,
-                                IdentityUsersDto, IdentityRolesDto, IdentityUserRolesDto,
-                                IdentityUserClaimsDto, IdentityUserProviderDto, IdentityUserProvidersDto, IdentityUserChangePasswordDto,
-                                IdentityRoleClaimsDto, IdentityUserClaimDto, IdentityRoleClaimDto>();
+            services.AddAdminAspNetIdentityServices<string>();
 
             // Add all dependencies for Asp.Net Core Identity in MVC - these dependencies are injected into generic Controllers
             // Including settings for MVC and Localization
             // If you want to change primary keys or use another db model for Asp.Net Core Identity:
-            services.AddMvcWithLocalization<IdentityUserDto, IdentityRoleDto,
-                UserIdentity, IdentityRole<TKey>, string, IdentityUserClaim<TKey>, IdentityUserRole<TKey>,
-                IdentityUserLogin<TKey>, IdentityRoleClaim<TKey>, IdentityUserToken<TKey>,
-                IdentityUsersDto, IdentityRolesDto, IdentityUserRolesDto,
-                IdentityUserClaimsDto, IdentityUserProviderDto, IdentityUserProvidersDto, IdentityUserChangePasswordDto,
-                IdentityRoleClaimsDto, IdentityUserClaimDto, IdentityRoleClaimDto>(Configuration);
+            services.AddMvcWithLocalization<>(Configuration);
 
             // Add authorization policies for MVC
             RegisterAuthorization(services);
@@ -132,13 +122,13 @@ namespace Skoruba.Admin
 
         public virtual void RegisterDbContexts(IServiceCollection services)
         {
-            services.RegisterDbContexts<AdminIdentityDbContext, IdentityServerConfigurationDbContext, IdentityServerPersistedGrantDbContext, AdminLogDbContext, AdminAuditLogDbContext, IdentityServerDataProtectionDbContext>(Configuration);
+            services.RegisterDbContexts<string>(Configuration);
         }
 
         public virtual void RegisterAuthentication(IServiceCollection services)
         {
             var rootConfiguration = CreateRootConfiguration();
-            services.AddAuthenticationServices<AdminIdentityDbContext, UserIdentity, IdentityRole<TKey>>(Configuration);
+            services.AddAuthenticationServices<string>(Configuration);
         }
 
         public virtual void RegisterAuthorization(IServiceCollection services)

@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Newtonsoft.Json;
-using Skoruba.Admin.BusinessLogic.Shared.ExceptionHandling;
+using Skoruba.Core.ExceptionHandling;
 using Skoruba.Admin.Helpers;
 
 namespace Skoruba.Admin.ExceptionHandling

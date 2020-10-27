@@ -3,7 +3,7 @@ using System.Linq;
 using System.Collections.Generic;
 
 
-namespace Skoruba.Admin.EntityFramework.Extensions.Common
+namespace Skoruba.EntityFramework.Extensions.Common
 {
     public class PagedList<T> 
     {

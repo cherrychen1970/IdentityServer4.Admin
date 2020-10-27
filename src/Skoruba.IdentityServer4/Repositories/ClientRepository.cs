@@ -6,17 +6,17 @@ using System.Threading.Tasks;
 using IdentityServer4.EntityFramework.Entities;
 using IdentityServer4.Models;
 using Microsoft.EntityFrameworkCore;
-using Skoruba.Admin.EntityFramework.Constants;
-using Skoruba.Admin.EntityFramework.Extensions.Common;
-using Skoruba.Admin.EntityFramework.Extensions.Enums;
-using Skoruba.Admin.EntityFramework.Extensions.Extensions;
-using Skoruba.Admin.EntityFramework.Helpers;
-using Skoruba.Admin.EntityFramework.Interfaces;
-using Skoruba.Admin.EntityFramework.Repositories.Interfaces;
+using Skoruba.EntityFramework.Constants;
+using Skoruba.EntityFramework.Extensions.Common;
+using Skoruba.EntityFramework.Extensions.Enums;
+using Skoruba.EntityFramework.Extensions.Extensions;
+using Skoruba.EntityFramework.Helpers;
+using Skoruba.EntityFramework.Interfaces;
+using Skoruba.EntityFramework.Repositories.Interfaces;
 using Client = IdentityServer4.EntityFramework.Entities.Client;
-using Skoruba.Admin.EntityFramework.Shared.DbContexts;
+using Skoruba.EntityFramework.Shared.DbContexts;
 
-namespace Skoruba.Admin.EntityFramework.Repositories
+namespace Skoruba.EntityFramework.Repositories
 {
     public class ClientRepository : IClientRepository    
     {

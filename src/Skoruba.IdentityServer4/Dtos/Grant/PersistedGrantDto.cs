@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Skoruba.Admin.BusinessLogic.Dtos.Grant
+namespace Skoruba.IdentityServer4.Dtos.Grant
 {
 	public class PersistedGrantDto
 	{

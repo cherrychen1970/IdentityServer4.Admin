@@ -16,7 +16,7 @@
   </ItemGroup>
 
 	<ItemGroup>
-		<ProjectReference Include="..\Skoruba.Core\Skoruba.IdentityServer4.Shared.csproj" />
+		<ProjectReference Include="..\Skoruba.Core\Skoruba.Core.csproj" />
     <ProjectReference Include="..\Skoruba.EntityFramework\Skoruba.EntityFramework.csproj" />
 	</ItemGroup>
 

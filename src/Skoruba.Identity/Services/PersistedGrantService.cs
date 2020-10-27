@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Threading.Tasks;
 using Skoruba.AuditLogging.Services;
-using Skoruba.Admin.BusinessLogic.Identity.Dtos.Grant;
-using Skoruba.Admin.BusinessLogic.Identity.Mappers;
-using Skoruba.Admin.BusinessLogic.Identity.Resources;
-using Skoruba.Admin.BusinessLogic.Identity.Services.Interfaces;
+using Skoruba.Identity.Dtos.Grant;
+using Skoruba.Identity.Mappers;
+using Skoruba.Identity.Resources;
+using Skoruba.Identity.Services.Interfaces;
 using Skoruba.Core.ExceptionHandling;
 using Skoruba.Core.Events;
-using Skoruba.Admin.EntityFramework.Identity.Repositories.Interfaces;
+using Skoruba.EntityFramework.Identity.Repositories.Interfaces;
 
 namespace Skoruba.Core.ExceptionHandling
 {
@@ -18,7 +18,7 @@ namespace Skoruba.Core.ExceptionHandling
     }
 }
 
-namespace Skoruba.Admin.BusinessLogic.Identity.Services
+namespace Skoruba.Identity.Services
 {
 
 

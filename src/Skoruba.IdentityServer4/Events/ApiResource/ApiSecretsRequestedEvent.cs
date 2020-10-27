@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using Skoruba.AuditLogging.Events;
 
-namespace Skoruba.Admin.BusinessLogic.Events.ApiResource
+namespace Skoruba.IdentityServer4.Events.ApiResource
 {
     public class ApiSecretsRequestedEvent : AuditEvent
     {

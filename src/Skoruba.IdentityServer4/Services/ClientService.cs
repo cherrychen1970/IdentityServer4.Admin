@@ -4,19 +4,19 @@ using System.Linq;
 using System.Threading.Tasks;
 using IdentityServer4.Models;
 using Skoruba.AuditLogging.Services;
-using Skoruba.Admin.BusinessLogic.Dtos.Configuration;
-using Skoruba.Admin.BusinessLogic.Dtos.Enums;
-using Skoruba.Admin.BusinessLogic.Events.Client;
-using Skoruba.Admin.BusinessLogic.Helpers;
-using Skoruba.Admin.BusinessLogic.Mappers;
-using Skoruba.Admin.BusinessLogic.Resources;
-using Skoruba.Admin.BusinessLogic.Services.Interfaces;
-using Skoruba.Admin.BusinessLogic.Shared.Dtos.Common;
-using Skoruba.Admin.BusinessLogic.Shared.ExceptionHandling;
-using Skoruba.Admin.EntityFramework.Helpers;
-using Skoruba.Admin.EntityFramework.Repositories.Interfaces;
+using Skoruba.IdentityServer4.Dtos.Configuration;
+using Skoruba.IdentityServer4.Dtos.Enums;
+using Skoruba.IdentityServer4.Events.Client;
+using Skoruba.IdentityServer4.Helpers;
+using Skoruba.IdentityServer4.Mappers;
+using Skoruba.IdentityServer4.Resources;
+using Skoruba.IdentityServer4.Services.Interfaces;
+using Skoruba.Core.Dtos.Common;
+using Skoruba.Core.ExceptionHandling;
+using Skoruba.EntityFramework.Helpers;
+using Skoruba.EntityFramework.Repositories.Interfaces;
 
-namespace Skoruba.Admin.BusinessLogic.Services
+namespace Skoruba.IdentityServer4.Services
 {
     public class ClientService : IClientService
     {

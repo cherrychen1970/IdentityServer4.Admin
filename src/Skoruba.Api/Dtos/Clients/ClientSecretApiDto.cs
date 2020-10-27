@@ -1,6 +1,6 @@
 using System;
 using System.ComponentModel.DataAnnotations;
-using Skoruba.Admin.EntityFramework.Helpers;
+using Skoruba.EntityFramework.Helpers;
 
 namespace Skoruba.Admin.Api.Dtos.Clients
 {
@@ -29,7 +29,7 @@ namespace Skoruba.Admin.Api.Dtos.Clients
                     return result;
                 }
 
-                return Skoruba.Admin.EntityFramework.Helpers.HashType.Sha256;
+                return Skoruba.EntityFramework.Helpers.HashType.Sha256;
             }
         }
 

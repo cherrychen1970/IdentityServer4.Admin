@@ -1,4 +1,4 @@
-﻿namespace Skoruba.Admin.BusinessLogic.Shared.Dtos.Common
+﻿namespace Skoruba.Core.Dtos.Common
 {
     public class Search
     {

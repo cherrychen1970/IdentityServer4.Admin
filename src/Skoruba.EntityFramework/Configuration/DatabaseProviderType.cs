@@ -1,4 +1,4 @@
-﻿namespace Skoruba.Admin.EntityFramework.Shared.Configuration
+﻿namespace Skoruba.EntityFramework.Shared.Configuration
 {
     public enum DatabaseProviderType
     {

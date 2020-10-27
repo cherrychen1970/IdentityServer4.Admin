@@ -1,4 +1,4 @@
-﻿namespace Skoruba.Admin.BusinessLogic.Identity.Dtos.Identity.Interfaces
+﻿namespace Skoruba.Identity.Dtos.Identity.Interfaces
 {
     public interface IRoleClaimDto : IBaseRoleClaimDto
     {

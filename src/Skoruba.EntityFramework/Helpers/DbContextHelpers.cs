@@ -3,7 +3,7 @@ using System;
 using Microsoft.Extensions.DependencyInjection;
 using System.Linq;
 
-namespace Skoruba.Admin.EntityFramework.Helpers
+namespace Skoruba.EntityFramework.Helpers
 {
     public static class DbContextHelpers
     {

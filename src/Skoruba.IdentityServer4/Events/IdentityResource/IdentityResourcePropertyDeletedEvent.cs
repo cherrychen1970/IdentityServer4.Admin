@@ -1,7 +1,7 @@
 ﻿using Skoruba.AuditLogging.Events;
-using Skoruba.Admin.BusinessLogic.Dtos.Configuration;
+using Skoruba.IdentityServer4.Dtos.Configuration;
 
-namespace Skoruba.Admin.BusinessLogic.Events.IdentityResource
+namespace Skoruba.IdentityServer4.Events.IdentityResource
 {
     public class IdentityResourcePropertyDeletedEvent : AuditEvent
     {

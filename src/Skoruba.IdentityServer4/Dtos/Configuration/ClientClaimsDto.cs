@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace Skoruba.Admin.BusinessLogic.Dtos.Configuration
+namespace Skoruba.IdentityServer4.Dtos.Configuration
 {
 	public class ClientClaimsDto
 	{

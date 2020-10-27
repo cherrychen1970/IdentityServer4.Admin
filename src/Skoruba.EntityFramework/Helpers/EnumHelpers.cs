@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Skoruba.Admin.EntityFramework.Extensions.Common;
+using Skoruba.EntityFramework.Extensions.Common;
 
-namespace Skoruba.Admin.EntityFramework.Helpers
+namespace Skoruba.EntityFramework.Helpers
 {
 	public class EnumHelpers
 	{

@@ -1,4 +1,4 @@
-﻿namespace Skoruba.Admin.EntityFramework.Entities
+﻿namespace Skoruba.EntityFramework.Entities
 {
     public class PersistedGrantDataView
     {

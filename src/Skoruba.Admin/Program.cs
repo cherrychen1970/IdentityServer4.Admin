@@ -7,7 +7,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using Serilog;
 using Skoruba.Admin.Configuration;
-using Skoruba.Admin.EntityFramework.Shared.DbContexts;
+using Skoruba.EntityFramework.Shared.DbContexts;
 using Skoruba.EntityFramework.Entities.Identity;
 using Skoruba.Admin.Helpers;
 using Skoruba.IdentityServer4.Shared.Helpers;
@@ -56,9 +56,7 @@ namespace Skoruba.Admin
                 .Get<DatabaseMigrationsConfiguration>();
 
             await DbMigrationHelpers
-                .ApplyDbMigrationsWithDataSeedAsync<IdentityServerConfigurationDbContext, AdminIdentityDbContext,
-                    IdentityServerPersistedGrantDbContext, AdminLogDbContext, AdminAuditLogDbContext,
-                    IdentityServerDataProtectionDbContext, UserIdentity, IdentityRole<TKey>>(host,
+                .ApplyDbMigrationsWithDataSeedAsync<string>(host,
                     applyDbMigrationWithDataSeedFromProgramArguments, seedConfiguration, databaseMigrationsConfiguration);
         }
 

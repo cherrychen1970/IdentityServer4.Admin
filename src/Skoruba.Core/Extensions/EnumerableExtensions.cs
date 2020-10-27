@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Skoruba.Admin.EntityFramework.Extensions.Extensions
+namespace Skoruba.EntityFramework.Extensions.Extensions
 {
     public static class EnumerableExtensions
     {

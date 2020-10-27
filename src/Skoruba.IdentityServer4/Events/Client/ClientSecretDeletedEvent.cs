@@ -1,6 +1,6 @@
 ﻿using Skoruba.AuditLogging.Events;
 
-namespace Skoruba.Admin.BusinessLogic.Events.Client
+namespace Skoruba.IdentityServer4.Events.Client
 {
     public class ClientSecretDeletedEvent : AuditEvent
     {

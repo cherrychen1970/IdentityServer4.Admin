@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using Skoruba.Admin.BusinessLogic.Dtos.Configuration;
-using Skoruba.Admin.BusinessLogic.Shared.Dtos.Common;
+using Skoruba.IdentityServer4.Dtos.Configuration;
+using Skoruba.Core.Dtos.Common;
 
-namespace Skoruba.Admin.BusinessLogic.Services.Interfaces
+namespace Skoruba.IdentityServer4.Services.Interfaces
 {
     public interface IClientService
     {

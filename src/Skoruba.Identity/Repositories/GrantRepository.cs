@@ -6,25 +6,25 @@ using IdentityServer4.EntityFramework.Entities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using Skoruba.Admin.EntityFramework.Entities;
-using Skoruba.Admin.EntityFramework.Extensions.Common;
-using Skoruba.Admin.EntityFramework.Extensions.Enums;
-using Skoruba.Admin.EntityFramework.Extensions.Extensions;
-using Skoruba.Admin.EntityFramework.Identity.Repositories.Interfaces;
-using Skoruba.Admin.EntityFramework.Interfaces;
-using Skoruba.Admin.EntityFramework.Shared.DbContexts;
+using Skoruba.EntityFramework.Entities;
+using Skoruba.EntityFramework.Extensions.Common;
+using Skoruba.EntityFramework.Extensions.Enums;
+using Skoruba.EntityFramework.Extensions.Extensions;
+using Skoruba.EntityFramework.Identity.Repositories.Interfaces;
+using Skoruba.EntityFramework.Interfaces;
+using Skoruba.EntityFramework.Shared.DbContexts;
 
-namespace Skoruba.Admin.EntityFramework.Identity.Repositories
+namespace Skoruba.EntityFramework.Identity.Repositories
 {
-    public class PersistedGrantAspNetIdentityRepository 
-        : IPersistedGrantAspNetIdentityRepository                
+    public class PersistedGrantAspNetIdentityRepository<TKey>
+        : IPersistedGrantAspNetIdentityRepository where TKey : IEquatable<TKey>
     {
-        protected readonly AdminIdentityDbContext IdentityDbContext;
+        protected readonly AdminIdentityDbContext<TKey> IdentityDbContext;
         protected readonly IdentityServerPersistedGrantDbContext PersistedGrantDbContext;
 
         public bool AutoSaveChanges { get; set; } = true;
 
-        public PersistedGrantAspNetIdentityRepository(AdminIdentityDbContext identityDbContext, IdentityServerPersistedGrantDbContext persistedGrantDbContext)
+        public PersistedGrantAspNetIdentityRepository(AdminIdentityDbContext<TKey> identityDbContext, IdentityServerPersistedGrantDbContext persistedGrantDbContext)
         {
             IdentityDbContext = identityDbContext;
             PersistedGrantDbContext = persistedGrantDbContext;
@@ -35,13 +35,13 @@ namespace Skoruba.Admin.EntityFramework.Identity.Repositories
             return Task.Run(() =>
             {
                 var persistedGrantByUsers = (from pe in PersistedGrantDbContext.PersistedGrants.ToList()
-                        join us in IdentityDbContext.Users.ToList() on pe.SubjectId equals us.Id.ToString() into per
-                        from identity in per.DefaultIfEmpty()
-                        select new PersistedGrantDataView
-                        {
-                            SubjectId = pe.SubjectId,
-                            SubjectName = identity == null ? string.Empty : identity.UserName
-                        })
+                                             join us in IdentityDbContext.Users.ToList() on pe.SubjectId equals us.Id.ToString() into per
+                                             from identity in per.DefaultIfEmpty()
+                                             select new PersistedGrantDataView
+                                             {
+                                                 SubjectId = pe.SubjectId,
+                                                 SubjectName = identity == null ? string.Empty : identity.UserName
+                                             })
                     .GroupBy(x => x.SubjectId).Select(g => g.First());
 
                 if (!string.IsNullOrEmpty(search))
@@ -56,7 +56,7 @@ namespace Skoruba.Admin.EntityFramework.Identity.Repositories
                 var persistedGrantsData = persistedGrantDataViews.AsQueryable().PageBy(x => x.SubjectId, page, pageSize).ToList();
                 var persistedGrantsDataCount = persistedGrantDataViews.Count;
 
-            var pagedList = new PagedList<PersistedGrantDataView>(persistedGrantsData);                
+                var pagedList = new PagedList<PersistedGrantDataView>(persistedGrantsData);
                 pagedList.TotalCount = persistedGrantsDataCount;
                 pagedList.PageSize = pageSize;
 
@@ -81,7 +81,7 @@ namespace Skoruba.Admin.EntityFramework.Identity.Repositories
             var persistedGrantsCount = await PersistedGrantDbContext.PersistedGrants.Where(x => x.SubjectId == subjectId).CountAsync();
 
             var pagedList = new PagedList<PersistedGrant>(persistedGrantsData);
-            
+
             pagedList.TotalCount = persistedGrantsCount;
             pagedList.PageSize = pageSize;
 

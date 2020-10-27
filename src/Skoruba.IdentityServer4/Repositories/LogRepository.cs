@@ -3,15 +3,15 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
-using Skoruba.Admin.EntityFramework.Entities;
-using Skoruba.Admin.EntityFramework.Extensions.Common;
-using Skoruba.Admin.EntityFramework.Extensions.Enums;
-using Skoruba.Admin.EntityFramework.Extensions.Extensions;
-using Skoruba.Admin.EntityFramework.Interfaces;
-using Skoruba.Admin.EntityFramework.Repositories.Interfaces;
-using Skoruba.Admin.EntityFramework.Shared.DbContexts;
+using Skoruba.EntityFramework.Entities;
+using Skoruba.EntityFramework.Extensions.Common;
+using Skoruba.EntityFramework.Extensions.Enums;
+using Skoruba.EntityFramework.Extensions.Extensions;
+using Skoruba.EntityFramework.Interfaces;
+using Skoruba.EntityFramework.Repositories.Interfaces;
+using Skoruba.EntityFramework.Shared.DbContexts;
 
-namespace Skoruba.Admin.EntityFramework.Repositories
+namespace Skoruba.EntityFramework.Repositories
 {
     public class LogRepository : ILogRepository        
     {

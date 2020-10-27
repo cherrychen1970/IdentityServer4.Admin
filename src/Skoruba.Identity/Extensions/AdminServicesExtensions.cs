@@ -4,14 +4,14 @@ using AutoMapper;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using Skoruba.Admin.BusinessLogic.Identity.Dtos.Identity;
-using Skoruba.Admin.BusinessLogic.Identity.Mappers.Configuration;
-using Skoruba.Admin.BusinessLogic.Identity.Resources;
-using Skoruba.Admin.BusinessLogic.Identity.Services;
-using Skoruba.Admin.BusinessLogic.Identity.Services.Interfaces;
-using Skoruba.Admin.EntityFramework.Identity.Repositories;
-using Skoruba.Admin.EntityFramework.Identity.Repositories.Interfaces;
-using Skoruba.Admin.EntityFramework.Interfaces;
+using Skoruba.Identity.Dtos.Identity;
+using Skoruba.Identity.Mappers.Configuration;
+using Skoruba.Identity.Resources;
+using Skoruba.Identity.Services;
+using Skoruba.Identity.Services.Interfaces;
+using Skoruba.EntityFramework.Identity.Repositories;
+using Skoruba.EntityFramework.Identity.Repositories.Interfaces;
+using Skoruba.EntityFramework.Interfaces;
 
 namespace Microsoft.Extensions.DependencyInjection
 {
@@ -32,17 +32,16 @@ namespace Microsoft.Extensions.DependencyInjection
             return builder;
         }
 
-        public static IServiceCollection AddAdminAspNetIdentityServices<TUser,TKey>( this IServiceCollection services, HashSet<Type> profileTypes)
-            where TUser : IdentityUser<TKey>
+        public static IServiceCollection AddAdminAspNetIdentityServices<TKey>( this IServiceCollection services, HashSet<Type> profileTypes)
             where TKey : IEquatable<TKey>
  
         {
             //Repositories
-            services.AddTransient<IIdentityRepository<TUser,TKey>>();
-            services.AddTransient<IPersistedGrantAspNetIdentityRepository, PersistedGrantAspNetIdentityRepository>();
+            services.AddTransient<IIdentityRepository<TKey>>();
+            services.AddTransient<IPersistedGrantAspNetIdentityRepository, PersistedGrantAspNetIdentityRepository<TKey>>();
           
             //Services
-            services.AddTransient<IIdentityService>();
+            services.AddTransient<IIdentityService<TKey>>();
             services.AddTransient<IPersistedGrantAspNetIdentityService, PersistedGrantAspNetIdentityService>();
             
             //Resources
@@ -51,7 +50,7 @@ namespace Microsoft.Extensions.DependencyInjection
 
             //Register mapping
             services.AddAdminAspNetIdentityMapping()
-                .UseIdentityMappingProfile<TUser,TKey>()
+                .UseIdentityMappingProfile<TKey>()
                 .AddProfilesType(profileTypes);
 
             return services;

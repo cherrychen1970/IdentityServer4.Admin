@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Skoruba.Admin.EntityFramework.Shared.DbContexts
+namespace Skoruba.EntityFramework.Shared.DbContexts
 {
     public class IdentityServerDataProtectionDbContext : DbContext, IDataProtectionKeyContext
     {

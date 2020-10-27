@@ -5,11 +5,11 @@
 
 using AutoMapper;
 using IdentityServer4.EntityFramework.Entities;
-using Skoruba.Admin.BusinessLogic.Dtos.Configuration;
-using Skoruba.Admin.BusinessLogic.Shared.Dtos.Common;
-using Skoruba.Admin.EntityFramework.Extensions.Common;
+using Skoruba.IdentityServer4.Dtos.Configuration;
+using Skoruba.Core.Dtos.Common;
+using Skoruba.EntityFramework.Extensions.Common;
 
-namespace Skoruba.Admin.BusinessLogic.Mappers
+namespace Skoruba.IdentityServer4.Mappers
 {
     public class ClientMapperProfile : Profile
     {

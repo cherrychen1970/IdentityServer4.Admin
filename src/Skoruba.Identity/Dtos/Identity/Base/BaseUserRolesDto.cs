@@ -1,6 +1,6 @@
-﻿using Skoruba.Admin.BusinessLogic.Identity.Dtos.Identity.Interfaces;
+﻿using Skoruba.Identity.Dtos.Identity.Interfaces;
 
-namespace Skoruba.Admin.BusinessLogic.Identity.Dtos.Identity.Base
+namespace Skoruba.Identity.Dtos.Identity.Base
 {
     public class BaseUserRolesDto<TKey> : IBaseUserRolesDto
     {

@@ -2,8 +2,8 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using Skoruba.Admin.BusinessLogic.Dtos.Log;
-using Skoruba.Admin.BusinessLogic.Services.Interfaces;
+using Skoruba.IdentityServer4.Dtos.Log;
+using Skoruba.IdentityServer4.Services.Interfaces;
 using Skoruba.Admin.Configuration.Constants;
 
 namespace Skoruba.Admin.Controllers

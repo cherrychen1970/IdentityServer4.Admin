@@ -1,9 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Skoruba.Admin.EntityFramework.Constants;
-using Skoruba.Admin.EntityFramework.Entities;
-using Skoruba.Admin.EntityFramework.Interfaces;
+using Skoruba.EntityFramework.Constants;
+using Skoruba.EntityFramework.Entities;
+using Skoruba.EntityFramework.Interfaces;
 
-namespace Skoruba.Admin.EntityFramework.Shared.DbContexts
+namespace Skoruba.EntityFramework.Shared.DbContexts
 {
     public class AdminLogDbContext : DbContext
     {

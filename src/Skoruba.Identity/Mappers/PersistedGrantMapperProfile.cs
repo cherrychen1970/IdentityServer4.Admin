@@ -1,10 +1,10 @@
 ﻿using AutoMapper;
 using IdentityServer4.EntityFramework.Entities;
-using Skoruba.Admin.BusinessLogic.Identity.Dtos.Grant;
-using Skoruba.Admin.EntityFramework.Entities;
-using Skoruba.Admin.EntityFramework.Extensions.Common;
+using Skoruba.Identity.Dtos.Grant;
+using Skoruba.EntityFramework.Entities;
+using Skoruba.EntityFramework.Extensions.Common;
 
-namespace Skoruba.Admin.BusinessLogic.Identity.Mappers
+namespace Skoruba.Identity.Mappers
 {
     public class PersistedGrantMapperProfile : Profile
     {

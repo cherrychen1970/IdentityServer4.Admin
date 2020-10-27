@@ -7,55 +7,26 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using Skoruba.Admin.BusinessLogic.Identity.Dtos.Identity;
-using Skoruba.Admin.BusinessLogic.Identity.Services.Interfaces;
-using Skoruba.Admin.BusinessLogic.Shared.Dtos.Common;
+using Skoruba.Identity.Dtos.Identity;
+using Skoruba.Identity.Services.Interfaces;
+using Skoruba.Core.Dtos.Common;
 using Skoruba.Admin.Configuration.Constants;
 using Skoruba.Admin.ExceptionHandling;
 using Skoruba.Admin.Helpers.Localization;
+;
 
 namespace Skoruba.Admin.Controllers
 {
     [Authorize(Policy = AuthorizationConsts.AdministrationPolicy)]
     [TypeFilter(typeof(ControllerExceptionFilterAttribute))]
-    public class IdentityController<TUserDto, RoleDto<TKey>, TUser, IdentityRole<TKey>, TKey, IdentityUserClaim<TKey>, IdentityUserRole<TKey>, IdentityUserLogin<TKey>, IdentityRoleClaim<TKey>, IdentityUserToken<TKey>,
-            TUsersDto, IdentityRolesDto<TKey>, IdentityUserRole<TKey>sDto, IdentityUserClaim<TKey>sDto,
-            UserProviderDto<TKey>, TUserProvidersDto, UserChangePasswordDto<TKey>, IdentityRoleClaim<TKey>sDto, IdentityUserClaim<TKey>Dto, IdentityRoleClaim<TKey>Dto> : BaseController
-        where TUserDto : UserDto<TKey>, new()
-        where RoleDto<TKey> : RoleDto<TKey>, new()
-        where TUser : IdentityUser<TKey>
-        where IdentityRole<TKey> : IdentityRole<TKey>
-        where TKey : IEquatable<TKey>
-        where IdentityUserClaim<TKey> : IdentityUserClaim<TKey>
-        where IdentityUserRole<TKey> : IdentityUserRole<TKey>
-        where IdentityUserLogin<TKey> : IdentityUserLogin<TKey>
-        where IdentityRoleClaim<TKey> : IdentityRoleClaim<TKey>
-        where IdentityUserToken<TKey> : IdentityUserToken<TKey>
-        where TUsersDto : UsersDto<TUserDto, TKey>
-        where IdentityRolesDto<TKey> : RolesDto<RoleDto<TKey>, TKey>
-        where IdentityUserRole<TKey>sDto : UserRolesDto<RoleDto<TKey>, TKey>
-        where IdentityUserClaim<TKey>sDto : UserClaimsDto<IdentityUserClaim<TKey>Dto, TKey>
-        where UserProviderDto<TKey> : UserProviderDto<TKey>
-        where TUserProvidersDto : UserProvidersDto<UserProviderDto<TKey>, TKey>
-        where UserChangePasswordDto<TKey> : UserChangePasswordDto<TKey>
-        where IdentityRoleClaim<TKey>sDto : RoleClaimsDto<IdentityRoleClaim<TKey>Dto, TKey>
-        where IdentityUserClaim<TKey>Dto : UserClaimDto<TKey>
-        where IdentityRoleClaim<TKey>Dto : RoleClaimDto<TKey>
-    {
-        private readonly IIdentityService<TUserDto, RoleDto<TKey>, TUser, IdentityRole<TKey>, TKey, IdentityUserClaim<TKey>, IdentityUserRole<TKey>, IdentityUserLogin<TKey>, IdentityRoleClaim<TKey>, IdentityUserToken<TKey>,
-            TUsersDto, IdentityRolesDto<TKey>, IdentityUserRole<TKey>sDto, IdentityUserClaim<TKey>sDto,
-            UserProviderDto<TKey>, TUserProvidersDto, UserChangePasswordDto<TKey>, IdentityRoleClaim<TKey>sDto, IdentityUserClaim<TKey>Dto, IdentityRoleClaim<TKey>Dto> _identityService;
-        private readonly IGenericControllerLocalizer<IdentityController<TUserDto, RoleDto<TKey>, TUser, IdentityRole<TKey>, TKey, IdentityUserClaim<TKey>, IdentityUserRole<TKey>, IdentityUserLogin<TKey>, IdentityRoleClaim<TKey>, IdentityUserToken<TKey>,
-            TUsersDto, IdentityRolesDto<TKey>, IdentityUserRole<TKey>sDto, IdentityUserClaim<TKey>sDto,
-            UserProviderDto<TKey>, TUserProvidersDto, UserChangePasswordDto<TKey>, IdentityRoleClaim<TKey>sDto, IdentityUserClaim<TKey>Dto, IdentityRoleClaim<TKey>Dto>> _localizer;
+    public class IdentityController<TKey> : BaseController where TKey : IEquatable<TKey> {
+        
+        private readonly IIdentityService<TKey> _identityService;
+        private readonly IGenericControllerLocalizer _localizer;
 
-        public IdentityController(IIdentityService<TUserDto, RoleDto<TKey>, TUser, IdentityRole<TKey>, TKey, IdentityUserClaim<TKey>, IdentityUserRole<TKey>, IdentityUserLogin<TKey>, IdentityRoleClaim<TKey>, IdentityUserToken<TKey>,
-                TUsersDto, IdentityRolesDto<TKey>, IdentityUserRole<TKey>sDto, IdentityUserClaim<TKey>sDto,
-                UserProviderDto<TKey>, TUserProvidersDto, UserChangePasswordDto<TKey>, IdentityRoleClaim<TKey>sDto, IdentityUserClaim<TKey>Dto, IdentityRoleClaim<TKey>Dto> identityService,
+        public IdentityController(IIdentityService<TKey> identityService,
             ILogger<ConfigurationController> logger,
-            IGenericControllerLocalizer<IdentityController<TUserDto, RoleDto<TKey>, TUser, IdentityRole<TKey>, TKey, IdentityUserClaim<TKey>, IdentityUserRole<TKey>, IdentityUserLogin<TKey>, IdentityRoleClaim<TKey>, IdentityUserToken<TKey>,
-                TUsersDto, IdentityRolesDto<TKey>, IdentityUserRole<TKey>sDto, IdentityUserClaim<TKey>sDto,
-                UserProviderDto<TKey>, TUserProvidersDto, UserChangePasswordDto<TKey>, IdentityRoleClaim<TKey>sDto, IdentityUserClaim<TKey>Dto, IdentityRoleClaim<TKey>Dto>> localizer) : base(logger)
+            IGenericControllerLocalizer<IdentityController localizer) : base(logger)
         {
             _identityService = identityService;
             _localizer = localizer;
@@ -65,7 +36,7 @@ namespace Skoruba.Admin.Controllers
         public async Task<IActionResult> Roles(int? page, string search)
         {
             ViewBag.Search = search;
-            var roles = await _identityService.GeIdentityRolesAsync(search, page ?? 1);
+            var roles = await _identityService.GetRolesAsync(search, page ?? 1);
 
             return View(roles);
         }
@@ -80,7 +51,7 @@ namespace Skoruba.Admin.Controllers
                 return View(new RoleDto<TKey>());
             }
 
-            var role = await _identityService.GeIdentityRoleAsync(id.ToString());
+            var role = await _identityService.GetRoleAsync(id.ToString());
 
             return View(role);
         }
@@ -125,9 +96,9 @@ namespace Skoruba.Admin.Controllers
         public async Task<IActionResult> RoleUsers(string id, int? page, string search)
         {
             ViewBag.Search = search;
-            var roleUsers = await _identityService.GeIdentityRoleUsersAsync(id, search, page ?? 1);
+            var roleUsers = await _identityService.GetRoleUsersAsync(id, search, page ?? 1);
 
-            var roleDto = await _identityService.GeIdentityRoleAsync(id);
+            var roleDto = await _identityService.GetRoleAsync(id);
             ViewData["RoleName"] = roleDto.Name;
 
             return View(roleUsers);
@@ -135,7 +106,7 @@ namespace Skoruba.Admin.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> UserProfile(TUserDto user)
+        public async Task<IActionResult> UserProfile(UserDto<TKey> user)
         {
             if (!ModelState.IsValid)
             {
@@ -163,7 +134,7 @@ namespace Skoruba.Admin.Controllers
         [HttpGet]
         public IActionResult UserProfile()
         {
-            var newUser = new TUserDto();
+            var newUser = new UserDto<TKey>();
 
             return View("UserProfile", newUser);
         }
@@ -190,7 +161,7 @@ namespace Skoruba.Admin.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> UserRoles(IdentityUserRole<TKey>sDto role)
+        public async Task<IActionResult> UserRoles(UserRoleDto<TKey> role)
         {
             await _identityService.CreateUserRoleAsync(role);
             SuccessNotification(_localizer["SuccessCreateUserRole"], _localizer["SuccessTitle"]);
@@ -205,12 +176,12 @@ namespace Skoruba.Admin.Controllers
             await _identityService.ExistsRoleAsync(roleId.ToString());
 
             var userDto = await _identityService.GetUserAsync(id.ToString());
-            var roles = await _identityService.GeIdentityRolesAsync();
+            var roles = await _identityService.GetRolesAsync();
 
-            var rolesDto = new UserRolesDto<RoleDto<TKey>, TKey>
+            var rolesDto = new
             {
                 UserId = id,
-                RolesList = roles.Select(x => new SelectItemDto(x.Id.ToString(), x.Name)).ToList(),
+                RolesList = roles.Select(x => new {x.Id, x.Name}).ToList(),
                 RoleId = roleId,
                 UserName = userDto.UserName
             };
@@ -220,7 +191,7 @@ namespace Skoruba.Admin.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> UserRolesDelete(IdentityUserRole<TKey>sDto role)
+        public async Task<IActionResult> UserRolesDelete(UserRole<TKey> role)
         {
             await _identityService.DeleteUserRoleAsync(role);
             SuccessNotification(_localizer["SuccessDeleteUserRole"], _localizer["SuccessTitle"]);
@@ -230,7 +201,7 @@ namespace Skoruba.Admin.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> UserClaims(IdentityUserClaim<TKey>sDto claim)
+        public async Task<IActionResult> UserClaims(List<UserClaimDto<TKey>> claim)
         {
             if (!ModelState.IsValid)
             {
@@ -248,7 +219,7 @@ namespace Skoruba.Admin.Controllers
         {
             if (EqualityComparer<TKey>.Default.Equals(id, default)) return NotFound();
 
-            var claims = await _identityService.GeIdentityUserClaim<TKey>sAsync(id.ToString(), page ?? 1);
+            var claims = await _identityService.GetUserClaim<TKey>sAsync(id.ToString(), page ?? 1);
             claims.UserId = id;
 
             return View(claims);
@@ -260,7 +231,7 @@ namespace Skoruba.Admin.Controllers
             if (EqualityComparer<TKey>.Default.Equals(id, default)
             || EqualityComparer<int>.Default.Equals(claimId, default)) return NotFound();
 
-            var claim = await _identityService.GeIdentityUserClaimAsync(id.ToString(), claimId);
+            var claim = await _identityService.GetUserClaimAsync(id.ToString(), claimId);
             if (claim == null) return NotFound();
 
             var userDto = await _identityService.GetUserAsync(id.ToString());
@@ -367,7 +338,7 @@ namespace Skoruba.Admin.Controllers
         {
             if (EqualityComparer<TKey>.Default.Equals(id, default)) return NotFound();
 
-            var claims = await _identityService.GeIdentityRoleClaimsAsync(id.ToString(), page ?? 1);
+            var claims = await _identityService.GetRoleClaimsAsync(id.ToString(), page ?? 1);
             claims.RoleId = id;
 
             return View(claims);
@@ -379,7 +350,7 @@ namespace Skoruba.Admin.Controllers
             if (EqualityComparer<TKey>.Default.Equals(id, default) ||
                 EqualityComparer<int>.Default.Equals(claimId, default)) return NotFound();
 
-            var claim = await _identityService.GeIdentityRoleClaimAsync(id.ToString(), claimId);
+            var claim = await _identityService.GetRoleClaimAsync(id.ToString(), claimId);
 
             return View(claim);
         }
@@ -399,7 +370,7 @@ namespace Skoruba.Admin.Controllers
         {
             if (EqualityComparer<TKey>.Default.Equals(id, default)) return NotFound();
 
-            var roleDto = await _identityService.GeIdentityRoleAsync(id.ToString());
+            var roleDto = await _identityService.GetRoleAsync(id.ToString());
             if (roleDto == null) return NotFound();
 
             return View(roleDto);
@@ -417,7 +388,7 @@ namespace Skoruba.Admin.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> UserDelete(TUserDto user)
+        public async Task<IActionResult> UserDelete(UserDto<TKey> user)
         {
             var currentUserId = User.GetSubjectId();
             if (user.Id.ToString() == currentUserId)

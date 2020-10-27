@@ -1,6 +1,6 @@
-﻿using Skoruba.Admin.BusinessLogic.Identity.Helpers;
+﻿using Skoruba.Identity.Helpers;
 
-namespace Skoruba.Admin.BusinessLogic.Identity.Resources
+namespace Skoruba.Identity.Resources
 {
     public interface IPersistedGrantAspNetIdentityServiceResources
     {

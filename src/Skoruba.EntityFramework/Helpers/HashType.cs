@@ -1,4 +1,4 @@
-﻿namespace Skoruba.Admin.EntityFramework.Helpers
+﻿namespace Skoruba.EntityFramework.Helpers
 {
 	public enum HashType
 	{

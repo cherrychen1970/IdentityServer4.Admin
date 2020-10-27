@@ -2,7 +2,7 @@
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Xml.Linq;
 
-namespace Skoruba.Admin.EntityFramework.Entities
+namespace Skoruba.EntityFramework.Entities
 {    
     public class Log
     {

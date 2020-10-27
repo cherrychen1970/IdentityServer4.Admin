@@ -1,9 +1,9 @@
 ﻿using IdentityServer4.EntityFramework.DbContexts;
 using IdentityServer4.EntityFramework.Options;
 using Microsoft.EntityFrameworkCore;
-using Skoruba.Admin.EntityFramework.Interfaces;
+using Skoruba.EntityFramework.Interfaces;
 
-namespace Skoruba.Admin.EntityFramework.Shared.DbContexts
+namespace Skoruba.EntityFramework.Shared.DbContexts
 {
     public class IdentityServerPersistedGrantDbContext : PersistedGrantDbContext<IdentityServerPersistedGrantDbContext>
     {

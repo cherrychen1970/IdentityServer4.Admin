@@ -4,16 +4,16 @@ using System.Linq.Expressions;
 using System.Threading.Tasks;
 using IdentityServer4.EntityFramework.Entities;
 using Microsoft.EntityFrameworkCore;
-using Skoruba.Admin.EntityFramework.Extensions.Common;
-using Skoruba.Admin.EntityFramework.Extensions.Enums;
-using Skoruba.Admin.EntityFramework.Extensions.Extensions;
+using Skoruba.EntityFramework.Extensions.Common;
+using Skoruba.EntityFramework.Extensions.Enums;
+using Skoruba.EntityFramework.Extensions.Extensions;
 using IdentityServer4.EntityFramework.DbContexts;
-using Skoruba.Admin.EntityFramework.Interfaces;
-using Skoruba.Admin.EntityFramework.Repositories.Interfaces;
+using Skoruba.EntityFramework.Interfaces;
+using Skoruba.EntityFramework.Repositories.Interfaces;
 using ApiResource = IdentityServer4.EntityFramework.Entities.ApiResource;
-using Skoruba.Admin.EntityFramework.Shared.DbContexts;
+using Skoruba.EntityFramework.Shared.DbContexts;
 
-namespace Skoruba.Admin.EntityFramework.Repositories
+namespace Skoruba.EntityFramework.Repositories
 {
     public class ApiResourceRepository : IApiResourceRepository    
     {

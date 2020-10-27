@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Skoruba.Admin.BusinessLogic.Dtos.Grant
+namespace Skoruba.IdentityServer4.Dtos.Grant
 {
 	public class PersistedGrantsDto
 	{

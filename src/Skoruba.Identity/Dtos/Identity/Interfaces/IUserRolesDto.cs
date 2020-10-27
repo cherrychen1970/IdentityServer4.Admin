@@ -1,7 +1,7 @@
-﻿using Skoruba.Admin.BusinessLogic.Shared.Dtos.Common;
+﻿using Skoruba.Core.Dtos.Common;
 using System.Collections.Generic;
 
-namespace Skoruba.Admin.BusinessLogic.Shared.Dtos.Common
+namespace Skoruba.Core.Dtos.Common
 {
 	public class SelectItemDto
 	{
@@ -18,7 +18,7 @@ namespace Skoruba.Admin.BusinessLogic.Shared.Dtos.Common
 }
 
 
-namespace Skoruba.Admin.BusinessLogic.Identity.Dtos.Identity.Interfaces
+namespace Skoruba.Identity.Dtos.Identity.Interfaces
 {
     public interface IUserRolesDto : IBaseUserRolesDto
     {

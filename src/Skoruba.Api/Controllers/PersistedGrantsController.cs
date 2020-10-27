@@ -6,7 +6,7 @@ using Skoruba.Admin.Api.Dtos.PersistedGrants;
 using Skoruba.Admin.Api.ExceptionHandling;
 using Skoruba.Admin.Api.Helpers;
 using Skoruba.Admin.Api.Mappers;
-using Skoruba.Admin.BusinessLogic.Identity.Services.Interfaces;
+using Skoruba.Identity.Services.Interfaces;
 
 namespace Skoruba.Admin.Api.Controllers
 {

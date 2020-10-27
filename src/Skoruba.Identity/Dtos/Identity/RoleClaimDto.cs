@@ -1,16 +1,17 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using Skoruba.Admin.BusinessLogic.Identity.Dtos.Identity.Base;
-using Skoruba.Admin.BusinessLogic.Identity.Dtos.Identity.Interfaces;
+using Microsoft.AspNetCore.Identity;
+using Skoruba.Identity.Dtos.Identity.Base;
+using Skoruba.Identity.Dtos.Identity.Interfaces;
 
-namespace Skoruba.Admin.BusinessLogic.Identity.Dtos.Identity
+namespace Skoruba.Identity.Dtos.Identity
 {
-    public class RoleClaimDto<TKey> : BaseRoleClaimDto<TKey>, IRoleClaimDto
+    public class RoleClaimDto<TKey> : IdentityRoleClaim<TKey> where TKey : System.IEquatable<TKey>
     {
         [Required]
-        public string ClaimType { get; set; }
+        override public string ClaimType { get; set; }
 
 
         [Required]
-        public string ClaimValue { get; set; }
+        override public string ClaimValue { get; set; }
     }
 }

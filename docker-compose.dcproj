@@ -21,4 +21,7 @@
     <None Include="docker-compose.yml" />
     <None Include=".dockerignore" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="src\Skoruba.Admin\Skoruba.Admin.csproj" />
+  </ItemGroup>
 </Project>

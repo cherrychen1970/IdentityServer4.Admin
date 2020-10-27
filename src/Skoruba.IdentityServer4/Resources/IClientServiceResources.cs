@@ -1,6 +1,6 @@
-﻿using Skoruba.Admin.BusinessLogic.Helpers;
+﻿using Skoruba.IdentityServer4.Helpers;
 
-namespace Skoruba.Admin.BusinessLogic.Resources
+namespace Skoruba.IdentityServer4.Resources
 {
     public interface IClientServiceResources
     {

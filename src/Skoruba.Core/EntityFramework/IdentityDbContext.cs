@@ -2,7 +2,7 @@ using System;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
-namespace Skoruba.Admin.EntityFramework.Identity
+namespace Skoruba.EntityFramework.Identity
 {
     public class IdentityDbContext<TUser, TKey> : IdentityDbContext<
         TUser, IdentityRole<TKey>, TKey, IdentityUserClaim<TKey>, IdentityUserRole<TKey>,

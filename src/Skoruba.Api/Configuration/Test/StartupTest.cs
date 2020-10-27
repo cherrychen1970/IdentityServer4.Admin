@@ -6,7 +6,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Skoruba.Admin.Api.Helpers;
 using Skoruba.Admin.Api.Middlewares;
-using Skoruba.Admin.EntityFramework.Shared.DbContexts;
+using Skoruba.EntityFramework.Shared.DbContexts;
 using Skoruba.EntityFramework.Entities.Identity;
 using Skoruba.IdentityServer4.Shared.Configuration.Identity;
 

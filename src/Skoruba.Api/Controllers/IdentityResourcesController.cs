@@ -7,8 +7,8 @@ using Skoruba.Admin.Api.Dtos.IdentityResources;
 using Skoruba.Admin.Api.ExceptionHandling;
 using Skoruba.Admin.Api.Mappers;
 using Skoruba.Admin.Api.Resources;
-using Skoruba.Admin.BusinessLogic.Dtos.Configuration;
-using Skoruba.Admin.BusinessLogic.Services.Interfaces;
+using Skoruba.IdentityServer4.Dtos.Configuration;
+using Skoruba.IdentityServer4.Services.Interfaces;
 
 namespace Skoruba.Admin.Api.Controllers
 {

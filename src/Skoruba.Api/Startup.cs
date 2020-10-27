@@ -17,7 +17,7 @@ using Skoruba.Admin.Api.ExceptionHandling;
 using Skoruba.Admin.Api.Helpers;
 using Skoruba.Admin.Api.Mappers;
 using Skoruba.Admin.Api.Resources;
-using Skoruba.Admin.EntityFramework.Shared.DbContexts;
+using Skoruba.EntityFramework.Shared.DbContexts;
 using Skoruba.EntityFramework.Entities.Identity;
 using Skoruba.IdentityServer4.Shared.Dtos;
 using Skoruba.IdentityServer4.Shared.Dtos.Identity;

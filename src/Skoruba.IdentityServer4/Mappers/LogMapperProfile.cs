@@ -1,10 +1,10 @@
 ﻿using AutoMapper;
 using Skoruba.AuditLogging.EntityFramework.Entities;
-using Skoruba.Admin.BusinessLogic.Dtos.Log;
-using Skoruba.Admin.EntityFramework.Entities;
-using Skoruba.Admin.EntityFramework.Extensions.Common;
+using Skoruba.IdentityServer4.Dtos.Log;
+using Skoruba.EntityFramework.Entities;
+using Skoruba.EntityFramework.Extensions.Common;
 
-namespace Skoruba.Admin.BusinessLogic.Mappers
+namespace Skoruba.IdentityServer4.Mappers
 {
     public class LogMapperProfile : Profile
     {

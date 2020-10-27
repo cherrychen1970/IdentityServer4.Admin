@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Threading.Tasks;
 using Skoruba.AuditLogging.EntityFramework.Entities;
-using Skoruba.Admin.BusinessLogic.Dtos.Log;
-using Skoruba.Admin.BusinessLogic.Mappers;
-using Skoruba.Admin.BusinessLogic.Services.Interfaces;
-using Skoruba.Admin.EntityFramework.Repositories.Interfaces;
+using Skoruba.IdentityServer4.Dtos.Log;
+using Skoruba.IdentityServer4.Mappers;
+using Skoruba.IdentityServer4.Services.Interfaces;
+using Skoruba.EntityFramework.Repositories.Interfaces;
 
-namespace Skoruba.Admin.BusinessLogic.Services
+namespace Skoruba.IdentityServer4.Services
 {
     public class AuditLogService<TAuditLog> : IAuditLogService
         where TAuditLog : AuditLog

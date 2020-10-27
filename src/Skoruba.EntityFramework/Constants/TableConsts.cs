@@ -1,4 +1,4 @@
-﻿namespace Skoruba.Admin.EntityFramework.Constants
+﻿namespace Skoruba.EntityFramework.Constants
 {
     public static class TableConsts
     {

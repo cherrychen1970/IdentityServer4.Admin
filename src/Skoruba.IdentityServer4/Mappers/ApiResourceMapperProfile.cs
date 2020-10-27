@@ -6,10 +6,10 @@
 using System.Linq;
 using AutoMapper;
 using IdentityServer4.EntityFramework.Entities;
-using Skoruba.Admin.BusinessLogic.Dtos.Configuration;
-using Skoruba.Admin.EntityFramework.Extensions.Common;
+using Skoruba.IdentityServer4.Dtos.Configuration;
+using Skoruba.EntityFramework.Extensions.Common;
 
-namespace Skoruba.Admin.BusinessLogic.Mappers
+namespace Skoruba.IdentityServer4.Mappers
 {
     public class ApiResourceMapperProfile : Profile
     {

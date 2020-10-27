@@ -2,14 +2,13 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
-using Skoruba.Admin.BusinessLogic.Identity.Dtos.Identity;
-using Skoruba.Admin.BusinessLogic.Shared.Dtos.Common;
-using Skoruba.Admin.EntityFramework.Extensions.Common;
+using Skoruba.Identity.Dtos.Identity;
+using Skoruba.Core.Dtos.Common;
+using Skoruba.EntityFramework.Extensions.Common;
 
-namespace Skoruba.Admin.BusinessLogic.Identity.Services.Interfaces
+namespace Skoruba.Identity.Services.Interfaces
 {
-    public interface IIdentityService<TUser,TKey>
-        where TUser : IdentityUser<TKey>
+    public interface IIdentityService<TKey>
         where TKey : IEquatable<TKey>                              
     {
         Task<bool> ExistsUserAsync(string userId);
@@ -17,16 +16,16 @@ namespace Skoruba.Admin.BusinessLogic.Identity.Services.Interfaces
         Task<bool> ExistsRoleAsync(string roleId);
 
         Task<PagedList<UserDto<TKey>>> GetUsersAsync(string search, int page = 1, int pageSize = 10);
-        Task<PagedList<UserDto<TKey>>> GeIdentityRoleUsersAsync(string roleId, string search, int page = 1, int pageSize = 10);
+        Task<PagedList<UserDto<TKey>>> GetRoleUsersAsync(string roleId, string search, int page = 1, int pageSize = 10);
         Task<PagedList<UserDto<TKey>>> GetClaimUsersAsync(string claimType, string claimValue, int page = 1, int pageSize = 10);
 
-        Task<PagedList<RoleDto<TKey>>> GeIdentityRolesAsync(string search, int page = 1, int pageSize = 10);
+        Task<PagedList<RoleDto<TKey>>> SearchRolesAsync(string search, int page = 1, int pageSize = 10);
 
         Task<(IdentityResult identityResult, TKey roleId)> CreateRoleAsync(RoleDto<TKey> role);
 
-        Task<RoleDto<TKey>> GeIdentityRoleAsync(string roleId);
+        Task<RoleDto<TKey>> GetRoleAsync(string roleId);
 
-        Task<List<RoleDto<TKey>>> GeIdentityRolesAsync();
+        Task<List<RoleDto<TKey>>> GetRolesAsync();
 
         Task<(IdentityResult identityResult, TKey roleId)> UpdateRoleAsync(RoleDto<TKey> role);
 
@@ -42,15 +41,15 @@ namespace Skoruba.Admin.BusinessLogic.Identity.Services.Interfaces
 
         Task<PagedList<RoleDto<TKey>>> BuildUserRolesViewModel(TKey id, int? page);
 
-        Task<PagedList<RoleDto<TKey>>> GeIdentityUserRolesAsync(string userId, int page = 1,
+        Task<PagedList<RoleDto<TKey>>> GetRolesAsync(string userId, int page = 1,
             int pageSize = 10);
 
         Task<IdentityResult> DeleteUserRoleAsync(PagedList<RoleDto<TKey>> role);
 
-        Task<PagedList<UserClaimDto<TKey>>> GeIdentityUserClaimsAsync(string userId, int page = 1,
+        Task<PagedList<UserClaimDto<TKey>>> GetUserClaimsAsync(string userId, int page = 1,
             int pageSize = 10);
 
-        Task<PagedList<UserClaimDto<TKey>>> GeIdentityUserClaimAsync(string userId, int claimId);
+        Task<PagedList<UserClaimDto<TKey>>> GetUserClaimAsync(string userId, int claimId);
 
         Task<IdentityResult> CreateUserClaimsAsync(PagedList<UserClaimDto<TKey>> claimsDto);
 
@@ -72,11 +71,11 @@ namespace Skoruba.Admin.BusinessLogic.Identity.Services.Interfaces
 
         Task<IdentityResult> UpdateRoleClaimsAsync(PagedList<RoleClaimDto<TKey>> claimsDto);
 
-        Task<PagedList<RoleClaimDto<TKey>>> GeIdentityRoleClaimsAsync(string roleId, int page = 1, int pageSize = 10);
+        Task<PagedList<RoleClaimDto<TKey>>> GetRoleClaimsAsync(string roleId, int page = 1, int pageSize = 10);
 
-        Task<PagedList<RoleClaimDto<TKey>>> GeIdentityUserRoleClaimsAsync(string userId, string claimSearchText, int page = 1, int pageSize = 10);
+        Task<PagedList<RoleClaimDto<TKey>>> GetUserRoleClaimsAsync(string userId, string claimSearchText, int page = 1, int pageSize = 10);
 
-        Task<PagedList<RoleClaimDto<TKey>>> GeIdentityRoleClaimAsync(string roleId, int claimId);
+        Task<PagedList<RoleClaimDto<TKey>>> GetRoleClaimAsync(string roleId, int claimId);
 
         Task<IdentityResult> DeleteRoleClaimAsync(PagedList<RoleClaimDto<TKey>> role);
 

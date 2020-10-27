@@ -2,9 +2,9 @@
 using IdentityServer4.EntityFramework.Entities;
 using IdentityServer4.EntityFramework.Options;
 using Microsoft.EntityFrameworkCore;
-using Skoruba.Admin.EntityFramework.Interfaces;
+using Skoruba.EntityFramework.Interfaces;
 
-namespace Skoruba.Admin.EntityFramework.Shared.DbContexts
+namespace Skoruba.EntityFramework.Shared.DbContexts
 {
     public class IdentityServerConfigurationDbContext : ConfigurationDbContext<IdentityServerConfigurationDbContext>
     {

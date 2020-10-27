@@ -1,7 +1,7 @@
 ﻿using Skoruba.AuditLogging.Events;
-using Skoruba.Admin.BusinessLogic.Dtos.Grant;
+using Skoruba.IdentityServer4.Dtos.Grant;
 
-namespace Skoruba.Admin.BusinessLogic.Events.PersistedGrant
+namespace Skoruba.IdentityServer4.Events.PersistedGrant
 {
     public class PersistedGrantsByUsersRequestedEvent : AuditEvent
     {

@@ -1,4 +1,4 @@
-﻿namespace Skoruba.Admin.EntityFramework.Extensions.Enums
+﻿namespace Skoruba.EntityFramework.Extensions.Enums
 {
     public enum SavedStatus
     {

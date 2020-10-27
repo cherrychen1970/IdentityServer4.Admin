@@ -10,9 +10,9 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Skoruba.AuditLogging.EntityFramework.DbContexts;
 using Skoruba.AuditLogging.EntityFramework.Entities;
-using Skoruba.Admin.EntityFramework.Interfaces;
+using Skoruba.EntityFramework.Interfaces;
 
-namespace Skoruba.Admin.EntityFramework.Helpers
+namespace Skoruba.EntityFramework.Helpers
 {
     public static class DbMigrationHelpers
     {

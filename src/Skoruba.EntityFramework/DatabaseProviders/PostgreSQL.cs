@@ -6,19 +6,20 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Skoruba.AuditLogging.EntityFramework.DbContexts;
 using Skoruba.AuditLogging.EntityFramework.Entities;
-using Skoruba.Admin.EntityFramework.Interfaces;
-using Skoruba.Admin.EntityFramework.Shared.DbContexts;
+using Skoruba.EntityFramework.Interfaces;
+using Skoruba.EntityFramework.Shared.DbContexts;
 
-namespace Skoruba.Admin.EntityFramework.PostgreSQL.Extensions
+namespace Skoruba.EntityFramework.PostgreSQL.Extensions
 {
     public static class DatabaseExtensions
     {
-        public static void RegisterNpgSqlDbContexts(this IServiceCollection services,string connectionString)
+        public static void RegisterNpgSqlDbContexts<TKey>(this IServiceCollection services, string connectionString)
+            where TKey : IEquatable<TKey>
         {
             var migrationsAssembly = typeof(DatabaseExtensions).GetTypeInfo().Assembly.GetName().Name;
 
             // Config DB for identity
-            services.AddDbContext<AdminIdentityDbContext>(options =>
+            services.AddDbContext<AdminIdentityDbContext<TKey>>(options =>
                 options.UseNpgsql(connectionString, sql => sql.MigrationsAssembly(migrationsAssembly)));
 
             // Config DB from existing connection

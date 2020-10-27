@@ -1,15 +1,11 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using Skoruba.Admin.BusinessLogic.Identity.Dtos.Identity.Base;
-using Skoruba.Admin.BusinessLogic.Identity.Dtos.Identity.Interfaces;
+using Skoruba.Identity.Dtos.Identity.Base;
+using Skoruba.Identity.Dtos.Identity.Interfaces;
+using Microsoft.AspNetCore.Identity;
 
-namespace Skoruba.Admin.BusinessLogic.Identity.Dtos.Identity
+namespace Skoruba.Identity.Dtos.Identity
 {
-    public class UserClaimDto<TKey> : BaseUserClaimDto<TKey>, IUserClaimDto
+    public class UserClaimDto<TKey> : IdentityUserClaim<TKey> where TKey : System.IEquatable<TKey>
     {
-        [Required]
-        public string ClaimType { get; set; }
-
-        [Required]
-        public string ClaimValue { get; set; }
     }
 }

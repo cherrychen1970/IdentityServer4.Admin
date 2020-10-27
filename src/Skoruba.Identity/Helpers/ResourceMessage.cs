@@ -1,4 +1,4 @@
-﻿namespace Skoruba.Admin.BusinessLogic.Identity.Helpers
+﻿namespace Skoruba.Identity.Helpers
 {
     public class ResourceMessage
     {

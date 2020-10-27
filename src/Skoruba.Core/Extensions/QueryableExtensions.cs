@@ -2,7 +2,7 @@
 using System.Linq;
 using System.Linq.Expressions;
 
-namespace Skoruba.Admin.EntityFramework.Extensions.Extensions
+namespace Skoruba.EntityFramework.Extensions.Extensions
 {
     public static class QueryableExtensions
     {

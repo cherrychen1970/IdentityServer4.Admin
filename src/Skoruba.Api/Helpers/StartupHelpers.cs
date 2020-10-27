@@ -20,13 +20,13 @@ using Skoruba.Admin.Api.Configuration;
 using Skoruba.Admin.Api.Configuration.ApplicationParts;
 using Skoruba.Admin.Api.Configuration.Constants;
 using Skoruba.Admin.Api.Helpers.Localization;
-using Skoruba.Admin.BusinessLogic.Identity.Dtos.Identity;
-using Skoruba.Admin.EntityFramework.Helpers;
-using Skoruba.Admin.EntityFramework.Interfaces;
-using Skoruba.Admin.EntityFramework.MySql.Extensions;
-using Skoruba.Admin.EntityFramework.PostgreSQL.Extensions;
-using Skoruba.Admin.EntityFramework.Shared.Configuration;
-using Skoruba.Admin.EntityFramework.SqlServer.Extensions;
+using Skoruba.Identity.Dtos.Identity;
+using Skoruba.EntityFramework.Helpers;
+using Skoruba.EntityFramework.Interfaces;
+using Skoruba.EntityFramework.MySql.Extensions;
+using Skoruba.EntityFramework.PostgreSQL.Extensions;
+using Skoruba.EntityFramework.Shared.Configuration;
+using Skoruba.EntityFramework.SqlServer.Extensions;
 using Skoruba.IdentityServer4.Shared.Configuration.Identity;
 
 namespace Skoruba.Admin.Api.Helpers

@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Identity;
-using Skoruba.Admin.BusinessLogic.Identity.Dtos.Identity;
+using Skoruba.Identity.Dtos.Identity;
 
-namespace Skoruba.Admin.BusinessLogic.Identity.Mappers.Configuration
+namespace Skoruba.Identity.Mappers.Configuration
 {
     public interface IMapperConfigurationBuilder
     {
@@ -11,7 +11,7 @@ namespace Skoruba.Admin.BusinessLogic.Identity.Mappers.Configuration
 
         IMapperConfigurationBuilder AddProfilesType(HashSet<Type> profileTypes);
 
-        IMapperConfigurationBuilder UseIdentityMappingProfile<TUser,TKey>();
+        IMapperConfigurationBuilder UseIdentityMappingProfile<TKey>() where TKey:IEquatable<TKey>;
 
     }
 }

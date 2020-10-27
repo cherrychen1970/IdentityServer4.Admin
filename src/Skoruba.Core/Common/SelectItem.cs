@@ -1,4 +1,4 @@
-﻿namespace Skoruba.Admin.EntityFramework.Extensions.Common
+﻿namespace Skoruba.EntityFramework.Extensions.Common
 {
 	public class SelectItem
 	{

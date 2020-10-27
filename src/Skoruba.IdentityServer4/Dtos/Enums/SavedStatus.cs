@@ -1,4 +1,4 @@
-﻿namespace Skoruba.Admin.BusinessLogic.Dtos.Enums
+﻿namespace Skoruba.IdentityServer4.Dtos.Enums
 {
     public enum SavedStatus
     {

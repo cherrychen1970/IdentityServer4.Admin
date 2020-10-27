@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Skoruba.Admin.BusinessLogic.Shared.Dtos.Common;
+using Skoruba.Core.Dtos.Common;
 
-namespace Skoruba.Admin.BusinessLogic.Helpers
+namespace Skoruba.IdentityServer4.Helpers
 {
 	public class EnumHelpers
 	{

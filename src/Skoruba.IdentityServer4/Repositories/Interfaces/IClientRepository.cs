@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using IdentityServer4.EntityFramework.Entities;
-using Skoruba.Admin.EntityFramework.Extensions.Common;
+using Skoruba.EntityFramework.Extensions.Common;
 
-namespace Skoruba.Admin.EntityFramework.Repositories.Interfaces
+namespace Skoruba.EntityFramework.Repositories.Interfaces
 {
 	public interface IClientRepository
     {

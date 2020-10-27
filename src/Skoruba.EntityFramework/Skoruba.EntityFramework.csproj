@@ -19,7 +19,7 @@
 	<PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="3.1.0" />
   </ItemGroup>
 	<ItemGroup>
-		<ProjectReference Include="..\Skoruba.Core\Skoruba.IdentityServer4.Shared.csproj" />
+		<ProjectReference Include="..\Skoruba.Core\Skoruba.Core.csproj" />
 	</ItemGroup>  
 </Project>
 
