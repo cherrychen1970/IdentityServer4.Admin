@@ -2,7 +2,7 @@
 using AutoMapper;
 using IdentityServer4.EntityFramework.Entities;
 using Skoruba.IdentityServer4.Dtos.Configuration;
-using Skoruba.EntityFramework.Extensions.Common;
+using Skoruba.Core.Dtos.Common;
 
 namespace Skoruba.IdentityServer4.Mappers
 {
@@ -16,15 +16,9 @@ namespace Skoruba.IdentityServer4.Mappers
 
         internal static IMapper Mapper { get; }
 
-
         public static IdentityResourceDto ToModel(this IdentityResource resource)
         {
             return resource == null ? null : Mapper.Map<IdentityResourceDto>(resource);
-        }
-
-        public static IdentityResourcesDto ToModel(this PagedList<IdentityResource> resource)
-        {
-            return resource == null ? null : Mapper.Map<IdentityResourcesDto>(resource);
         }
 
         public static List<IdentityResourceDto> ToModel(this List<IdentityResource> resource)
@@ -35,11 +29,6 @@ namespace Skoruba.IdentityServer4.Mappers
         public static IdentityResource ToEntity(this IdentityResourceDto resource)
         {
             return resource == null ? null : Mapper.Map<IdentityResource>(resource);
-        }
-
-        public static IdentityResourcePropertiesDto ToModel(this PagedList<IdentityResourceProperty> identityResourceProperties)
-        {
-            return Mapper.Map<IdentityResourcePropertiesDto>(identityResourceProperties);
         }
 
         public static IdentityResourcePropertiesDto ToModel(this IdentityResourceProperty identityResourceProperty)

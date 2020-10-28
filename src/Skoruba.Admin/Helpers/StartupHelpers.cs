@@ -24,7 +24,7 @@ using Skoruba.AuditLogging.EntityFramework.Entities;
 using Skoruba.AuditLogging.EntityFramework.Extensions;
 using Skoruba.AuditLogging.EntityFramework.Repositories;
 using Skoruba.AuditLogging.EntityFramework.Services;
-using Skoruba.Identity.Dtos.Identity;
+using Skoruba.AspNetIdentity.Dtos;
 using Skoruba.IdentityServer4.Services;
 using Skoruba.IdentityServer4.Services.Interfaces;
 using Skoruba.Admin.ExceptionHandling;
@@ -70,7 +70,7 @@ namespace Skoruba.Admin.Helpers
             services.AddTransient<IAuditLoggingRepository<TAuditLog>, AuditLoggingRepository<TAuditLoggingDbContext, TAuditLog>>();
 
             // repository and service for admin
-            services.AddTransient<IAuditLogRepository<TAuditLog>, AuditLogRepository>();
+            services.AddTransient<IAuditLogRepository<TAuditLog>, AuditLogRepository<TAuditLog>>();
             services.AddTransient<IAuditLogService, AuditLogService<TAuditLog>>();
 
             return services;
@@ -191,7 +191,7 @@ namespace Skoruba.Admin.Helpers
         /// Register services for MVC and localization including available languages
         /// </summary>
         /// <param name="services"></param>
-        public static void AddMvcWithLocalization<TKey>(this IServiceCollection services, IConfiguration configuration)   
+        public static void AddMvcWithLocalization(this IServiceCollection services, IConfiguration configuration)   
         {
             services.AddSingleton<ITempDataProvider, CookieTempDataProvider>();
 
@@ -209,7 +209,7 @@ namespace Skoruba.Admin.Helpers
                 .AddDataAnnotationsLocalization()
                 .ConfigureApplicationPartManager(m =>
                 {
-                    m.FeatureProviders.Add(new GenericTypeControllerFeatureProvider<TKey>());
+                    m.FeatureProviders.Add(new GenericTypeControllerFeatureProvider());
                 });
 
             var cultureConfiguration = configuration.GetSection(nameof(CultureConfiguration)).Get<CultureConfiguration>();
@@ -238,29 +238,6 @@ namespace Skoruba.Admin.Helpers
             });
         }
 
-        public static void AddAuthenticationServicesStaging<TContext, TUserIdentity, TUserIdentityRole>(
-            this IServiceCollection services)
-            where TContext : DbContext where TUserIdentity : class where TUserIdentityRole : class
-        {
-            services.AddIdentity<TUserIdentity, TUserIdentityRole>(options =>
-                {
-                    options.User.RequireUniqueEmail = true;
-                })
-                .AddEntityFrameworkStores<TContext>()
-                .AddDefaultTokenProviders();
-
-            services.AddAuthentication(options =>
-                {
-                    options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
-                    options.DefaultChallengeScheme = CookieAuthenticationDefaults.AuthenticationScheme;
-
-                    options.DefaultAuthenticateScheme = CookieAuthenticationDefaults.AuthenticationScheme;
-                    options.DefaultForbidScheme = CookieAuthenticationDefaults.AuthenticationScheme;
-                    options.DefaultSignInScheme = CookieAuthenticationDefaults.AuthenticationScheme;
-                    options.DefaultSignOutScheme = CookieAuthenticationDefaults.AuthenticationScheme;
-                })
-                .AddCookie(CookieAuthenticationDefaults.AuthenticationScheme);
-        }
 
         /// <summary>
         /// Register services for authentication, including Identity.
@@ -272,8 +249,7 @@ namespace Skoruba.Admin.Helpers
         /// <typeparam name="TUserIdentityRole"></typeparam>
         /// <param name="services"></param>
         /// <param name="configuration"></param>
-        public static void AddAuthenticationServices<TContext, TUserIdentity, TUserIdentityRole>(this IServiceCollection services, IConfiguration configuration)
-            where TContext : DbContext where TUserIdentity : class where TUserIdentityRole : class
+        public static void AddAuthenticationServices(this IServiceCollection services, IConfiguration configuration)            
         {
             var adminConfiguration = configuration.GetSection(nameof(AdminConfiguration)).Get<AdminConfiguration>();
 
@@ -288,8 +264,8 @@ namespace Skoruba.Admin.Helpers
             });
 
             services
-                .AddIdentity<TUserIdentity, TUserIdentityRole>(options => configuration.GetSection(nameof(IdentityOptions)).Bind(options))
-                .AddEntityFrameworkStores<TContext>()
+                .AddIdentity<EntityModels.AdminIdentityUser>(options => configuration.GetSection(nameof(IdentityOptions)).Bind(options))
+                .AddEntityFrameworkStores<EntityModels.AdminIdentityDbContext>()
                 .AddDefaultTokenProviders();
 
             services.AddAuthentication(options =>

@@ -2,7 +2,7 @@
 using IdentityServer4.EntityFramework.Entities;
 using Skoruba.IdentityServer4.Dtos.Grant;
 using Skoruba.EntityFramework.Entities;
-using Skoruba.EntityFramework.Extensions.Common;
+using Skoruba.Core.Dtos.Common;
 
 namespace Skoruba.IdentityServer4.Mappers
 {
@@ -14,15 +14,7 @@ namespace Skoruba.IdentityServer4.Mappers
             CreateMap<PersistedGrant, PersistedGrantDto>(MemberList.Destination)
                 .ReverseMap();
 
-            CreateMap<PersistedGrantDataView, PersistedGrantDto>(MemberList.Destination);
-
-            CreateMap<PagedList<PersistedGrantDataView>, PersistedGrantsDto>(MemberList.Destination)
-                .ForMember(x => x.PersistedGrants,
-                    opt => opt.MapFrom(src => src.Data));
-
-            CreateMap<PagedList<PersistedGrant>, PersistedGrantsDto>(MemberList.Destination)
-                .ForMember(x => x.PersistedGrants,
-                    opt => opt.MapFrom(src => src.Data));            
+            CreateMap<PersistedGrantDataView, PersistedGrantDto>(MemberList.Destination); 
         }
     }
 }

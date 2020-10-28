@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using Skoruba.Core.Dtos.Common;
-using Skoruba.EntityFramework.Helpers;
+using Skoruba.Core.Helpers;
 
 namespace Skoruba.IdentityServer4.Dtos.Configuration
 {
@@ -42,7 +42,7 @@ namespace Skoruba.IdentityServer4.Dtos.Configuration
                     return result;
                 }
 
-                return EntityFramework.Helpers.HashType.Sha256;
+                return Core.Helpers.HashType.Sha256;
             }
         }
 

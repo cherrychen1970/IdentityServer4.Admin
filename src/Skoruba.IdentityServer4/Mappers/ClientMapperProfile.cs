@@ -7,7 +7,6 @@ using AutoMapper;
 using IdentityServer4.EntityFramework.Entities;
 using Skoruba.IdentityServer4.Dtos.Configuration;
 using Skoruba.Core.Dtos.Common;
-using Skoruba.EntityFramework.Extensions.Common;
 
 namespace Skoruba.IdentityServer4.Mappers
 {
@@ -78,19 +77,6 @@ namespace Skoruba.IdentityServer4.Mappers
                 .ForMember(dest => dest.Key, opt => opt.Condition(srs => srs != null))
                 .ForMember(x => x.ClientPropertyId, opt => opt.MapFrom(x => x.Id))
                 .ForMember(x => x.ClientId, opt => opt.MapFrom(x => x.Client.Id));
-
-            //PagedLists
-            CreateMap<PagedList<ClientSecret>, ClientSecretsDto>(MemberList.Destination)
-                .ForMember(x => x.ClientSecrets, opt => opt.MapFrom(src => src.Data));
-
-            CreateMap<PagedList<ClientClaim>, ClientClaimsDto>(MemberList.Destination)
-                .ForMember(x => x.ClientClaims, opt => opt.MapFrom(src => src.Data));
-
-            CreateMap<PagedList<ClientProperty>, ClientPropertiesDto>(MemberList.Destination)
-                .ForMember(x => x.ClientProperties, opt => opt.MapFrom(src => src.Data));
-
-            CreateMap<PagedList<Client>, ClientsDto>(MemberList.Destination)
-                .ForMember(x => x.Clients, opt => opt.MapFrom(src => src.Data));
 
             // model to entity
             CreateMap<ClientSecretsDto, ClientSecret>(MemberList.Source)

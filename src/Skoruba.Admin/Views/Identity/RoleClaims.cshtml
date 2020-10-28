@@ -1,11 +1,15 @@
 ﻿@using Microsoft.AspNetCore.Mvc.Localization
 @using Skoruba.Core.Dtos.Common
-@model Skoruba.Identity.Dtos.Identity.Interfaces.IRoleClaimsDto
+@using Skoruba.Models
+@using Skoruba.EntityFramework.Extensions.Common
+@model IModelDto<RoleDto<string>,IList<RoleClaim<string>>>
 @inject IViewLocalizer Localizer
 
 @{
+	// Skoruba.AspNetIdentity.Dtos.Interfaces.IRoleClaimsDto
 	ViewBag.Title = Localizer["PageTitle"];
 	Layout = "_Layout";
+	IPagedList<IRoleClaimDto> Claims = Model.Claims;	
 }
 
 
@@ -97,7 +101,7 @@
 							</tr>
 						</thead>
 						<tbody>
-							@foreach (var client in Model.Claims)
+							@foreach (var client in @Claims)
 							{
 								<tr>
 									<td>@client.ClaimType</td>

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 using Skoruba.EntityFramework.Entities;
-using Skoruba.EntityFramework.Extensions.Common;
+using Skoruba.Core.Dtos.Common;
 
 namespace Skoruba.EntityFramework.Repositories.Interfaces
 {

@@ -6,11 +6,11 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ApplicationParts;
 using Microsoft.AspNetCore.Mvc.Controllers;
-using Skoruba.Identity.Dtos.Identity;
+using Skoruba.AspNetIdentity.Dtos;
 
 namespace Skoruba.Admin.Configuration.ApplicationParts
 {
-    public class GenericTypeControllerFeatureProvider<TKey> : IApplicationFeatureProvider
+    public class GenericTypeControllerFeatureProvider : IApplicationFeatureProvider
     {
 
         public void PopulateFeature(IEnumerable<ApplicationPart> parts, ControllerFeature feature)

@@ -4,16 +4,14 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Skoruba.AuditLogging.EntityFramework.DbContexts;
 using Skoruba.AuditLogging.EntityFramework.Entities;
-using Skoruba.EntityFramework.Extensions.Common;
-using Skoruba.EntityFramework.Extensions.Enums;
+using Skoruba.Core.Dtos.Common;
 using Skoruba.EntityFramework.Extensions.Extensions;
 using Skoruba.EntityFramework.Repositories.Interfaces;
 using Skoruba.EntityFramework.Shared.DbContexts;
 
-
 namespace Skoruba.EntityFramework.Repositories
 {
-    public class AuditLogRepository
+    public class AuditLogRepository<TAuditLog> : IAuditLogRepository<TAuditLog> where TAuditLog : AuditLog
     {
         protected readonly AdminAuditLogDbContext DbContext;
 
@@ -22,7 +20,7 @@ namespace Skoruba.EntityFramework.Repositories
             DbContext = dbContext;
         }
 
-        public async Task<PagedList<AuditLog>> GetAsync(string @event, string source, string category, DateTime? created, string subjectIdentifier, string subjectName, int page = 1, int pageSize = 10)
+        public async Task<PagedList<TAuditLog>> GetAsync(string @event, string source, string category, DateTime? created, string subjectIdentifier, string subjectName, int page = 1, int pageSize = 10)
         {
             var auditLogs = await DbContext.AuditLog
                 .WhereIf(!string.IsNullOrEmpty(subjectIdentifier), log => log.SubjectIdentifier.Contains(subjectIdentifier))
@@ -34,7 +32,7 @@ namespace Skoruba.EntityFramework.Repositories
                 .PageBy(x => x.Id, page, pageSize)
                 .ToListAsync();
 
-            var pagedList = new PagedList<AuditLog>(auditLogs);            
+            var pagedList = new PagedList<TAuditLog>(auditLogs);            
             pagedList.PageSize = pageSize;
             pagedList.TotalCount = await DbContext.AuditLog
                 .WhereIf(!string.IsNullOrEmpty(subjectIdentifier), log => log.SubjectIdentifier.Contains(subjectIdentifier))

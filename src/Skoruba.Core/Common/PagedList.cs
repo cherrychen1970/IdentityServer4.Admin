@@ -1,41 +1,41 @@
 ﻿using System;
 using System.Linq;
+using System.Collections;
 using System.Collections.Generic;
 
 
-namespace Skoruba.EntityFramework.Extensions.Common
+namespace Skoruba.Core.Dtos.Common
 {
-    public class PagedList<T> 
+    public interface IPagedList<T> : IList<T>
+    {
+        int PageSize { get; set; }
+        int TotalCount { get; set; }        
+    }
+    public class PagedList<T> : List<T>, IPagedList<T>
     {
         public PagedList()
-        {
-            Data = new List<T>();
-        }
+        {}
 
         public PagedList(IEnumerable<T> list)
         {
-            Data = list.ToList();
+            AddRange(list);
         }
         public PagedList(IEnumerable<T> list, int pageSize, int totalCount)
         {
-            Data = list.ToList();
+            AddRange(list);            
             PageSize = pageSize;
             TotalCount = totalCount;
         }
-        public List<T> Data { get; }
 
         public int TotalCount { get; set; }
 
         public int PageSize { get; set; }
     }
 
-
     static public class Extensions {
-        static public PagedList<TResult> Select<TSource,TResult>(this PagedList<TSource> pagedList, Func<TSource, TResult> selector)
-        
+        static public IPagedList<TResult> Select<TSource,TResult>(this IPagedList<TSource> pagedList, Func<TSource, TResult> selector)        
         {
-            var list = pagedList.Data.Select(selector);
-
+            var list = pagedList.Select(selector);
             return new PagedList<TResult>(list,pagedList.PageSize,pagedList.TotalCount);
         }
     }

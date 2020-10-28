@@ -4,7 +4,7 @@ using System.Linq.Expressions;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Skoruba.EntityFramework.Entities;
-using Skoruba.EntityFramework.Extensions.Common;
+using Skoruba.Core.Dtos.Common;
 using Skoruba.EntityFramework.Extensions.Enums;
 using Skoruba.EntityFramework.Extensions.Extensions;
 using Skoruba.EntityFramework.Interfaces;

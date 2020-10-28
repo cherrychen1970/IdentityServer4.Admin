@@ -11,8 +11,8 @@ using Skoruba.Admin.Api.Dtos.Roles;
 using Skoruba.Admin.Api.ExceptionHandling;
 using Skoruba.Admin.Api.Helpers.Localization;
 using Skoruba.Admin.Api.Resources;
-using Skoruba.Identity.Dtos.Identity;
-using Skoruba.Identity.Services.Interfaces;
+using Skoruba.AspNetIdentity.Dtos;
+using Skoruba.AspNetIdentity.Services.Interfaces;
 
 namespace Skoruba.Admin.Api.Controllers
 {

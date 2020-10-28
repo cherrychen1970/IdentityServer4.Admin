@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using IdentityServer4.EntityFramework.Entities;
-using Skoruba.EntityFramework.Extensions.Common;
+using Skoruba.Core.Dtos.Common;
 
 namespace Skoruba.EntityFramework.Repositories.Interfaces
 {

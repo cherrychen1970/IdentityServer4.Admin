@@ -3,7 +3,6 @@ using AutoMapper;
 using IdentityServer4.EntityFramework.Entities;
 using Skoruba.IdentityServer4.Dtos.Configuration;
 using Skoruba.Core.Dtos.Common;
-using Skoruba.EntityFramework.Extensions.Common;
 
 namespace Skoruba.IdentityServer4.Mappers
 {

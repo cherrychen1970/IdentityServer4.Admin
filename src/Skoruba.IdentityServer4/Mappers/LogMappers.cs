@@ -2,7 +2,7 @@
 using Skoruba.AuditLogging.EntityFramework.Entities;
 using Skoruba.IdentityServer4.Dtos.Log;
 using Skoruba.EntityFramework.Entities;
-using Skoruba.EntityFramework.Extensions.Common;
+using Skoruba.Core.Dtos.Common;
 
 namespace Skoruba.IdentityServer4.Mappers
 {

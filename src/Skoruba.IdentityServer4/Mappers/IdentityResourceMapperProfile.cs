@@ -7,7 +7,7 @@ using System.Linq;
 using AutoMapper;
 using IdentityServer4.EntityFramework.Entities;
 using Skoruba.IdentityServer4.Dtos.Configuration;
-using Skoruba.EntityFramework.Extensions.Common;
+using Skoruba.Core.Dtos.Common;
 
 namespace Skoruba.IdentityServer4.Mappers
 {
@@ -26,13 +26,6 @@ namespace Skoruba.IdentityServer4.Mappers
                 .ForMember(dest => dest.Key, opt => opt.Condition(srs => srs != null))
                 .ForMember(x => x.IdentityResourcePropertyId, opt => opt.MapFrom(x => x.Id))
                 .ForMember(x => x.IdentityResourceId, opt => opt.MapFrom(x => x.IdentityResource.Id));
-
-            CreateMap<PagedList<IdentityResource>, IdentityResourcesDto>(MemberList.Destination)
-                .ForMember(x => x.IdentityResources,
-                    opt => opt.MapFrom(src => src.Data));
-
-            CreateMap<PagedList<IdentityResourceProperty>, IdentityResourcePropertiesDto>(MemberList.Destination)
-                .ForMember(x => x.IdentityResourceProperties, opt => opt.MapFrom(src => src.Data));
 
             // model to entity
             CreateMap<IdentityResourceDto, IdentityResource>(MemberList.Source)

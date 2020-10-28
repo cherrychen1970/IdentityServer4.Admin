@@ -7,7 +7,7 @@ using System.Linq;
 using AutoMapper;
 using IdentityServer4.EntityFramework.Entities;
 using Skoruba.IdentityServer4.Dtos.Configuration;
-using Skoruba.EntityFramework.Extensions.Common;
+using Skoruba.Core.Dtos.Common;
 
 namespace Skoruba.IdentityServer4.Mappers
 {
@@ -42,19 +42,6 @@ namespace Skoruba.IdentityServer4.Mappers
                 .ForMember(dest => dest.Key, opt => opt.Condition(srs => srs != null))
                 .ForMember(x => x.ApiResourcePropertyId, opt => opt.MapFrom(x => x.Id))
                 .ForMember(x => x.ApiResourceId, opt => opt.MapFrom(x => x.ApiResource.Id));
-
-            //PagedLists
-            CreateMap<PagedList<ApiResource>, ApiResourcesDto>(MemberList.Destination)
-                .ForMember(x => x.ApiResources, opt => opt.MapFrom(src => src.Data));
-
-            CreateMap<PagedList<ApiScope>, ApiScopesDto>(MemberList.Destination)
-                .ForMember(x => x.Scopes, opt => opt.MapFrom(src => src.Data));
-
-            CreateMap<PagedList<ApiSecret>, ApiSecretsDto>(MemberList.Destination)
-                .ForMember(x => x.ApiSecrets, opt => opt.MapFrom(src => src.Data));
-
-            CreateMap<PagedList<ApiResourceProperty>, ApiResourcePropertiesDto>(MemberList.Destination)
-                .ForMember(x => x.ApiResourceProperties, opt => opt.MapFrom(src => src.Data));
 
             // model to entity
             CreateMap<ApiResourceDto, ApiResource>(MemberList.Source)

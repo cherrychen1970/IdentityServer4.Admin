@@ -20,7 +20,7 @@ using Skoruba.Admin.Api.Configuration;
 using Skoruba.Admin.Api.Configuration.ApplicationParts;
 using Skoruba.Admin.Api.Configuration.Constants;
 using Skoruba.Admin.Api.Helpers.Localization;
-using Skoruba.Identity.Dtos.Identity;
+using Skoruba.AspNetIdentity.Dtos;
 using Skoruba.EntityFramework.Helpers;
 using Skoruba.EntityFramework.Interfaces;
 using Skoruba.EntityFramework.MySql.Extensions;

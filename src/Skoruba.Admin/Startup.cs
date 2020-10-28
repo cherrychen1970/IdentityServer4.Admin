@@ -8,7 +8,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Skoruba.AuditLogging.EntityFramework.Entities;
-using Skoruba.Identity.Dtos.Identity;
+using Skoruba.AspNetIdentity.Dtos;
 using Skoruba.Admin.Configuration.Interfaces;
 using Skoruba.EntityFramework.Shared.DbContexts;
 using Skoruba.EntityFramework.Entities.Identity;
@@ -58,20 +58,10 @@ namespace Skoruba.Admin
             // Add HSTS options
             RegisterHstsOptions(services);
 
-            // Add exception filters in MVC
             services.AddMvcExceptionFilters();
-
-            // Add all dependencies for IdentityServer Admin
             services.AddAdminServices<IdentityServerConfigurationDbContext, IdentityServerPersistedGrantDbContext, AdminLogDbContext>();
-
-            // Add all dependencies for Asp.Net Core Identity
-            // If you want to change primary keys or use another db model for Asp.Net Core Identity:
             services.AddAdminAspNetIdentityServices<string>();
-
-            // Add all dependencies for Asp.Net Core Identity in MVC - these dependencies are injected into generic Controllers
-            // Including settings for MVC and Localization
-            // If you want to change primary keys or use another db model for Asp.Net Core Identity:
-            services.AddMvcWithLocalization<>(Configuration);
+            services.AddMvcWithLocalization(Configuration);
 
             // Add authorization policies for MVC
             RegisterAuthorization(services);

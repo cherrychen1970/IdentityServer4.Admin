@@ -8,7 +8,6 @@ using Microsoft.Extensions.Hosting;
 using Serilog;
 using Skoruba.Admin.Configuration;
 using Skoruba.EntityFramework.Shared.DbContexts;
-using Skoruba.EntityFramework.Entities.Identity;
 using Skoruba.Admin.Helpers;
 using Skoruba.IdentityServer4.Shared.Helpers;
 
@@ -54,10 +53,11 @@ namespace Skoruba.Admin
             var seedConfiguration = configuration.GetSection(nameof(SeedConfiguration)).Get<SeedConfiguration>();
             var databaseMigrationsConfiguration = configuration.GetSection(nameof(DatabaseMigrationsConfiguration))
                 .Get<DatabaseMigrationsConfiguration>();
-
+/*
             await DbMigrationHelpers
                 .ApplyDbMigrationsWithDataSeedAsync<string>(host,
                     applyDbMigrationWithDataSeedFromProgramArguments, seedConfiguration, databaseMigrationsConfiguration);
+*/                    
         }
 
         private static IConfiguration GetConfiguration(string[] args)

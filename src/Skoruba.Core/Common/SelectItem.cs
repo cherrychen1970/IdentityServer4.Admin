@@ -1,4 +1,4 @@
-﻿namespace Skoruba.EntityFramework.Extensions.Common
+﻿namespace Skoruba.Core.Dtos.Common
 {
 	public class SelectItem
 	{

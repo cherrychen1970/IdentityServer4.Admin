@@ -12,12 +12,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Skoruba.AuditLogging.EntityFramework" Version="1.0.0-beta8" />
     <PackageReference Include="IdentityServer4.EntityFramework" Version="3.1.1" />
   </ItemGroup>
 
 	<ItemGroup>
-		<ProjectReference Include="..\Skoruba.Core\Skoruba.Core.csproj" />
-    <ProjectReference Include="..\Skoruba.EntityFramework\Skoruba.EntityFramework.csproj" />
+		<ProjectReference Include="..\Skoruba.Core\Skoruba.Core.csproj" />    
 	</ItemGroup>
 
   <ItemGroup>

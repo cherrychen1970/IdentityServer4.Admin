@@ -7,26 +7,27 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using Skoruba.Identity.Dtos.Identity;
-using Skoruba.Identity.Services.Interfaces;
+using Skoruba.AspNetIdentity.Dtos;
+using Skoruba.AspNetIdentity.Services.Interfaces;
 using Skoruba.Core.Dtos.Common;
 using Skoruba.Admin.Configuration.Constants;
 using Skoruba.Admin.ExceptionHandling;
 using Skoruba.Admin.Helpers.Localization;
-;
+using Skoruba.Admin.ViewModels;
 
 namespace Skoruba.Admin.Controllers
 {
     [Authorize(Policy = AuthorizationConsts.AdministrationPolicy)]
     [TypeFilter(typeof(ControllerExceptionFilterAttribute))]
-    public class IdentityController<TKey> : BaseController where TKey : IEquatable<TKey> {
-        
+    public class IdentityController<TKey> : BaseController where TKey : IEquatable<TKey>
+    {
+
         private readonly IIdentityService<TKey> _identityService;
-        private readonly IGenericControllerLocalizer _localizer;
+        private readonly IGenericControllerLocalizer<IdentityController<TKey>> _localizer;
 
         public IdentityController(IIdentityService<TKey> identityService,
             ILogger<ConfigurationController> logger,
-            IGenericControllerLocalizer<IdentityController localizer) : base(logger)
+            IGenericControllerLocalizer<IdentityController<TKey>> localizer) : base(logger)
         {
             _identityService = identityService;
             _localizer = localizer;
@@ -150,11 +151,17 @@ namespace Skoruba.Admin.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> UserRoles(TKey id, int? page)
+        public async Task<IActionResult> UserRoles(TKey id, int page = 1)
         {
             if (EqualityComparer<TKey>.Default.Equals(id, default)) return NotFound();
 
-            var userRoles = await _identityService.BuildUserRolesViewModel(id, page);
+            var userRoles = await _identityService.GetUserRolesAsync(id.ToString(), page);
+            var roles = (await _identityService.GetRolesAsync())
+                        .Select(x => new { Id = x.Id.ToString(), x.Name });
+
+            var resp = new { Item = id, List = roles };
+
+
 
             return View(userRoles);
         }
@@ -172,16 +179,13 @@ namespace Skoruba.Admin.Controllers
         [HttpGet]
         public async Task<IActionResult> UserRolesDelete(TKey id, TKey roleId)
         {
-            await _identityService.ExistsUserAsync(id.ToString());
-            await _identityService.ExistsRoleAsync(roleId.ToString());
-
             var userDto = await _identityService.GetUserAsync(id.ToString());
             var roles = await _identityService.GetRolesAsync();
 
             var rolesDto = new
             {
                 UserId = id,
-                RolesList = roles.Select(x => new {x.Id, x.Name}).ToList(),
+                RolesList = roles.Select(x => new { x.Id, x.Name }).ToList(),
                 RoleId = roleId,
                 UserName = userDto.UserName
             };
@@ -191,7 +195,7 @@ namespace Skoruba.Admin.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> UserRolesDelete(UserRole<TKey> role)
+        public async Task<IActionResult> UserRolesDelete(UserRoleDto<TKey> role)
         {
             await _identityService.DeleteUserRoleAsync(role);
             SuccessNotification(_localizer["SuccessDeleteUserRole"], _localizer["SuccessTitle"]);
@@ -201,17 +205,17 @@ namespace Skoruba.Admin.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> UserClaims(List<UserClaimDto<TKey>> claim)
+        public async Task<IActionResult> UserClaims(IModelDto<UserDto<TKey>, List<UserClaimDto<TKey>>> request)
         {
             if (!ModelState.IsValid)
             {
-                return View(claim);
+                return View(request);
             }
 
-            await _identityService.CreateUserClaimsAsync(claim);
-            SuccessNotification(string.Format(_localizer["SuccessCreateUserClaims"], claim.ClaimType, claim.ClaimValue), _localizer["SuccessTitle"]);
+            await _identityService.CreateUserClaimsAsync(request.Body);
+            SuccessNotification(string.Format(_localizer["SuccessCreateUserClaims"]), _localizer["SuccessTitle"]);
 
-            return RedirectToAction(nameof(UserClaims), new { Id = claim.UserId });
+            return RedirectToAction(nameof(UserClaims), new { Id = request.Subject.Id });
         }
 
         [HttpGet]
@@ -219,8 +223,8 @@ namespace Skoruba.Admin.Controllers
         {
             if (EqualityComparer<TKey>.Default.Equals(id, default)) return NotFound();
 
-            var claims = await _identityService.GetUserClaim<TKey>sAsync(id.ToString(), page ?? 1);
-            claims.UserId = id;
+            var claims = await _identityService.GetUserClaimsAsync(id.ToString(), page ?? 1);
+            var resp = new { Item = id, Data = claims } as IModelDto<TKey, PagedList<UserClaimDto<TKey>>>;
 
             return View(claims);
         }
@@ -235,19 +239,19 @@ namespace Skoruba.Admin.Controllers
             if (claim == null) return NotFound();
 
             var userDto = await _identityService.GetUserAsync(id.ToString());
-            claim.UserName = userDto.UserName;
+            //claim.UserName = userDto.UserName;
 
             return View(claim);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> UserClaimsDelete(IdentityUserClaim<TKey>sDto claim)
+        public async Task<IActionResult> UserClaimsDelete(IModelDto<TKey, UserClaimDto<TKey>> request)
         {
-            await _identityService.DeleteUserClaimAsync(claim);
+            await _identityService.DeleteUserClaimAsync(request.Body);
             SuccessNotification(_localizer["SuccessDeleteUserClaims"], _localizer["SuccessTitle"]);
 
-            return RedirectToAction(nameof(UserClaims), new { Id = claim.UserId });
+            return RedirectToAction(nameof(UserClaims), new { Id = request.Subject });
         }
 
         [HttpGet]
@@ -320,17 +324,17 @@ namespace Skoruba.Admin.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> RoleClaims(IdentityRoleClaim<TKey>sDto claim)
+        public async Task<IActionResult> RoleClaims(IModelDto<TKey, List<RoleClaimDto<TKey>>> request)
         {
             if (!ModelState.IsValid)
             {
-                return View(claim);
+                return View(request);
             }
 
-            await _identityService.CreateRoleClaimsAsync(claim);
-            SuccessNotification(string.Format(_localizer["SuccessCreateRoleClaims"], claim.ClaimType, claim.ClaimValue), _localizer["SuccessTitle"]);
+            await _identityService.CreateRoleClaimsAsync(request.Body);
+            SuccessNotification(string.Format(_localizer["SuccessCreateRoleClaims"]), _localizer["SuccessTitle"]);
 
-            return RedirectToAction(nameof(RoleClaims), new { Id = claim.RoleId });
+            return RedirectToAction(nameof(RoleClaims), new { Id = request.Subject });
         }
 
         [HttpGet]
@@ -338,10 +342,9 @@ namespace Skoruba.Admin.Controllers
         {
             if (EqualityComparer<TKey>.Default.Equals(id, default)) return NotFound();
 
-            var claims = await _identityService.GetRoleClaimsAsync(id.ToString(), page ?? 1);
-            claims.RoleId = id;
-
-            return View(claims);
+            var claims = await _identityService.GetRoleClaimsAsync(id.ToString(), page ?? 1);            
+            var resp = new {Subject=id, Body=claims};
+            return View(resp);
         }
 
         [HttpGet]
@@ -357,12 +360,12 @@ namespace Skoruba.Admin.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> RoleClaimsDelete(IdentityRoleClaim<TKey>sDto claim)
+        public async Task<IActionResult> RoleClaimsDelete(IModelDto<TKey, RoleClaimDto<TKey>> request)
         {
-            await _identityService.DeleteRoleClaimAsync(claim);
+            await _identityService.DeleteRoleClaimAsync(request.Body);
             SuccessNotification(_localizer["SuccessDeleteRoleClaims"], _localizer["SuccessTitle"]);
 
-            return RedirectToAction(nameof(RoleClaims), new { Id = claim.RoleId });
+            return RedirectToAction(nameof(RoleClaims), new { Id = request.Subject });
         }
 
         [HttpGet]

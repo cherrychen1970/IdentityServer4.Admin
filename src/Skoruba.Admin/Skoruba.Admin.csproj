@@ -122,7 +122,7 @@
     </ItemGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\Skoruba.Identity\Skoruba.Identity.csproj" />
+        <ProjectReference Include="..\Skoruba.AspNetIdentity\Skoruba.AspNetIdentity.csproj" />
         <ProjectReference Include="..\Skoruba.EntityFramework\Skoruba.EntityFramework.csproj" />
         <ProjectReference Include="..\Skoruba.IdentityServer4\Skoruba.IdentityServer4.csproj" />
     </ItemGroup>

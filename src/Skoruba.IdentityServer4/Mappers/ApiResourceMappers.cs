@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using IdentityServer4.EntityFramework.Entities;
 using Skoruba.IdentityServer4.Dtos.Configuration;
-using Skoruba.EntityFramework.Extensions.Common;
+using Skoruba.Core.Dtos.Common;
 
 namespace Skoruba.IdentityServer4.Mappers
 {
@@ -18,11 +18,6 @@ namespace Skoruba.IdentityServer4.Mappers
         public static ApiResourceDto ToModel(this ApiResource resource)
         {
             return resource == null ? null : Mapper.Map<ApiResourceDto>(resource);
-        }
-
-        public static ApiResourcesDto ToModel(this PagedList<ApiResource> resources)
-        {
-            return resources == null ? null : Mapper.Map<ApiResourcesDto>(resources);
         }
 
         public static ApiResourcePropertiesDto ToModel(this PagedList<ApiResourceProperty> apiResourceProperties)

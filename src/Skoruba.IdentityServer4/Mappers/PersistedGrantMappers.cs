@@ -2,7 +2,7 @@
 using IdentityServer4.EntityFramework.Entities;
 using Skoruba.IdentityServer4.Dtos.Grant;
 using Skoruba.EntityFramework.Entities;
-using Skoruba.EntityFramework.Extensions.Common;
+using Skoruba.Core.Dtos.Common;
 
 namespace Skoruba.IdentityServer4.Mappers
 {
@@ -15,17 +15,6 @@ namespace Skoruba.IdentityServer4.Mappers
         }
 
         internal static IMapper Mapper { get; }
-
-        public static PersistedGrantsDto ToModel(this PagedList<PersistedGrantDataView> grant)
-        {
-            return grant == null ? null : Mapper.Map<PersistedGrantsDto>(grant);
-        }
-
-        public static PersistedGrantsDto ToModel(this PagedList<PersistedGrant> grant)
-        {
-            return grant == null ? null : Mapper.Map<PersistedGrantsDto>(grant);
-        }
-
         public static PersistedGrantDto ToModel(this PersistedGrant grant)
         {
             return grant == null ? null : Mapper.Map<PersistedGrantDto>(grant);

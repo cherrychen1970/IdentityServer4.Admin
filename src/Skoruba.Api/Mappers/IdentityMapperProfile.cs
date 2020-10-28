@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using Skoruba.Admin.Api.Dtos.Roles;
 using Skoruba.Admin.Api.Dtos.Users;
-using Skoruba.Identity.Dtos.Identity;
+using Skoruba.AspNetIdentity.Dtos;
 
 namespace Skoruba.Admin.Api.Mappers
 {
