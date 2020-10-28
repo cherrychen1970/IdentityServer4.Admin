@@ -1,11 +1,14 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using IdentityServer4.EntityFramework.Entities;
 using Skoruba.IdentityServer4.Resources;
 using Skoruba.IdentityServer4.Services;
 using Skoruba.IdentityServer4.Services.Interfaces;
 using Skoruba.EntityFramework.Interfaces;
-using Skoruba.EntityFramework.Repositories;
+using Skoruba.IdentityServer4.Repositories;
 using Skoruba.EntityFramework.Repositories.Interfaces;
 using Skoruba.EntityFramework.Shared.DbContexts;
+using Skoruba.IdentityServer4.Dtos.Configuration;
+using Skoruba.Core.Repositories;
 
 namespace Microsoft.Extensions.DependencyInjection
 {
@@ -13,19 +16,16 @@ namespace Microsoft.Extensions.DependencyInjection
     {
         public static IServiceCollection AddAdminServices<TConfigurationDbContext,TGrantDbContext>(this IServiceCollection services)
         {
+            // TODO : add more repository
             //Repositories
-            services.AddTransient<IClientRepository, ClientRepository>();
-            services.AddTransient<IIdentityResourceRepository, IdentityResourceRepository>();
-            services.AddTransient<IApiResourceRepository, ApiResourceRepository>();
-            services.AddTransient<IPersistedGrantRepository, PersistedGrantRepository>();
-            services.AddTransient<ILogRepository, LogRepository>();
+            services.AddTransient<ClientRepository>();
+            services.AddTransient<ApiResourceRepository>();
+            // TODO : use factory
+            services.AddScoped<Repository<ConfDbContext, IdentityResource, IdentityResourceDto,int>>();
+
 
             //Services
             services.AddTransient<IClientService, ClientService>();
-            services.AddTransient<IApiResourceService, ApiResourceService>();
-            services.AddTransient<IIdentityResourceService, IdentityResourceService>();
-            services.AddTransient<IPersistedGrantService, PersistedGrantService>();
-            services.AddTransient<ILogService, LogService>();
 
             //Resources
             services.AddScoped<IApiResourceServiceResources, ApiResourceServiceResources>();

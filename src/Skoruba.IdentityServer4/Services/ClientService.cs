@@ -242,17 +242,7 @@ namespace Skoruba.IdentityServer4.Services
             return clientDto;
         }
 
-        public virtual async Task<ClientsDto> GetClientsAsync(string search, int page = 1, int pageSize = 10)
-        {
-            var pagedList = await ClientRepository.GetClientsAsync(search, page, pageSize);
-            var clientsDto = pagedList.ToModel();
-
-            await AuditEventLogger.LogEventAsync(new ClientsRequestedEvent(clientsDto));
-
-            return clientsDto;
-        }
-
-        public virtual async Task<List<string>> GetScopesAsync(string scope, int limit = 0)
+         public virtual async Task<List<string>> GetScopesAsync(string scope, int limit = 0)
         {
             var scopes = await ClientRepository.GetScopesAsync(scope, limit);
 

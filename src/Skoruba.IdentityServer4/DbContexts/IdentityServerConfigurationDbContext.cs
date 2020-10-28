@@ -6,9 +6,9 @@ using Skoruba.EntityFramework.Interfaces;
 
 namespace Skoruba.EntityFramework.Shared.DbContexts
 {
-    public class IdentityServerConfigurationDbContext : ConfigurationDbContext<IdentityServerConfigurationDbContext>
+    public class ConfDbContext : ConfigurationDbContext<ConfDbContext>
     {
-        public IdentityServerConfigurationDbContext(DbContextOptions<IdentityServerConfigurationDbContext> options, ConfigurationStoreOptions storeOptions)
+        public ConfDbContext(DbContextOptions<ConfDbContext> options, ConfigurationStoreOptions storeOptions)
             : base(options, storeOptions)
         {
         }

@@ -38,5 +38,10 @@ namespace Skoruba.Core.Dtos.Common
             var list = pagedList.Select(selector);
             return new PagedList<TResult>(list,pagedList.PageSize,pagedList.TotalCount);
         }
+
+        static public IPagedList<T> ToPagedList<T>(this IEnumerable<T> list,int pageSize, int total)        
+        {
+            return new PagedList<T>(list,pageSize,total);
+        }
     }
 }
