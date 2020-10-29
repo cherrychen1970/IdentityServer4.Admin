@@ -3,9 +3,9 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Localization;
 using Microsoft.Extensions.Logging;
-using Skoruba.IdentityServer4.Dtos.Configuration;
-using Skoruba.IdentityServer4.Helpers;
-using Skoruba.IdentityServer4.Services.Interfaces;
+using Skoruba.IdentityServer4.Models;
+using Skoruba.IdentityServer4;
+using Skoruba.IdentityServer4.Services;
 using Skoruba.Admin.Configuration.Constants;
 using Skoruba.Admin.ExceptionHandling;
 

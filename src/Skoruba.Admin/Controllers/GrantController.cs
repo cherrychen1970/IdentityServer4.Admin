@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Localization;
 using Microsoft.Extensions.Logging;
-using Skoruba.AspNetIdentity.Dtos.Grant;
+using Skoruba.AspNetIdentity.Models.Grant;
 using Skoruba.AspNetIdentity.Services.Interfaces;
 using Skoruba.Admin.ExceptionHandling;
 using Skoruba.Admin.Helpers;

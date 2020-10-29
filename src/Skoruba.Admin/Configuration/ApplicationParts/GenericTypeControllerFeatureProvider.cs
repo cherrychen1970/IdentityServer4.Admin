@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ApplicationParts;
 using Microsoft.AspNetCore.Mvc.Controllers;
-using Skoruba.AspNetIdentity.Dtos;
+using Skoruba.AspNetIdentity.Models;
 
 namespace Skoruba.Admin.Configuration.ApplicationParts
 {

@@ -6,4 +6,9 @@ namespace Skoruba.Admin.EntityModels
     {
 
     }
+
+    public class AdminIdentityRole : IdentityRole<System.Guid>
+    {
+
+    }    
 }

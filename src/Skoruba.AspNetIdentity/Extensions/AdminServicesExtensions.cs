@@ -1,17 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using AutoMapper;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore;
-using Skoruba.AspNetIdentity.Dtos;
-using Skoruba.AspNetIdentity.Mappers.Configuration;
+
 using Skoruba.AspNetIdentity.Resources;
-using Skoruba.AspNetIdentity.Services;
-using Skoruba.AspNetIdentity.Services.Interfaces;
-using Skoruba.EntityFramework.Identity.Repositories;
-using Skoruba.EntityFramework.Identity.Repositories.Interfaces;
-using Skoruba.EntityFramework.Interfaces;
+using Skoruba.AspNetIdentity.EntityFramework.Repositories;
+using Skoruba.AspNetIdentity.EntityFramework.Mappers;
 
 namespace Microsoft.Extensions.DependencyInjection
 {
@@ -32,16 +25,13 @@ namespace Microsoft.Extensions.DependencyInjection
             return builder;
         }
 
-        public static IServiceCollection AddAspNetIdentityServices<TKey>( this IServiceCollection services, HashSet<Type> profileTypes)
+        public static IServiceCollection AddAspNetIdentityServices<TKey>( this IServiceCollection services)//, HashSet<Type> profileTypes)
             where TKey : IEquatable<TKey>
  
         {
             //Repositories
-            services.AddTransient<IIdentityRepository<TKey>>();
+            services.AddTransient<IdentityRepository<TKey>>();
             //services.AddTransient<IPersistedGrantAspNetIdentityRepository, PersistedGrantAspNetIdentityRepository<TKey>>();
-          
-            //Services
-            services.AddTransient<IIdentityService<TKey>>();            
             
             //Resources
             services.AddScoped<IIdentityServiceResources, IdentityServiceResources>();
@@ -50,7 +40,8 @@ namespace Microsoft.Extensions.DependencyInjection
             //Register mapping
             services.AddAspNetIdentityMapping()
                 .UseIdentityMappingProfile<TKey>()
-                .AddProfilesType(profileTypes);
+                //.AddProfilesType(profileTypes)
+                ;
 
             return services;
         }

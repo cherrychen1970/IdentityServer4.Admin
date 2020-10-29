@@ -1,6 +1,6 @@
-﻿using Skoruba.IdentityServer4.Admin.BusinessLogic.Identity.Dtos.Identity;
+﻿using Skoruba.IdentityServer4.Admin.BusinessLogic.Identity.Models.Identity;
 
-namespace SkorubaIdentityServer4Admin.Shared.Dtos
+namespace SkorubaIdentityServer4Admin.Shared.Models
 {
     public class IdentityUserChangePasswordDto : UserChangePasswordDto<string>
     {

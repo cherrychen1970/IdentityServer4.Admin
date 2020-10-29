@@ -2,7 +2,7 @@
 using Microsoft.Extensions.Logging;
 using System.Threading.Tasks;
 
-namespace Skoruba.IdentityServer4.Shared.Email
+namespace Skoruba.Email
 {
     public class LogEmailSender : IEmailSender
     {

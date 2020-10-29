@@ -1,13 +1,12 @@
 ﻿using System;
 using System.Reflection;
-using IdentityServer4.EntityFramework.Storage;
-using Microsoft.AspNetCore.DataProtection.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
-using Skoruba.AuditLogging.EntityFramework.DbContexts;
-using Skoruba.AuditLogging.EntityFramework.Entities;
-using Skoruba.EntityFramework.Interfaces;
-using Skoruba.EntityFramework.Shared.DbContexts;
+using Skoruba.AspNetIdentity.EntityFramework;
+using Skoruba.IdentityServer4.EntityFramework.DbContexts;
+
+using Skoruba.EntityFramework.DbContexts;
+
 
 namespace Skoruba.EntityFramework.PostgreSQL.Extensions
 {
@@ -23,13 +22,10 @@ namespace Skoruba.EntityFramework.PostgreSQL.Extensions
                 options.UseNpgsql(connectionString, sql => sql.MigrationsAssembly(migrationsAssembly)));
 
             // Config DB from existing connection
-            services.AddConfigurationDbContext<IdentityServerConfigurationDbContext>(options =>
-                options.ConfigureDbContext = b =>
-                    b.UseNpgsql(connectionString, sql => sql.MigrationsAssembly(migrationsAssembly)));
-
-            // Operational DB from existing connection
-            services.AddOperationalDbContext<IdentityServerPersistedGrantDbContext>(options => options.ConfigureDbContext = b =>
-                b.UseNpgsql(connectionString, sql => sql.MigrationsAssembly(migrationsAssembly)));
+            services.AddDbContext<ConfDbContext>(options =>
+                options.UseNpgsql(connectionString, b=>b.MigrationsAssembly(Assembly.GetExecutingAssembly().GetName().Name) ));      
+            services.AddDbContext<IdentityServerPersistedGrantDbContext>(options =>
+                options.UseNpgsql(connectionString, b=>b.MigrationsAssembly(Assembly.GetExecutingAssembly().GetName().Name) ));  
 
             // Log DB from existing connection
             services.AddDbContext<AdminLogDbContext>(options => options.UseNpgsql(connectionString,
@@ -38,10 +34,8 @@ namespace Skoruba.EntityFramework.PostgreSQL.Extensions
             // Audit logging connection
             services.AddDbContext<AdminAuditLogDbContext>(options => options.UseNpgsql(connectionString,
                 optionsSql => optionsSql.MigrationsAssembly(migrationsAssembly)));
-
-            // DataProtectionKey DB from existing connection
-            if (!string.IsNullOrEmpty(connectionString))
-                services.AddDbContext<IdentityServerDataProtectionDbContext>(options => options.UseNpgsql(connectionString, sql => sql.MigrationsAssembly(migrationsAssembly)));
+            
+            services.AddDbContext<DataProtectionDbContext>(options => options.UseNpgsql(connectionString, sql => sql.MigrationsAssembly(migrationsAssembly)));
         }
     }
 }

@@ -1,4 +1,4 @@
-﻿namespace Skoruba.IdentityServer4.Helpers
+﻿namespace Skoruba.Helpers
 {
     public static class ViewHelpers
     {

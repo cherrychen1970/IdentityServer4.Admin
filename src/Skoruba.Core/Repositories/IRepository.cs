@@ -3,28 +3,13 @@ using System.Threading.Tasks;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using System.Dynamic;
-using System.Collections.Generic;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using IdentityServer4.EntityFramework.DbContexts;
 //using Skoruba.AuditLogging.Services;
-using Skoruba.Core.Dtos.Common;
-
-
+using Skoruba.Models;
 using AutoMapper;
 
-namespace Skoruba.Core.Repositories
+namespace Skoruba.Repositories
 {
-
-    public static class Extension
-    {
-        public static T Map<T>(this object item, IMapper mapper)
-        {
-            return mapper.Map<T>(item);
-
-        }
-    }
     public interface IRepository<TModel, TKey>
     {
         bool AutoSaveChanges { get; set; }
@@ -35,6 +20,7 @@ namespace Skoruba.Core.Repositories
         Task<TModel> Update(TKey id, TModel model);
         Task<TModel> Patch(TKey id, IDictionary<string, object> model);
         Task<TModel> Delete(TKey id);
+        Task<TModel> Delete(TModel model);
     }
 
 
@@ -135,6 +121,14 @@ namespace Skoruba.Core.Repositories
             return model;
         }
 
+        virtual public async Task<TModel> Delete(TModel model)
+        {
+            var item = Mapper.Map<TEntity>(model);
+            DbContext.Set<TEntity>().Remove(item);
+            if (AutoSaveChanges)
+                DbContext.SaveChanges();
+            return model;
+        }
         public virtual async Task<int> SaveChangesAsync()
         {
             return await DbContext.SaveChangesAsync();

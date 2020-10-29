@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Skoruba.Core.ExceptionHandling
+namespace Skoruba.ExceptionHandling
 {
     public class UserFriendlyViewException : Exception
     {

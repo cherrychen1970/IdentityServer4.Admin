@@ -1,11 +1,10 @@
 ﻿using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
 using SendGrid;
-using Skoruba.IdentityServer4.Shared.Configuration.Email;
-using Skoruba.IdentityServer4.Shared.Email;
+using Skoruba.Configuration.Email;
+using Skoruba.Email;
 
-namespace Skoruba.IdentityServer4.Shared.Helpers
+namespace Microsoft.Extensions.DependencyInjection
 {
     public static class StartupHelpers
     {

@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using Newtonsoft.Json;
 
-namespace Skoruba.IdentityServer4.Helpers
+namespace Skoruba.Helpers
 {
 	public static class ComboBoxHelpers
 	{

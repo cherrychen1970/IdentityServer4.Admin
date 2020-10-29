@@ -1,4 +1,4 @@
-﻿using Skoruba.IdentityServer4.Helpers;
+﻿using Skoruba.Models;
 
 namespace Skoruba.IdentityServer4.Resources
 {

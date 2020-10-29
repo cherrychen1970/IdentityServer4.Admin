@@ -1,4 +1,4 @@
-﻿namespace Skoruba.IdentityServer4.Shared.Configuration.Identity
+﻿namespace Skoruba.Configuration.Identity
 {
     public class LoginConfiguration
     {

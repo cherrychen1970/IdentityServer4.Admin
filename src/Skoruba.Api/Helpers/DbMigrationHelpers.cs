@@ -1,16 +1,7 @@
 ﻿using System;
 using System.Linq;
-using System.Threading.Tasks;
-using IdentityModel;
-using IdentityServer4.EntityFramework.Mappers;
-
-using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
-using Skoruba.AuditLogging.EntityFramework.DbContexts;
-using Skoruba.AuditLogging.EntityFramework.Entities;
-using Skoruba.EntityFramework.Interfaces;
 
 namespace Skoruba.Admin.Api.Helpers
 {

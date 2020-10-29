@@ -2,7 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using Skoruba.IdentityServer4.Admin.EntityFramework.Helpers;
 
-namespace SkorubaIdentityServer4Admin.Admin.Api.Dtos.Clients
+namespace SkorubaIdentityServer4Admin.Admin.Api.Models.Clients
 {
     public class ClientSecretApiDto
     {

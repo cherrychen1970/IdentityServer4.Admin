@@ -19,8 +19,8 @@ using SkorubaIdentityServer4Admin.Admin.Api.Mappers;
 using SkorubaIdentityServer4Admin.Admin.Api.Resources;
 using SkorubaIdentityServer4Admin.Admin.EntityFramework.Shared.DbContexts;
 using SkorubaIdentityServer4Admin.Admin.EntityFramework.Shared.Entities.Identity;
-using SkorubaIdentityServer4Admin.Shared.Dtos;
-using SkorubaIdentityServer4Admin.Shared.Dtos.Identity;
+using SkorubaIdentityServer4Admin.Shared.Models;
+using SkorubaIdentityServer4Admin.Shared.Models.Identity;
 using SkorubaIdentityServer4Admin.Shared.Helpers;
 
 namespace SkorubaIdentityServer4Admin.Admin.Api

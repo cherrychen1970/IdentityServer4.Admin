@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SkorubaIdentityServer4Admin.Admin.Api.Configuration.Constants;
-using SkorubaIdentityServer4Admin.Admin.Api.Dtos.PersistedGrants;
+using SkorubaIdentityServer4Admin.Admin.Api.Models.PersistedGrants;
 using SkorubaIdentityServer4Admin.Admin.Api.ExceptionHandling;
 using SkorubaIdentityServer4Admin.Admin.Api.Helpers;
 using SkorubaIdentityServer4Admin.Admin.Api.Mappers;

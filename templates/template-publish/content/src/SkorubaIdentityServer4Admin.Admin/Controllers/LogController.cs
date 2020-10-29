@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using Skoruba.IdentityServer4.Admin.BusinessLogic.Dtos.Log;
+using Skoruba.IdentityServer4.Admin.BusinessLogic.Models.Log;
 using Skoruba.IdentityServer4.Admin.BusinessLogic.Services.Interfaces;
 using SkorubaIdentityServer4Admin.Admin.Configuration.Constants;
 

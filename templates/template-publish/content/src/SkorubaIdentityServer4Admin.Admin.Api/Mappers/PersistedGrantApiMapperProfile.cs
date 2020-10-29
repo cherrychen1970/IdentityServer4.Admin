@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
-using SkorubaIdentityServer4Admin.Admin.Api.Dtos.PersistedGrants;
-using Skoruba.IdentityServer4.Admin.BusinessLogic.Dtos.Grant;
+using SkorubaIdentityServer4Admin.Admin.Api.Models.PersistedGrants;
+using Skoruba.IdentityServer4.Admin.BusinessLogic.Models.Grant;
 
 namespace SkorubaIdentityServer4Admin.Admin.Api.Mappers
 {

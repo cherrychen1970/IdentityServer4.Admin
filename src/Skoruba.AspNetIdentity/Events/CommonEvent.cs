@@ -3,7 +3,7 @@ using Skoruba.AuditLogging.Events;
 using System.Reflection;
 using System.Runtime.CompilerServices;
 
-namespace Skoruba.Core.Events
+namespace Skoruba.Events
 {
     public class CommonEvent : AuditEvent
     {        

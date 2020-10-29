@@ -9,12 +9,12 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using SkorubaIdentityServer4Admin.Admin.Api.Configuration.Constants;
-using SkorubaIdentityServer4Admin.Admin.Api.Dtos.Roles;
-using SkorubaIdentityServer4Admin.Admin.Api.Dtos.Users;
+using SkorubaIdentityServer4Admin.Admin.Api.Models.Roles;
+using SkorubaIdentityServer4Admin.Admin.Api.Models.Users;
 using SkorubaIdentityServer4Admin.Admin.Api.ExceptionHandling;
 using SkorubaIdentityServer4Admin.Admin.Api.Helpers.Localization;
 using SkorubaIdentityServer4Admin.Admin.Api.Resources;
-using Skoruba.IdentityServer4.Admin.BusinessLogic.Identity.Dtos.Identity;
+using Skoruba.IdentityServer4.Admin.BusinessLogic.Identity.Models.Identity;
 using Skoruba.IdentityServer4.Admin.BusinessLogic.Identity.Services.Interfaces;
 
 namespace SkorubaIdentityServer4Admin.Admin.Api.Controllers

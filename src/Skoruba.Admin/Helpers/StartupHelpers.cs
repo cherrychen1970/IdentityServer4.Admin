@@ -24,33 +24,30 @@ using Skoruba.AuditLogging.EntityFramework.Entities;
 using Skoruba.AuditLogging.EntityFramework.Extensions;
 using Skoruba.AuditLogging.EntityFramework.Repositories;
 using Skoruba.AuditLogging.EntityFramework.Services;
-using Skoruba.AspNetIdentity.Dtos;
+using Skoruba.AspNetIdentity.Models;
 using Skoruba.IdentityServer4.Services;
-using Skoruba.IdentityServer4.Services.Interfaces;
 using Skoruba.Admin.ExceptionHandling;
 using Skoruba.Admin.Configuration;
 using Skoruba.Admin.Configuration.ApplicationParts;
 using Skoruba.Admin.Configuration.Constants;
 using Skoruba.Admin.Configuration.Interfaces;
-using Skoruba.EntityFramework.Interfaces;
-using Skoruba.EntityFramework.Repositories;
-using Skoruba.EntityFramework.Repositories.Interfaces;
 using Skoruba.Admin.Helpers.Localization;
 using System.Linq;
 using Skoruba.EntityFramework.Shared.Configuration;
 using Skoruba.EntityFramework.PostgreSQL.Extensions;
-using Skoruba.EntityFramework.Helpers;
+using Skoruba.Helpers;
 using Microsoft.AspNetCore.DataProtection.EntityFrameworkCore;
-using Skoruba.IdentityServer4.Shared.Authentication;
-using Skoruba.IdentityServer4.Shared.Configuration.Identity;
+using Skoruba.IdentityServer4.EntityFramework.DbContexts;
+using Skoruba.IdentityServer4.EntityFramework.Entities;
+
+using Skoruba.Admin.EntityModels;
+
 
 namespace Skoruba.Admin.Helpers
 {
     public static class StartupHelpers
     {
-        public static IServiceCollection AddAuditEventLogging<TAuditLoggingDbContext, TAuditLog>(this IServiceCollection services, IConfiguration configuration)
-            where TAuditLog : AuditLog, new()
-            where TAuditLoggingDbContext : IAuditLoggingDbContext<TAuditLog>
+        public static IServiceCollection AddAuditEventLogging(this IServiceCollection services, IConfiguration configuration)            
         {
             var auditLoggingConfiguration = configuration.GetSection(nameof(AuditLoggingConfiguration)).Get<AuditLoggingConfiguration>();
 
@@ -64,15 +61,13 @@ namespace Skoruba.Admin.Helpers
                     {
                         actionOptions.IncludeFormVariables = auditLoggingConfiguration.IncludeFormVariables;
                     })
-                .AddAuditSinks<DatabaseAuditEventLoggerSink<TAuditLog>>();
+                .AddAuditSinks<DatabaseAuditEventLoggerSink<AuditLog>>();
 
             // repository for library
-            services.AddTransient<IAuditLoggingRepository<TAuditLog>, AuditLoggingRepository<TAuditLoggingDbContext, TAuditLog>>();
+            services.AddTransient<IAuditLoggingRepository<AuditLog>, AuditLoggingRepository<AuditLoggingDbContext<AuditLog>, AuditLog>>();
 
             // repository and service for admin
-            services.AddTransient<IAuditLogRepository<TAuditLog>, AuditLogRepository<TAuditLog>>();
-            services.AddTransient<IAuditLogService, AuditLogService<TAuditLog>>();
-
+            services.AddTransient<AdminAuditLogDbContext>();            
             return services;
         }
 
@@ -264,7 +259,7 @@ namespace Skoruba.Admin.Helpers
             });
 
             services
-                .AddIdentity<EntityModels.AdminIdentityUser>(options => configuration.GetSection(nameof(IdentityOptions)).Bind(options))
+                .AddIdentity<AdminIdentityUser,AdminIdentityRole>(options => configuration.GetSection(nameof(IdentityOptions)).Bind(options))
                 .AddEntityFrameworkStores<EntityModels.AdminIdentityDbContext>()
                 .AddDefaultTokenProviders();
 

@@ -8,18 +8,18 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Skoruba.AuditLogging.EntityFramework.Entities;
-using Skoruba.AspNetIdentity.Dtos;
+
 using Skoruba.Admin.Configuration.Interfaces;
-using Skoruba.EntityFramework.Shared.DbContexts;
-using Skoruba.EntityFramework.Entities.Identity;
 using Skoruba.Admin.Helpers;
 using Skoruba.Admin.Configuration;
 using Skoruba.Admin.Configuration.Constants;
 using System;
 using Microsoft.AspNetCore.DataProtection;
-using Skoruba.IdentityServer4.Shared.Dtos;
-using Skoruba.IdentityServer4.Shared.Dtos.Identity;
-using Skoruba.IdentityServer4.Shared.Helpers;
+
+using Skoruba.Helpers;
+using Skoruba.IdentityServer4.EntityFramework.DbContexts;
+using Skoruba.AspNetIdentity.EntityFramework;
+using Skoruba.EntityFramework.DbContexts;
 
 namespace Skoruba.Admin
 {
@@ -47,7 +47,7 @@ namespace Skoruba.Admin
             // Save data protection keys to db, using a common application name shared between Admin and STS
             services.AddDataProtection()
                 .SetApplicationName("Skoruba.IdentityServer4")
-                .PersistKeysToDbContext<IdentityServerDataProtectionDbContext>();
+                .PersistKeysToDbContext<DataProtectionDbContext>();
 
             // Add email senders which is currently setup for SendGrid and SMTP
             services.AddEmailSenders(Configuration);
@@ -59,17 +59,15 @@ namespace Skoruba.Admin
             RegisterHstsOptions(services);
 
             services.AddMvcExceptionFilters();
-            services.AddAdminServices<IdentityServerConfigurationDbContext, IdentityServerPersistedGrantDbContext, AdminLogDbContext>();
-            services.AddAdminAspNetIdentityServices<string>();
+            services.AddAdminServices();
+            services.AddAspNetIdentityServices<Guid>();
             services.AddMvcWithLocalization(Configuration);
 
             // Add authorization policies for MVC
             RegisterAuthorization(services);
 
             // Add audit logging
-            services.AddAuditEventLogging<AdminAuditLogDbContext, AuditLog>(Configuration);
-
-            services.AddIdSHealthChecks<IdentityServerConfigurationDbContext, IdentityServerPersistedGrantDbContext, AdminIdentityDbContext, AdminLogDbContext, AdminAuditLogDbContext, IdentityServerDataProtectionDbContext>(Configuration, rootConfiguration.AdminConfiguration);
+            services.AddAuditEventLogging(Configuration);            
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILoggerFactory loggerFactory)
@@ -118,7 +116,7 @@ namespace Skoruba.Admin
         public virtual void RegisterAuthentication(IServiceCollection services)
         {
             var rootConfiguration = CreateRootConfiguration();
-            services.AddAuthenticationServices<string>(Configuration);
+            services.AddAuthenticationServices(Configuration);
         }
 
         public virtual void RegisterAuthorization(IServiceCollection services)

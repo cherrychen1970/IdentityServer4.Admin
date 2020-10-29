@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore;
 using IdentityServer4.EntityFramework.DbContexts;
 using Skoruba.Core.Repositories;
 using Skoruba.IdentityServer4.Repositories;
-using Skoruba.IdentityServer4.Dtos.Configuration;
+using Skoruba.IdentityServer4.Models.Configuration;
 
 namespace Skoruba.Admin.Controllers
 {

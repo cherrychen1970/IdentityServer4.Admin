@@ -1,11 +1,11 @@
 ﻿using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.Extensions.Logging;
-using Skoruba.IdentityServer4.Shared.Configuration.Email;
+using Skoruba.Configuration.Email;
 using System;
 using System.Net.Mail;
 using System.Threading.Tasks;
 
-namespace Skoruba.IdentityServer4.Shared.Email
+namespace Skoruba.Email
 {
     public class SmtpEmailSender : IEmailSender
     {

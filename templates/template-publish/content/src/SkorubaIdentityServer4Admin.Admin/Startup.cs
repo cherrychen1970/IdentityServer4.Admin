@@ -8,7 +8,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Skoruba.AuditLogging.EntityFramework.Entities;
-using Skoruba.IdentityServer4.Admin.BusinessLogic.Identity.Dtos.Identity;
+using Skoruba.IdentityServer4.Admin.BusinessLogic.Identity.Models.Identity;
 using SkorubaIdentityServer4Admin.Admin.Configuration.Interfaces;
 using SkorubaIdentityServer4Admin.Admin.EntityFramework.Shared.DbContexts;
 using SkorubaIdentityServer4Admin.Admin.EntityFramework.Shared.Entities.Identity;
@@ -17,8 +17,8 @@ using SkorubaIdentityServer4Admin.Admin.Configuration;
 using SkorubaIdentityServer4Admin.Admin.Configuration.Constants;
 using System;
 using Microsoft.AspNetCore.DataProtection;
-using SkorubaIdentityServer4Admin.Shared.Dtos;
-using SkorubaIdentityServer4Admin.Shared.Dtos.Identity;
+using SkorubaIdentityServer4Admin.Shared.Models;
+using SkorubaIdentityServer4Admin.Shared.Models.Identity;
 using SkorubaIdentityServer4Admin.Shared.Helpers;
 
 namespace SkorubaIdentityServer4Admin.Admin

@@ -20,6 +20,8 @@
   </ItemGroup>
 	<ItemGroup>
 		<ProjectReference Include="..\Skoruba.Core\Skoruba.Core.csproj" />
+		<ProjectReference Include="..\Skoruba.IdentityServer4\Skoruba.IdentityServer4.csproj" />
+		<ProjectReference Include="..\Skoruba.AspNetIdentity\Skoruba.AspNetIdentity.csproj" />
 	</ItemGroup>  
 </Project>
 

@@ -20,7 +20,7 @@ using SkorubaIdentityServer4Admin.Admin.Api.Configuration;
 using SkorubaIdentityServer4Admin.Admin.Api.Configuration.ApplicationParts;
 using SkorubaIdentityServer4Admin.Admin.Api.Configuration.Constants;
 using SkorubaIdentityServer4Admin.Admin.Api.Helpers.Localization;
-using Skoruba.IdentityServer4.Admin.BusinessLogic.Identity.Dtos.Identity;
+using Skoruba.IdentityServer4.Admin.BusinessLogic.Identity.Models.Identity;
 using Skoruba.IdentityServer4.Admin.EntityFramework.Helpers;
 using Skoruba.IdentityServer4.Admin.EntityFramework.Interfaces;
 using SkorubaIdentityServer4Admin.Admin.EntityFramework.MySql.Extensions;

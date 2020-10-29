@@ -1,4 +1,4 @@
-﻿namespace Skoruba.Core.Helpers
+﻿namespace Skoruba.Helpers
 {
     public enum SavedStatus
     {

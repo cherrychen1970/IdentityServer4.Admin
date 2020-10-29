@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace SkorubaIdentityServer4Admin.Admin.Api.Dtos.Roles
+namespace SkorubaIdentityServer4Admin.Admin.Api.Models.Roles
 {
     public class RoleClaimApiDto<TKey>
     {

@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Localization;
 using Microsoft.Extensions.Logging;
-using Skoruba.IdentityServer4.Admin.BusinessLogic.Identity.Dtos.Grant;
+using Skoruba.IdentityServer4.Admin.BusinessLogic.Identity.Models.Grant;
 using Skoruba.IdentityServer4.Admin.BusinessLogic.Identity.Services.Interfaces;
 using SkorubaIdentityServer4Admin.Admin.ExceptionHandling;
 using SkorubaIdentityServer4Admin.Admin.Helpers;

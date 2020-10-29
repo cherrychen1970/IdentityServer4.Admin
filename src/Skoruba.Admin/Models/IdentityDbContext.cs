@@ -1,9 +1,6 @@
 using System;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using Skoruba.EntityFramework.Shared.Constants;
-using Skoruba.EntityFramework.Shared.DbContexts;
+using Skoruba.AspNetIdentity.EntityFramework;
 
 namespace Skoruba.Admin.EntityModels
 {

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Skoruba.Core.ExceptionHandling
+namespace Skoruba.ExceptionHandling
 {
     public class UserFriendlyErrorPageException : Exception
     {
