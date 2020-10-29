@@ -2,4 +2,18 @@
 
 https://localhost:9000/api/clients
 Authorization: Bearer {{token}}
+###
 
+https://localhost:9000/api/users
+Authorization: Bearer {{token}}
+
+###
+POST https://localhost:9000/api/users
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+            {
+                "UserName":"admin",
+                "Email":"admin@docker",
+                "EmailConfirmed":true
+            };

@@ -10,18 +10,17 @@ using Skoruba.IdentityServer4.EntityFramework.DbContexts;
 using Skoruba.EntityFramework.DbContexts;
 
 
-namespace Skoruba.EntityFramework.PostgreSQL.Extensions
+namespace Skoruba.Admin.Api
 {
     public static class DatabaseExtensions
     {
-        public static void RegisterNpgSqlDbContexts<TKey>(this IServiceCollection services, string connectionString)
-            where TKey : IEquatable<TKey>
+        public static void AddNpgSqlDbContexts(this IServiceCollection services, string connectionString)
         {
             //var migrationsAssembly = typeof(DatabaseExtensions).GetTypeInfo().Assembly.GetName().Name;
             var migrationsAssembly = Assembly.GetCallingAssembly().GetName().Name;
 
             // Config DB for identity
-            services.AddDbContext<AdminIdentityDbContext<TKey>>(options =>
+            services.AddDbContext<AdminIdentityDbContext>(options =>
                 options.UseNpgsql(connectionString, sql => sql.MigrationsAssembly(migrationsAssembly)));
 
             // Config DB from existing connection

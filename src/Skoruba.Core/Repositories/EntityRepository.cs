@@ -11,7 +11,7 @@ using AutoMapper;
 
 namespace Skoruba.Repositories
 {
-    abstract public class EntityRepository<TDbContext, TEntity, TKey> : IRepository<TEntity, TKey>
+    public class EntityRepository<TDbContext, TEntity, TKey> : IRepository<TEntity, TKey>
         where TDbContext : DbContext
         where TEntity : class        
     {
@@ -31,7 +31,7 @@ namespace Skoruba.Repositories
             //AuditEventLogger = auditEventLogger;
         }
 
-        virtual async protected Task<TEntity> FindAsync(TKey id)
+        virtual async public Task<TEntity> FindAsync(TKey id)
              => await DbContext.Set<TEntity>().FindAsync(id);//.Map<TEntity>(_mapper);
 
         virtual protected IQueryable<TEntity> OnSelect(DbSet<TEntity> set)

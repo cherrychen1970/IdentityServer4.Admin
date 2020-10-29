@@ -17,17 +17,18 @@ using Skoruba.AspNetIdentity.EntityFramework;
 
 namespace Skoruba.AspNetIdentity.EntityFramework.Repositories
 {
-    public class IdentityRepository<TKey>        
+    public class IdentityRepository<TDbContext,TKey>   
+        where TDbContext : AdminIdentityDbContext<TKey>     
         where TKey : IEquatable<TKey>
     {
-        protected readonly AdminIdentityDbContext<TKey> DbContext;
+        protected readonly TDbContext DbContext;
         protected readonly UserManager<IdentityUser<TKey>> UserManager;
         protected readonly RoleManager<IdentityRole<TKey>> RoleManager;
         protected readonly IMapper Mapper;
 
         public bool AutoSaveChanges { get; set; } = true;
 
-        public IdentityRepository(AdminIdentityDbContext<TKey> dbContext,
+        public IdentityRepository(TDbContext dbContext,
             UserManager<IdentityUser<TKey>> userManager,
             RoleManager<IdentityRole<TKey>> roleManager,
             IMapper mapper)

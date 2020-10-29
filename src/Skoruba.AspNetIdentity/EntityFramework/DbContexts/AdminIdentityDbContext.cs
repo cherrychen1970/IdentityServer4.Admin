@@ -15,10 +15,13 @@ namespace Skoruba.AspNetIdentity.EntityFramework
         {
         }
     }
-    public class AdminIdentityDbContext<TKey> : IdentityDbContext<IdentityUser<TKey>,TKey>
+    public class AdminIdentityDbContext<TKey> : IdentityDbContext<IdentityUser<TKey>, TKey>
                 where TKey : IEquatable<TKey>
     {
         public AdminIdentityDbContext(DbContextOptions options) : base(options)
+        {
+        }
+        public AdminIdentityDbContext(DbContextOptions<AdminIdentityDbContext<TKey>> options) : base(options)
         {
         }
 
@@ -38,6 +41,13 @@ namespace Skoruba.AspNetIdentity.EntityFramework
             builder.Entity<IdentityUserLogin<TKey>>().ToTable(TableConsts.IdentityUserLogins);
             builder.Entity<IdentityUserClaim<TKey>>().ToTable(TableConsts.IdentityUserClaims);
             builder.Entity<IdentityUserToken<TKey>>().ToTable(TableConsts.IdentityUserTokens);
+        }
+    }
+
+    public class AdminIdentityDbContext : AdminIdentityDbContext<string>
+    {
+        public AdminIdentityDbContext(DbContextOptions<AdminIdentityDbContext> options) : base(options)
+        {
         }
     }
 }

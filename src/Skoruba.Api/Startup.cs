@@ -7,9 +7,10 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using AutoMapper;    
+using AutoMapper;
 
 using Skoruba.IdentityServer4.EntityFramework.DbContexts;
+using Skoruba.AspNetIdentity.EntityFramework;
 using Skoruba.EntityFramework.DbContexts;
 
 using Skoruba.Admin.Api.Configuration;
@@ -35,7 +36,7 @@ namespace Skoruba.Admin.Api
             var adminApiConfiguration = Configuration.GetSection(nameof(AdminApiConfiguration)).Get<AdminApiConfiguration>();
             services.AddSingleton(adminApiConfiguration);
             services.AddAutoMapper(typeof(IdentityServer4.Marker), typeof(AspNetIdentity.Marker));
-            services.AddAdminDbContexts<string>(Configuration["ConnectionStrings:IdentityConnection"]);
+            services.AddNpgSqlDbContexts(Configuration["ConnectionStrings:IdentityConnection"]);
             services.AddDataProtection()
                 .SetApplicationName("Skoruba.IdentityServer4")
                 .PersistKeysToDbContext<DataProtectionDbContext>();
@@ -46,11 +47,11 @@ namespace Skoruba.Admin.Api
             services.AddApiAuthentication<string>(Configuration);
 
             services.AddAuthorizationPolicies();
-            services.AddAspNetIdentityServices<string>();
+            services.AddAspNetIdentityServices<AdminIdentityDbContext,string>();
             services.AddAdminServices();
             services.AddAdminApiCors(adminApiConfiguration);
             services.AddMvcServices();
-            
+
             // CHERRY TESTING
             //services.AddAuditEventLogging(Configuration);
         }
@@ -63,7 +64,7 @@ namespace Skoruba.Admin.Api
             {
                 app.UseDeveloperExceptionPage();
             }
-            //Migrate(provider);
+            Migrate(provider);
             app.UseRouting();
             //app.UseAuthentication();
             app.UseCors();
@@ -76,9 +77,13 @@ namespace Skoruba.Admin.Api
 
         public virtual void Migrate(IServiceProvider provider)
         {
+            provider.EnsureDatabasesMigrate<AdminIdentityDbContext>();
+            provider.EnsureDatabasesMigrate<AdminConfigurationDbContext>();
+            provider.EnsureDatabasesMigrate<AdminPersistedGrantDbContext>();
             provider.EnsureDatabasesMigrate<AdminLogDbContext>();
             provider.EnsureDatabasesMigrate<AdminAuditLogDbContext>();
             provider.EnsureDatabasesMigrate<DataProtectionDbContext>();
+
         }
     }
 }

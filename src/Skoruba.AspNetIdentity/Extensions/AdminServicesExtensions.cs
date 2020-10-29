@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using AutoMapper;
 
+using Skoruba.AspNetIdentity.EntityFramework;
 using Skoruba.AspNetIdentity.Resources;
 using Skoruba.AspNetIdentity.EntityFramework.Repositories;
 using Skoruba.AspNetIdentity.EntityFramework.Mappers;
@@ -25,12 +26,13 @@ namespace Microsoft.Extensions.DependencyInjection
             return builder;
         }
 
-        public static IServiceCollection AddAspNetIdentityServices<TKey>( this IServiceCollection services)//, HashSet<Type> profileTypes)
+        public static IServiceCollection AddAspNetIdentityServices<TDbContext,TKey>( this IServiceCollection services)//, HashSet<Type> profileTypes)
+            where TDbContext : AdminIdentityDbContext<TKey>
             where TKey : IEquatable<TKey>
  
         {
             //Repositories
-            services.AddTransient<IdentityRepository<TKey>>();
+            services.AddTransient<IdentityRepository<TDbContext,TKey>>();
             //services.AddTransient<IPersistedGrantAspNetIdentityRepository, PersistedGrantAspNetIdentityRepository<TKey>>();
             
             //Resources

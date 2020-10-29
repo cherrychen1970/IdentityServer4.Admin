@@ -19,7 +19,7 @@ namespace Skoruba.Models
             return Enum.GetName( typeof(T),val);
         }		
 
-        static public IPagedList<TResult> Select<TSource,TResult>(this IPagedList<TSource> pagedList, Func<TSource, TResult> selector)        
+        static public IPagedList<TResult> Select_notused<TSource,TResult>(this IPagedList<TSource> pagedList, Func<TSource, TResult> selector)        
         {
             var list = pagedList.Select(selector);
             return new PagedList<TResult>(list,pagedList.PageSize,pagedList.TotalCount);

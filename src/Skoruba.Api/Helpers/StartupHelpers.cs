@@ -108,7 +108,7 @@ namespace Skoruba.Admin.Api.Helpers
 
             services
                 .AddIdentity<IdentityUser<TKey>, IdentityRole<TKey>>(options => configuration.GetSection(nameof(IdentityOptions)).Bind(options))
-                .AddEntityFrameworkStores<AdminIdentityDbContext<TKey>>()
+                .AddEntityFrameworkStores<AdminIdentityDbContext>()
                 .AddDefaultTokenProviders();
 
             services.AddAuthentication(options =>
