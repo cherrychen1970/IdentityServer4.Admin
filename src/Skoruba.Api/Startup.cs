@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using AutoMapper;    
 
 using Skoruba.IdentityServer4.EntityFramework.DbContexts;
 using Skoruba.EntityFramework.DbContexts;
@@ -15,6 +16,7 @@ using Skoruba.Admin.Api.Configuration;
 using Skoruba.Admin.Api.ExceptionHandling;
 using Skoruba.Admin.Api.Helpers;
 using Skoruba.Admin.Api.Resources;
+
 
 
 namespace Skoruba.Admin.Api
@@ -32,7 +34,8 @@ namespace Skoruba.Admin.Api
         {
             var adminApiConfiguration = Configuration.GetSection(nameof(AdminApiConfiguration)).Get<AdminApiConfiguration>();
             services.AddSingleton(adminApiConfiguration);
-            services.AddAdminDbContexts<Guid>("ConnectionStrings:IdentityConnection");
+            services.AddAutoMapper(typeof(IdentityServer4.Marker), typeof(AspNetIdentity.Marker));
+            services.AddAdminDbContexts<string>(Configuration["ConnectionStrings:IdentityConnection"]);
             services.AddDataProtection()
                 .SetApplicationName("Skoruba.IdentityServer4")
                 .PersistKeysToDbContext<DataProtectionDbContext>();
@@ -40,13 +43,14 @@ namespace Skoruba.Admin.Api
             services.AddEmailSenders(Configuration);
             services.AddScoped<ControllerExceptionFilterAttribute>();
             services.AddScoped<IApiErrorResources, ApiErrorResources>();
-            services.AddApiAuthentication(Configuration);
+            services.AddApiAuthentication<string>(Configuration);
 
             services.AddAuthorizationPolicies();
-            services.AddAspNetIdentityServices<Guid>();
+            services.AddAspNetIdentityServices<string>();
             services.AddAdminServices();
             services.AddAdminApiCors(adminApiConfiguration);
             services.AddMvcServices();
+            
             // CHERRY TESTING
             //services.AddAuditEventLogging(Configuration);
         }
@@ -59,18 +63,14 @@ namespace Skoruba.Admin.Api
             {
                 app.UseDeveloperExceptionPage();
             }
-            Migrate(provider);
+            //Migrate(provider);
             app.UseRouting();
-            app.UseAuthentication();
+            //app.UseAuthentication();
             app.UseCors();
-            app.UseAuthorization();
+            //app.UseAuthorization();
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapDefaultControllerRoute();
-                endpoints.MapHealthChecks("/health", new HealthCheckOptions
-                {
-                    ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse
-                });
             });
         }
 

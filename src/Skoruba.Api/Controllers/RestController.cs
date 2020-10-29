@@ -19,11 +19,19 @@ namespace Skoruba.Admin.Api.Controllers
             _repository = repository;
         }
 
-        [HttpGet]
-        public async Task<IActionResult> Get(int id, int? page)
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetOne(int id)
         {
             if (id == 0) return NotFound();
-            var result = await _repository.GetMany(id, page ?? 1);
+            var result = await _repository.GetOne(id);
+            return Ok();
+        }
+
+
+        [HttpGet]
+        public async Task<IActionResult> GetMany(int? page)
+        {            
+            var result = await _repository.GetMany();
             return Ok(result);
         }
 
@@ -35,15 +43,16 @@ namespace Skoruba.Admin.Api.Controllers
             return Ok(model);            
         }
 
-        [HttpGet]
+        [HttpDelete]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Delete(int id)
         {
             if (id == 0) return NotFound();
-            var model = await _repository.GetOne(id);
+            var model = await _repository.Delete(id);
             return Ok(model);
         }
 
-        [HttpPost]
+        [HttpDelete]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Delete(TModel model)
         {

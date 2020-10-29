@@ -8,48 +8,53 @@ using Skoruba.Repositories;
 using Skoruba.IdentityServer4.Models;
 using Skoruba.IdentityServer4.EntityFramework.DbContexts;
 using ApiResource = IdentityServer4.EntityFramework.Entities.ApiResource;
-
+using Microsoft.Extensions.Logging;
 
 namespace Skoruba.IdentityServer4.EntityFramework.Repositories
 {
     public class ApiResourcePropertyRepository
-  : Repository<ConfDbContext, ApiResourceProperty, ApiResourcePropertyDto, int>
+  : Repository<AdminConfigurationDbContext, ApiResourceProperty, ApiResourcePropertyDto, int>
     {
-        public ApiResourcePropertyRepository(ConfDbContext dbContext, IMapper mapper) : base(dbContext, mapper)
+        public ApiResourcePropertyRepository(AdminConfigurationDbContext dbContext, IMapper mapper, ILogger<ApiResourceRepository> logger) 
+            : base(dbContext, mapper,logger)
         {
         }
     }
     public class ApiResourceRepository
-    : Repository<ConfDbContext, ApiResource, ApiResourceDto, int>
+    : Repository<AdminConfigurationDbContext, ApiResource, ApiResourceDto, int>
     {
-        public ApiResourceRepository(ConfDbContext dbContext, IMapper mapper) : base(dbContext, mapper)
+        public ApiResourceRepository(AdminConfigurationDbContext dbContext, IMapper mapper, ILogger<ApiResourceRepository> logger) 
+        : base(dbContext, mapper,logger)
         {}
         override protected IQueryable<ApiResource> OnSelect(DbSet<ApiResource> set)
         => set.Include(x => x.UserClaims);
     }
         
     public class ApiScopeRepository
-    : Repository<ConfDbContext, ApiScope, ApiScopeDto, int>
+    : Repository<AdminConfigurationDbContext, ApiScope, ApiScopeDto, int>
     {
-        public ApiScopeRepository(ConfDbContext dbContext, IMapper mapper) : base(dbContext, mapper)
+        public ApiScopeRepository(AdminConfigurationDbContext dbContext, IMapper mapper,ILogger<ApiScopeRepository> logger) 
+        : base(dbContext, mapper,logger)
         {}
         override protected IQueryable<ApiScope> OnSelect(DbSet<ApiScope> set)
         => set.Include(x => x.UserClaims);
     }
 
     public class ApiSecretRepository
-    : Repository<ConfDbContext, ApiSecret, ApiSecretDto, int>
+    : Repository<AdminConfigurationDbContext, ApiSecret, ApiSecretDto, int>
     {
-        public ApiSecretRepository(ConfDbContext dbContext, IMapper mapper) : base(dbContext, mapper)
+        public ApiSecretRepository(AdminConfigurationDbContext dbContext, IMapper mapper,ILogger<ApiSecretRepository> logger)  
+        : base(dbContext, mapper,logger)
         {}
         override protected IQueryable<ApiSecret> OnSelect(DbSet<ApiSecret> set)
         => set;
     }
 
     public class ApiScopeClaimRepository
-    : Repository<ConfDbContext, ApiScopeClaim, ApiScopeClaim, int>
+    : Repository<AdminConfigurationDbContext, ApiScopeClaim, ApiScopeClaim, int>
     {
-        public ApiScopeClaimRepository(ConfDbContext dbContext, IMapper mapper) : base(dbContext, mapper)
+        public ApiScopeClaimRepository(AdminConfigurationDbContext dbContext, IMapper mapper,ILogger<ApiScopeClaimRepository> logger) 
+         : base(dbContext, mapper,logger)
         {}
         override protected IQueryable<ApiScopeClaim> OnSelect(DbSet<ApiScopeClaim> set)
         => set;

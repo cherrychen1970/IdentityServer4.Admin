@@ -1,12 +1,16 @@
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using IdentityServer4.EntityFramework.Entities;
 using Skoruba.IdentityServer4.EntityFramework.Repositories;
+
 using Skoruba.IdentityServer4.Models;
 
 namespace Skoruba.Admin.Api.Controllers
 {
-    public class ClientController: RestController<ClientRepository, ClientDto>
+    [Route("api/[controller]")]    
+    public class ClientsController: RestController<ClientRepository, Client>
     {
-        public ClientController(ClientRepository repository,ILogger<BaseController> logger)
+        public ClientsController(ClientRepository repository,ILogger<BaseController> logger)
         :base(repository, logger)
         {
         }

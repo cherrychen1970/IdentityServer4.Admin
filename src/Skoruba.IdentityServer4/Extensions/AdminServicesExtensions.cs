@@ -11,21 +11,17 @@ namespace Microsoft.Extensions.DependencyInjection
 {
     public static class AdminServicesExtensions
     {
-        public static IServiceCollection AddAdminDbContexts(this IServiceCollection services)
-        {
-            return services;
-        }
         public static IServiceCollection AddAdminServices(this IServiceCollection services)
         {
             // TODO : add more repository
             //Repositories
-            services.AddTransient<ClientRepository>();
-            services.AddTransient<ApiResourceRepository>();
+            services.AddScoped<ClientRepository>();
+            services.AddScoped<ApiResourceRepository>();
             // TODO : use factory
-            services.AddScoped<Repository<ConfDbContext, IdentityResource, IdentityResourceDto,int>>();
+            //services.AddScoped<Repository<AdminConfigurationDbContext, IdentityResource, IdentityResourceDto,int>>();
 
             //Services
-            services.AddTransient<ClientService>();
+            services.AddScoped<ClientService>();
 
             //Resources
             services.AddScoped<IApiResourceServiceResources, ApiResourceServiceResources>();

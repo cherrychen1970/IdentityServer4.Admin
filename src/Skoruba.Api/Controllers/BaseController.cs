@@ -17,7 +17,7 @@ namespace Skoruba.Admin.Api.Controllers
     [Route("api/[controller]")]    
     [TypeFilter(typeof(ControllerExceptionFilterAttribute))]
     [Produces("application/json", "application/problem+json")]
-    [Authorize(Policy = AuthorizationConsts.AdministrationPolicy)]    
+    //[Authorize(Policy = AuthorizationConsts.AdministrationPolicy)]    
     [ApiController]
     abstract public partial class BaseController : ControllerBase
     {

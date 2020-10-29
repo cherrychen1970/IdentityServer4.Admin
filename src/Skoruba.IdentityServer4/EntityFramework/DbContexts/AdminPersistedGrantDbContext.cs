@@ -4,9 +4,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Skoruba.IdentityServer4.EntityFramework.DbContexts
 {
-    public class IdentityServerPersistedGrantDbContext : PersistedGrantDbContext<IdentityServerPersistedGrantDbContext>
+    public class AdminPersistedGrantDbContext : PersistedGrantDbContext<AdminPersistedGrantDbContext>
     {
-        public IdentityServerPersistedGrantDbContext(DbContextOptions<IdentityServerPersistedGrantDbContext> options, OperationalStoreOptions storeOptions)
+        public AdminPersistedGrantDbContext(DbContextOptions<AdminPersistedGrantDbContext> options, OperationalStoreOptions storeOptions)
             : base(options, storeOptions)
         {
         }

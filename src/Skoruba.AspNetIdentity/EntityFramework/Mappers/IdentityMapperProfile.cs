@@ -13,7 +13,7 @@ using Skoruba.Models;
 
 namespace Skoruba.AspNetIdentity.EntityFramework.Mappers
 {
-    public class IdentityMapperProfile<TKey>
+    abstract public class IdentityMapperProfile<TKey>
         : Profile
         where TKey : IEquatable<TKey>
     {

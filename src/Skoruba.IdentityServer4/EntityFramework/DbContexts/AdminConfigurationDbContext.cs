@@ -5,9 +5,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Skoruba.IdentityServer4.EntityFramework.DbContexts
 {
-    public class ConfDbContext : ConfigurationDbContext<ConfDbContext>
+    public class AdminConfigurationDbContext : ConfigurationDbContext<AdminConfigurationDbContext>
     {
-        public ConfDbContext(DbContextOptions<ConfDbContext> options, ConfigurationStoreOptions storeOptions)
+        public AdminConfigurationDbContext(DbContextOptions<AdminConfigurationDbContext> options, ConfigurationStoreOptions storeOptions)
             : base(options, storeOptions)
         {
         }

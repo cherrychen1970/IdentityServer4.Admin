@@ -2,6 +2,8 @@
 using System.Reflection;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using IdentityServer4.EntityFramework.Storage;
+
 using Skoruba.AspNetIdentity.EntityFramework;
 using Skoruba.IdentityServer4.EntityFramework.DbContexts;
 
@@ -22,10 +24,21 @@ namespace Skoruba.EntityFramework.PostgreSQL.Extensions
                 options.UseNpgsql(connectionString, sql => sql.MigrationsAssembly(migrationsAssembly)));
 
             // Config DB from existing connection
-            services.AddDbContext<ConfDbContext>(options =>
+            /*
+            services.AddDbContext<AdminConfigurationDbContext>(options =>
                 options.UseNpgsql(connectionString, b=>b.MigrationsAssembly(Assembly.GetExecutingAssembly().GetName().Name) ));      
-            services.AddDbContext<IdentityServerPersistedGrantDbContext>(options =>
+            services.AddDbContext<AdminPersistedGrantDbContext>(options =>
                 options.UseNpgsql(connectionString, b=>b.MigrationsAssembly(Assembly.GetExecutingAssembly().GetName().Name) ));  
+                */
+
+            // Config DB from existing connection
+            services.AddConfigurationDbContext<AdminConfigurationDbContext>(options =>
+                options.ConfigureDbContext = b =>
+                    b.UseNpgsql(connectionString, sql => sql.MigrationsAssembly(migrationsAssembly)));
+
+            // Operational DB from existing connection
+            services.AddOperationalDbContext<AdminPersistedGrantDbContext>(options => options.ConfigureDbContext = b =>
+                b.UseNpgsql(connectionString, sql => sql.MigrationsAssembly(migrationsAssembly)));
 
             // Log DB from existing connection
             services.AddDbContext<AdminLogDbContext>(options => options.UseNpgsql(connectionString,

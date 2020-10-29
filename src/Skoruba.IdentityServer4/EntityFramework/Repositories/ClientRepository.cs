@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using IdentityServer4.EntityFramework.Entities;
 using AutoMapper;
 
@@ -16,11 +17,13 @@ using ApiResource = IdentityServer4.EntityFramework.Entities.ApiResource;
 namespace Skoruba.IdentityServer4.EntityFramework.Repositories
 {
     public class ClientRepository
-        : Repository<ConfDbContext, Client, ClientDto, int>
+        : EntityRepository<AdminConfigurationDbContext, Client, int>
     {
-        public ClientRepository(ConfDbContext dbContext, IMapper mapper) : base(dbContext, mapper)
+        public ClientRepository(AdminConfigurationDbContext dbContext, ILogger<ApiScopeRepository> logger) 
+         : base(dbContext, logger)
         {
         }
+      
         protected override IQueryable<Client> OnSelect(DbSet<Client> set)
         {
             return DbContext.Clients
@@ -53,26 +56,29 @@ namespace Skoruba.IdentityServer4.EntityFramework.Repositories
         }        
     }
 
+    /*
+
     public class ClientSecretRepository
-     : Repository<ConfDbContext, ClientSecret, ClientSecretDto, int>
+     : Repository<AdminConfigurationDbContext, ClientSecret, ClientSecretDto, int>
     {
-        public ClientSecretRepository(ConfDbContext dbContext, IMapper mapper) : base(dbContext, mapper)
+        public ClientSecretRepository(AdminConfigurationDbContext dbContext, IMapper mapper) : base(dbContext, mapper)
         {
         }
     }
 
     public class ClientScopeRepository
-     : Repository<ConfDbContext, ClientScope, ClientScope, int>
+     : Repository<AdminConfigurationDbContext, ClientScope, ClientScope, int>
     {
-        public ClientScopeRepository(ConfDbContext dbContext, IMapper mapper) : base(dbContext, mapper)
+        public ClientScopeRepository(AdminConfigurationDbContext dbContext, IMapper mapper) : base(dbContext, mapper)
         {
         }
     }
     public class ClientPropertyRepository
-     : Repository<ConfDbContext, ClientProperty, ClientPropertyDto, int>
+     : Repository<AdminConfigurationDbContext, ClientProperty, ClientPropertyDto, int>
     {
-        public ClientPropertyRepository(ConfDbContext dbContext, IMapper mapper) : base(dbContext, mapper)
+        public ClientPropertyRepository(AdminConfigurationDbContext dbContext, IMapper mapper) : base(dbContext, mapper)
         {
         }
     }
+    */
 }

@@ -38,8 +38,8 @@ namespace Microsoft.Extensions.DependencyInjection
             services.AddScoped<IPersistedGrantAspNetIdentityServiceResources, PersistedGrantAspNetIdentityServiceResources>();
 
             //Register mapping
-            services.AddAspNetIdentityMapping()
-                .UseIdentityMappingProfile<TKey>()
+            //services.AddAspNetIdentityMapping()
+                //.UseIdentityMappingProfile<TKey>()
                 //.AddProfilesType(profileTypes)
                 ;
 

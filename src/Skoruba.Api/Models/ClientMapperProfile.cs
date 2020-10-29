@@ -8,12 +8,15 @@ using IdentityServer4.EntityFramework.Entities;
 using Skoruba.IdentityServer4.Models;
 using Skoruba.Models;
 
-namespace Skoruba.IdentityServer4.EntityFramework.Mappers
+namespace Skoruba.Admin.EntityFramework.Mappers
 {
     public class ClientMapperProfile : Profile
     {
         public ClientMapperProfile()
         {            
+            CreateMap<ClientDto, Client>()
+                .ReverseMap();
+
             // entity to model
             CreateMap<Client, ClientDto>(MemberList.Destination)
                 .ForMember(dest => dest.ProtocolType, opt => opt.Condition(srs => srs != null))

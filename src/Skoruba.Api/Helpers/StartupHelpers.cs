@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json.Serialization;
+using System;
 using IdentityModel;
 using IdentityServer4.AccessTokenValidation;
 using IdentityServer4.EntityFramework.Options;
@@ -15,13 +16,16 @@ using Skoruba.AuditLogging.EntityFramework.Entities;
 using Skoruba.AuditLogging.EntityFramework.Extensions;
 using Skoruba.AuditLogging.EntityFramework.Repositories;
 using Skoruba.AuditLogging.EntityFramework.Services;
+
 using Skoruba.Admin.Api.AuditLogging;
 using Skoruba.Admin.Api.Configuration;
 using Skoruba.Admin.Api.Configuration.ApplicationParts;
 using Skoruba.Admin.Api.Configuration.Constants;
 using Skoruba.Admin.Api.Helpers.Localization;
-using Skoruba.IdentityServer4.EntityFramework.DbContexts;
+using Skoruba.AspNetIdentity.EntityFramework;
 using Skoruba.Admin.Api.EntityModels;
+using Skoruba.AspNetIdentity.EntityFramework.Models;
+
 
 namespace Skoruba.Admin.Api.Helpers
 {
@@ -78,6 +82,11 @@ namespace Skoruba.Admin.Api.Helpers
             services.TryAddTransient(typeof(IGenericControllerLocalizer<>), typeof(GenericControllerLocalizer<>));
 
             services.AddControllersWithViews(o => { o.Conventions.Add(new GenericControllerRouteConvention()); })
+                    .AddNewtonsoftJson(options =>
+                    {
+                        options.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
+                        options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
+                    })            
                 .AddDataAnnotationsLocalization()
                 .ConfigureApplicationPartManager(m =>
                 {
@@ -93,13 +102,13 @@ namespace Skoruba.Admin.Api.Helpers
         /// <typeparam name="IdentityRole<TKey>">Entity with Role</typeparam>
         /// <param name="services"></param>
         /// <param name="configuration"></param>
-        public static void AddApiAuthentication(this IServiceCollection services,IConfiguration configuration)
+        public static void AddApiAuthentication<TKey>(this IServiceCollection services,IConfiguration configuration) where TKey : IEquatable<TKey>
         {
             var adminApiConfiguration = configuration.GetSection(nameof(AdminApiConfiguration)).Get<AdminApiConfiguration>();
 
             services
-                .AddIdentity<AdminIdentityUser, AdminIdentityRole>(options => configuration.GetSection(nameof(IdentityOptions)).Bind(options))
-                .AddEntityFrameworkStores<AdminIdentityDbContext>()
+                .AddIdentity<IdentityUser<TKey>, IdentityRole<TKey>>(options => configuration.GetSection(nameof(IdentityOptions)).Bind(options))
+                .AddEntityFrameworkStores<AdminIdentityDbContext<TKey>>()
                 .AddDefaultTokenProviders();
 
             services.AddAuthentication(options =>
