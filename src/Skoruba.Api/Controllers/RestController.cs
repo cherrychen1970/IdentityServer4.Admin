@@ -11,6 +11,7 @@ namespace Skoruba.Admin.Api.Controllers
     public class RestController<TRepository, TModel, TKey> : BaseController
         where TRepository : IRepository<TModel, TKey>
         where TModel : class
+        where TKey : IEquatable<TKey>
     {
         protected IRepository<TModel, TKey> _repository { get; }
         

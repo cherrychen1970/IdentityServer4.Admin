@@ -3,8 +3,6 @@ using IdentityServer4.EntityFramework.Entities;
 using Skoruba.IdentityServer4.Resources;
 using Skoruba.IdentityServer4.Services;
 using Skoruba.IdentityServer4.EntityFramework.Repositories;
-using Skoruba.IdentityServer4.EntityFramework.DbContexts;
-using Skoruba.IdentityServer4.Models;
 using Skoruba.Repositories;
 
 namespace Microsoft.Extensions.DependencyInjection

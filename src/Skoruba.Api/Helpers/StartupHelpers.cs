@@ -2,9 +2,7 @@
 using System;
 using IdentityModel;
 using IdentityServer4.AccessTokenValidation;
-using IdentityServer4.EntityFramework.Options;
 using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.DataProtection.EntityFrameworkCore;
 using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -17,15 +15,15 @@ using Skoruba.AuditLogging.EntityFramework.Extensions;
 using Skoruba.AuditLogging.EntityFramework.Repositories;
 using Skoruba.AuditLogging.EntityFramework.Services;
 
+using Skoruba.AspNetIdentity.EntityFramework;
+using Skoruba.AspNetIdentity.EntityFramework.Models;
+
 using Skoruba.Admin.Api.AuditLogging;
 using Skoruba.Admin.Api.Configuration;
 using Skoruba.Admin.Api.Configuration.ApplicationParts;
 using Skoruba.Admin.Api.Configuration.Constants;
 using Skoruba.Admin.Api.Helpers.Localization;
-using Skoruba.AspNetIdentity.EntityFramework;
-using Skoruba.Admin.Api.EntityModels;
-using Skoruba.AspNetIdentity.EntityFramework.Models;
-
+using Skoruba.Admin.Api.Controllers;
 
 namespace Skoruba.Admin.Api.Helpers
 {
@@ -92,6 +90,26 @@ namespace Skoruba.Admin.Api.Helpers
         }
 
 
+        public static IMvcBuilder AddGenericControllers(this IMvcBuilder mvcBuilder)
+        {
+            mvcBuilder.ConfigureApplicationPartManager(m =>
+            {
+                m.FeatureProviders.Add(new GenericTypeControllerFeatureProvider());
+            });
+            return mvcBuilder;
+        }
+        public static IMvcBuilder AddDynamicControllers(this IMvcBuilder mvcBuilder)
+        {
+            mvcBuilder.ConfigureApplicationPartManager(m =>
+                {
+                    m.FeatureProviders.Add(new DynamicControllerProvider(feature =>
+                        {
+                            feature.AddDynamicControllers();
+                        }
+                    ));
+                });
+            return mvcBuilder;
+        }
 
         /// <summary>
         /// Add authentication middleware for an API
@@ -101,12 +119,12 @@ namespace Skoruba.Admin.Api.Helpers
         /// <typeparam name="IdentityRole<TKey>">Entity with Role</typeparam>
         /// <param name="services"></param>
         /// <param name="configuration"></param>
-        public static void AddApiAuthentication<TKey>(this IServiceCollection services, IConfiguration configuration) where TKey : IEquatable<TKey>
+        public static void AddApiAuthentication(this IServiceCollection services, IConfiguration configuration)
         {
             var adminApiConfiguration = configuration.GetSection(nameof(AdminApiConfiguration)).Get<AdminApiConfiguration>();
 
             services
-                .AddIdentity<IdentityUser<TKey>, IdentityRole<TKey>>(options => configuration.GetSection(nameof(IdentityOptions)).Bind(options))
+                .AddIdentity<User,Role>(options => configuration.GetSection(nameof(IdentityOptions)).Bind(options))
                 .AddEntityFrameworkStores<AdminIdentityDbContext>()
                 .AddDefaultTokenProviders();
 

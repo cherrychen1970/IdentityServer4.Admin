@@ -11,7 +11,9 @@ using AutoMapper;
 
 namespace Skoruba.Repositories
 {
-    public interface IRepository<TModel, TKey>
+    public interface IRepository<TModel, TKey> 
+        where TModel : class
+        where TKey : IEquatable<TKey>
     {
         bool AutoSaveChanges { get; set; }
         Task<IPagedList<TModel>> GetMany(int skip = 0, int take = 10, string orderby = null, bool asc = true);

@@ -14,6 +14,7 @@ namespace Skoruba.Repositories
     public class EntityRepository<TDbContext, TEntity, TKey> : IRepository<TEntity, TKey>
         where TDbContext : DbContext
         where TEntity : class        
+        where TKey : IEquatable<TKey>
     {
         protected TDbContext DbContext { get; }        
 

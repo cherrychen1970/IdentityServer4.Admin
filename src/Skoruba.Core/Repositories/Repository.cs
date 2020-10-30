@@ -15,6 +15,7 @@ namespace Skoruba.Repositories
         where TDbContext : DbContext
         where TEntity : class
         where TModel : class
+        where TKey : IEquatable<TKey>
     {
         //protected TDbContext DbContext { get; }
         protected IMapper _mapper { get; }

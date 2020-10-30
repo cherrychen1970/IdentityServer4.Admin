@@ -1,45 +1,23 @@
-using System.Linq;
+using System;
 using System.Reflection;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.DependencyInjection;
-using Skoruba.Admin.Api.Configuration.ApplicationParts;
-using IdentityServer4.EntityFramework.Entities;
-using Skoruba.Repositories;
-using Skoruba.IdentityServer4.EntityFramework.DbContexts;
 using Microsoft.AspNetCore.Mvc.Controllers;
+using IdentityServer4.EntityFramework.Entities;
+
+using Skoruba.Repositories;
+
 using Skoruba.IdentityServer4.EntityFramework.Repositories;
-using Skoruba.IdentityServer4.Models;
+using Skoruba.AspNetIdentity.EntityFramework.Repositories;
+using Skoruba.AspNetIdentity.EntityFramework.Models;
 
-using Skoruba.Admin.Api.Controllers;
 
-namespace Skoruba.Admin.Api
+namespace Skoruba.Admin.Api.Controllers
 {
-    static public class ControllerExtensions
+    static public class Extensions
     {
-        public static IMvcBuilder AddGenericControllers(this IMvcBuilder mvcBuilder)
-        {
-            mvcBuilder.ConfigureApplicationPartManager(m =>
-            {
-                m.FeatureProviders.Add(new GenericTypeControllerFeatureProvider());
-            });
-            return mvcBuilder;
-        }
-        public static IMvcBuilder AddDynamicControllers(this IMvcBuilder mvcBuilder)
-        {
-            mvcBuilder.ConfigureApplicationPartManager(m =>
-                {
-                    m.FeatureProviders.Add(new DynamicControllerProvider(feature =>
-                        {
-                            feature.AddDynamicControllers();
-                        }
-                    ));
-                });
-            return mvcBuilder;
-        }
-
         static public void AddDynamicControllers(this ControllerFeature feature)
         {
-            //feature.AddDynamicController<ClientRepository, Client, int>();
+            feature.AddDynamicController<ClientRepository, Client, int>();
             feature.AddDynamicController<ClientSecretRepository, ClientSecret, int>();
             feature.AddDynamicController<ClientScopeRepository , ClientScope, int>();
             feature.AddDynamicController<ClientPropertyRepository,ClientProperty,int>();
@@ -57,11 +35,23 @@ namespace Skoruba.Admin.Api
             feature.AddDynamicController<IdentityResourceRepository, IdentityResource, int>();
             feature.AddDynamicController<IdentityPropertyRepository, IdentityResourceProperty, int>();
             feature.AddDynamicController<IdentityClaimRepository, IdentityClaim, int>();           
+
+            ///////////////////////////////////////////////////////////////////////
+            // AspNetIdentity 
+            
+            feature.AddDynamicController<UserRepository, User, string>();           
+            //feature.AddDynamicController<UserClaimRepository, UserClaim, int>();           
+            feature.AddDynamicController<UserRoleRepository, UserRole, int>();           
+            feature.AddDynamicController<UserLoginRepository, UserLogin, string>();           
+            feature.AddDynamicController<UserTokenRepository, UserToken, string>();           
+            feature.AddDynamicController<RoleRepository, Role, string>();           
+            feature.AddDynamicController<RoleClaimRepository, RoleClaim, int>();           
         }
 
         static public void AddDynamicController<TRepository, TModel, TKey>(this ControllerFeature feature)
         where TRepository : IRepository<TModel, TKey>
         where TModel : class
+        where TKey : IEquatable<TKey>
         {
             var type = typeof(RestController<TRepository, TModel, TKey>);     
             var route = new RouteAttribute(nameof(TModel));

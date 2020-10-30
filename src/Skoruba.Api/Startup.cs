@@ -2,16 +2,12 @@
 using HealthChecks.UI.Client;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.DataProtection;
-using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using AutoMapper;
 
-
-using Skoruba.IdentityServer4.EntityFramework.DbContexts;
-using Skoruba.AspNetIdentity.EntityFramework;
 using Skoruba.EntityFramework.DbContexts;
 
 using Skoruba.Admin.Api.Configuration;
@@ -19,12 +15,8 @@ using Skoruba.Admin.Api.ExceptionHandling;
 using Skoruba.Admin.Api.Helpers;
 using Skoruba.Admin.Api.Resources;
 
-
-
 namespace Skoruba.Admin.Api
 {
-
-
     public class Startup
     {
         public Startup(IWebHostEnvironment env, IConfiguration configuration)
@@ -47,10 +39,9 @@ namespace Skoruba.Admin.Api
             services.AddEmailSenders(Configuration);
             services.AddScoped<ControllerExceptionFilterAttribute>();
             services.AddScoped<IApiErrorResources, ApiErrorResources>();
-            services.AddApiAuthentication<string>(Configuration);
-
+            services.AddApiAuthentication(Configuration);
             services.AddAuthorizationPolicies();
-            services.AddAspNetIdentityServices<AdminIdentityDbContext,string>();
+            services.AddAspNetIdentityServices();
             services.AddAdminServices();
             services.AddAdminApiCors(adminApiConfiguration);
             services.AddMvcServices();

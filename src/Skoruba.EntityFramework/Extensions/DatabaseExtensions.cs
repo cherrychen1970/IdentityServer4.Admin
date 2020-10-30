@@ -13,11 +13,10 @@ namespace Microsoft.Extensions.DependencyInjection
 {
     public static class DatabaseExtensions
     {
-        public static void AddAdminDbContexts<TKey>(this IServiceCollection services, string connectionString)
-            where TKey : IEquatable<TKey>
+        public static void AddAdminDbContexts(this IServiceCollection services, string connectionString)            
         {
             // TODO : support other types too..
-            services.RegisterNpgSqlDbContexts<TKey>(connectionString);
+            services.RegisterNpgSqlDbContexts(connectionString);
         }
     }
 }

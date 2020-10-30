@@ -3,7 +3,15 @@
 
 GET https://localhost:9000/api/users
 Authorization: Bearer {{token}}
-
+###
+GET https://localhost:9000/api/userLogins
+Authorization: Bearer {{token}}
+###
+GET https://localhost:9000/api/roles
+Authorization: Bearer {{token}}
+###
+GET https://localhost:9000/api/roleclaims
+Authorization: Bearer {{token}}
 ###
 POST https://localhost:9000/api/users
 Content-Type: application/json

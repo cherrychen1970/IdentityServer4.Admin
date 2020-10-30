@@ -14,14 +14,25 @@ namespace Skoruba.EntityFramework.PostgreSQL.Extensions
 {
     public static class DatabaseExtensions
     {
-        public static void RegisterNpgSqlDbContexts<TKey>(this IServiceCollection services, string connectionString)
-            where TKey : IEquatable<TKey>
+        public static void AddNpgSqlDbContexts<TDbContext>(this IServiceCollection services, string connectionString, string migrationsAssembly = null)
+        where TDbContext : DbContext
+        {
+            if (migrationsAssembly != null)
+                services.AddDbContext<TDbContext>(options =>
+                    options.UseNpgsql(connectionString, sql => sql.MigrationsAssembly(migrationsAssembly)));
+            else
+                services.AddDbContext<TDbContext>(options => options.UseNpgsql(connectionString));
+        }
+
+
+
+        public static void RegisterNpgSqlDbContexts(this IServiceCollection services, string connectionString)
         {
             //var migrationsAssembly = typeof(DatabaseExtensions).GetTypeInfo().Assembly.GetName().Name;
             var migrationsAssembly = Assembly.GetCallingAssembly().GetName().Name;
 
             // Config DB for identity
-            services.AddDbContext<AdminIdentityDbContext<TKey>>(options =>
+            services.AddDbContext<AdminIdentityDbContext>(options =>
                 options.UseNpgsql(connectionString, sql => sql.MigrationsAssembly(migrationsAssembly)));
 
             // Config DB from existing connection
@@ -48,7 +59,7 @@ namespace Skoruba.EntityFramework.PostgreSQL.Extensions
             // Audit logging connection
             services.AddDbContext<AdminAuditLogDbContext>(options => options.UseNpgsql(connectionString,
                 optionsSql => optionsSql.MigrationsAssembly(migrationsAssembly)));
-            
+
             services.AddDbContext<DataProtectionDbContext>(options => options.UseNpgsql(connectionString, sql => sql.MigrationsAssembly(migrationsAssembly)));
         }
     }

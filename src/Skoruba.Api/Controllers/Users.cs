@@ -11,7 +11,7 @@ using Skoruba.IdentityServer4.Models;
 
 namespace Skoruba.Admin.Api.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("_api/[controller]")]
     public class UsersController : BaseController
     {
         protected readonly UserManager<IdentityUser<string>> _userManager;

@@ -2,52 +2,41 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using Skoruba.AspNetIdentity.EntityFramework.Models;
 
 namespace Skoruba.AspNetIdentity.EntityFramework
 {
-    public class IdentityDbContext<TUser, TKey> : IdentityDbContext<
-        TUser, IdentityRole<TKey>, TKey, IdentityUserClaim<TKey>, IdentityUserRole<TKey>,
-        IdentityUserLogin<TKey>, IdentityRoleClaim<TKey>, IdentityUserToken<TKey>>
-            where TUser : IdentityUser<TKey>
-            where TKey : IEquatable<TKey>
-    {
-        public IdentityDbContext(DbContextOptions options) : base(options)
-        {
-        }
-    }
-    public class AdminIdentityDbContext<TKey> : IdentityDbContext<IdentityUser<TKey>, TKey>
-                where TKey : IEquatable<TKey>
-    {
+    public abstract class AdminIdentityDbContext<TUser, TRole, TKey, TUserClaim, TUserRole, TUserLogin, TRoleClaim, TUserToken> : IdentityDbContext<TUser, TRole, TKey, TUserClaim, TUserRole, TUserLogin, TRoleClaim, TUserToken> 
+        where TUser : IdentityUser<TKey>
+        where TRole : IdentityRole<TKey>
+        where TKey : IEquatable<TKey>
+        where TUserClaim : IdentityUserClaim<TKey>
+        where TUserRole : IdentityUserRole<TKey>
+        where TUserLogin : IdentityUserLogin<TKey>
+        where TRoleClaim : IdentityRoleClaim<TKey>
+        where TUserToken : IdentityUserToken<TKey>
+    {        
         public AdminIdentityDbContext(DbContextOptions options) : base(options)
         {
         }
-        public AdminIdentityDbContext(DbContextOptions<AdminIdentityDbContext<TKey>> options) : base(options)
-        {
-        }
-
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
-
-            ConfigureIdentityContext(builder);
-        }
-
-        private void ConfigureIdentityContext(ModelBuilder builder)
-        {
-            builder.Entity<IdentityRole<TKey>>().ToTable(TableConsts.IdentityRoles);
-            builder.Entity<IdentityRoleClaim<TKey>>().ToTable(TableConsts.IdentityRoleClaims);
-            builder.Entity<IdentityUserRole<TKey>>().ToTable(TableConsts.IdentityUserRoles);
-            builder.Entity<IdentityUser<TKey>>().ToTable(TableConsts.IdentityUsers);
-            builder.Entity<IdentityUserLogin<TKey>>().ToTable(TableConsts.IdentityUserLogins);
-            builder.Entity<IdentityUserClaim<TKey>>().ToTable(TableConsts.IdentityUserClaims);
-            builder.Entity<IdentityUserToken<TKey>>().ToTable(TableConsts.IdentityUserTokens);
+            builder.Entity<TUser>().ToTable(TableConsts.IdentityUsers);
+            builder.Entity<TRole>().ToTable(TableConsts.IdentityRoles);
+            builder.Entity<TRoleClaim>().ToTable(TableConsts.IdentityRoleClaims);
+            builder.Entity<TUserRole>().ToTable(TableConsts.IdentityUserRoles);            
+            builder.Entity<TUserLogin>().ToTable(TableConsts.IdentityUserLogins);
+            builder.Entity<TUserClaim>().ToTable(TableConsts.IdentityUserClaims);
+            builder.Entity<TUserToken>().ToTable(TableConsts.IdentityUserTokens);
         }
     }
 
-    public class AdminIdentityDbContext : AdminIdentityDbContext<string>
-    {
+    // string based context
+    public class AdminIdentityDbContext : AdminIdentityDbContext<User,Role,string,UserClaim,UserRole,UserLogin,RoleClaim,UserToken>
+    {       
         public AdminIdentityDbContext(DbContextOptions<AdminIdentityDbContext> options) : base(options)
         {
-        }
+        }    
     }
 }

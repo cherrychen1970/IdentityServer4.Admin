@@ -1,8 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using AutoMapper;
 
-using Skoruba.AspNetIdentity.EntityFramework;
+using Skoruba.Repositories;
+
+using Skoruba.AspNetIdentity.EntityFramework.Models;
 using Skoruba.AspNetIdentity.Resources;
 using Skoruba.AspNetIdentity.EntityFramework.Repositories;
 using Skoruba.AspNetIdentity.EntityFramework.Mappers;
@@ -25,15 +26,19 @@ namespace Microsoft.Extensions.DependencyInjection
 
             return builder;
         }
-
-        public static IServiceCollection AddAspNetIdentityServices<TDbContext,TKey>( this IServiceCollection services)//, HashSet<Type> profileTypes)
-            where TDbContext : AdminIdentityDbContext<TKey>
-            where TKey : IEquatable<TKey>
- 
+        public static IServiceCollection AddAspNetIdentityServices(this IServiceCollection services)//, HashSet<Type> profileTypes)
         {
             //Repositories
-            services.AddTransient<IdentityRepository<TDbContext,TKey>>();
+            services.AddTransient<IdentityRepository>();
             //services.AddTransient<IPersistedGrantAspNetIdentityRepository, PersistedGrantAspNetIdentityRepository<TKey>>();
+
+            services.AddScoped<IRepository<User,string>,UserRepository>();
+            services.AddScoped<IRepository<UserClaim,int>,UserClaimRepository>();
+            services.AddScoped<IRepository<UserRole,int>,UserRoleRepository>();
+            services.AddScoped<IRepository<UserLogin,string>,UserLoginRepository>();
+            services.AddScoped<IRepository<UserToken,string>,UserTokenRepository>();
+            services.AddScoped<IRepository<Role,string>,RoleRepository>();
+            services.AddScoped<IRepository<RoleClaim,int>,RoleClaimRepository>();
             
             //Resources
             services.AddScoped<IIdentityServiceResources, IdentityServiceResources>();

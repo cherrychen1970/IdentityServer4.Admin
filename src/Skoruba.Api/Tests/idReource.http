@@ -6,7 +6,7 @@ Authorization: Bearer {{token}}
 GET https://localhost:9000/api/identityResourcePropertys
 Authorization: Bearer {{token}}
 ###
-GET https://localhost:9000/api/identityResourceClaims
+GET https://localhost:9000/api/identityClaims
 Authorization: Bearer {{token}}
 ###
 
