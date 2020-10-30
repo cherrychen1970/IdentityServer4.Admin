@@ -118,4 +118,15 @@ namespace Skoruba.Repositories
             return itemType.GetProperty(key, BindingFlags.IgnoreCase | BindingFlags.Public | BindingFlags.Instance).Name;
         }
     }
+
+    public class EntityRepository<TDbContext, TEntity> : EntityRepository<TDbContext,TEntity, int>
+        where TDbContext : DbContext
+        where TEntity : class        
+    {
+        public EntityRepository(TDbContext context, ILogger logger
+        //, IAuditEventLogger auditEventLogger
+        ) : base(context,logger)
+        {
+        }        
+    }
 }

@@ -9,6 +9,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using AutoMapper;
 
+
 using Skoruba.IdentityServer4.EntityFramework.DbContexts;
 using Skoruba.AspNetIdentity.EntityFramework;
 using Skoruba.EntityFramework.DbContexts;
@@ -22,6 +23,8 @@ using Skoruba.Admin.Api.Resources;
 
 namespace Skoruba.Admin.Api
 {
+
+
     public class Startup
     {
         public Startup(IWebHostEnvironment env, IConfiguration configuration)
@@ -64,7 +67,8 @@ namespace Skoruba.Admin.Api
             {
                 app.UseDeveloperExceptionPage();
             }
-            Migrate(provider);
+            if (Configuration.GetValue<bool>("DatabaseProviderConfiguration:Migrate"))
+                Migrate(provider);
             app.UseRouting();
             //app.UseAuthentication();
             app.UseCors();
@@ -75,15 +79,18 @@ namespace Skoruba.Admin.Api
             });
         }
 
-        public virtual void Migrate(IServiceProvider provider)
+        public void Migrate(IServiceProvider provider)
         {
-            provider.EnsureDatabasesMigrate<AdminIdentityDbContext>();
-            provider.EnsureDatabasesMigrate<AdminConfigurationDbContext>();
-            provider.EnsureDatabasesMigrate<AdminPersistedGrantDbContext>();
-            provider.EnsureDatabasesMigrate<AdminLogDbContext>();
-            provider.EnsureDatabasesMigrate<AdminAuditLogDbContext>();
+            //provider.EnsureDatabasesMigrate<AdminIdentityDbContext>();
+            //provider.EnsureDatabasesMigrate<AdminConfigurationDbContext>();
+            //provider.EnsureDatabasesMigrate<AdminPersistedGrantDbContext>();
+            //provider.EnsureDatabasesMigrate<AdminLogDbContext>();
+            //provider.EnsureDatabasesMigrate<AdminAuditLogDbContext>();
             provider.EnsureDatabasesMigrate<DataProtectionDbContext>();
 
         }
+
+
+
     }
 }

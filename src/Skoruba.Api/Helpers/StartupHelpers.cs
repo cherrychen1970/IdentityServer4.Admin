@@ -77,22 +77,21 @@ namespace Skoruba.Admin.Api.Helpers
         /// <param name="services"></param>
         public static void AddMvcServices(this IServiceCollection services)
         {
+            var me = System.Reflection.Assembly.GetExecutingAssembly();
             services.AddLocalization(opts => { opts.ResourcesPath = ConfigurationConsts.ResourcesPath; });
-
             services.TryAddTransient(typeof(IGenericControllerLocalizer<>), typeof(GenericControllerLocalizer<>));
-
             services.AddControllersWithViews(o => { o.Conventions.Add(new GenericControllerRouteConvention()); })
+                    .AddApplicationPart(me)
                     .AddNewtonsoftJson(options =>
                     {
                         options.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
                         options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
-                    })            
-                .AddDataAnnotationsLocalization()
-                .ConfigureApplicationPartManager(m =>
-                {
-                    m.FeatureProviders.Add(new GenericTypeControllerFeatureProvider());
-                });
+                    })
+                    .AddDataAnnotationsLocalization()
+                    .AddDynamicControllers();
         }
+
+
 
         /// <summary>
         /// Add authentication middleware for an API
@@ -102,7 +101,7 @@ namespace Skoruba.Admin.Api.Helpers
         /// <typeparam name="IdentityRole<TKey>">Entity with Role</typeparam>
         /// <param name="services"></param>
         /// <param name="configuration"></param>
-        public static void AddApiAuthentication<TKey>(this IServiceCollection services,IConfiguration configuration) where TKey : IEquatable<TKey>
+        public static void AddApiAuthentication<TKey>(this IServiceCollection services, IConfiguration configuration) where TKey : IEquatable<TKey>
         {
             var adminApiConfiguration = configuration.GetSection(nameof(AdminApiConfiguration)).Get<AdminApiConfiguration>();
 
@@ -127,7 +126,7 @@ namespace Skoruba.Admin.Api.Helpers
                 });
         }
 
-       public static void AddAuthorizationPolicies(this IServiceCollection services)
+        public static void AddAuthorizationPolicies(this IServiceCollection services)
         {
             var adminApiConfiguration = services.BuildServiceProvider().GetService<AdminApiConfiguration>();
 

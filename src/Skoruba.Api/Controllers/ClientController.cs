@@ -8,7 +8,7 @@ using Skoruba.IdentityServer4.Models;
 namespace Skoruba.Admin.Api.Controllers
 {
     [Route("api/[controller]")]    
-    public class ClientsController: RestController<ClientRepository, Client>
+    public class ClientsController: RestController<ClientRepository, Client,int>
     {
         public ClientsController(ClientRepository repository,ILogger<BaseController> logger)
         :base(repository, logger)

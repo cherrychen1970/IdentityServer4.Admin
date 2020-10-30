@@ -8,21 +8,20 @@ using Skoruba.Repositories;
 
 namespace Skoruba.Admin.Api.Controllers
 {
-    abstract public class RestController<TRepository, TModel> : BaseController
-        where TRepository : IRepository<TModel, int>
+    public class RestController<TRepository, TModel, TKey> : BaseController
+        where TRepository : IRepository<TModel, TKey>
         where TModel : class
     {
-        protected IRepository<TModel, int> _repository { get; }
-
-        public RestController(IRepository<TModel, int> repository,ILogger<BaseController> logger):base()
+        protected IRepository<TModel, TKey> _repository { get; }
+        
+        public RestController(IRepository<TModel, TKey> repository,ILogger<BaseController> logger):base()
         {
             _repository = repository;
         }
-
+   
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetOne(int id)
-        {
-            if (id == 0) return NotFound();
+        public async Task<IActionResult> GetOne(TKey id)
+        {            
             var result = await _repository.GetOne(id);
             return Ok();
         }
@@ -45,9 +44,8 @@ namespace Skoruba.Admin.Api.Controllers
 
         [HttpDelete]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Delete(int id)
-        {
-            if (id == 0) return NotFound();
+        public async Task<IActionResult> Delete(TKey id)
+        {            
             var model = await _repository.Delete(id);
             return Ok(model);
         }

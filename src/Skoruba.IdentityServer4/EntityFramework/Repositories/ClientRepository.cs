@@ -17,10 +17,10 @@ using ApiResource = IdentityServer4.EntityFramework.Entities.ApiResource;
 namespace Skoruba.IdentityServer4.EntityFramework.Repositories
 {
     public class ClientRepository
-        : EntityRepository<AdminConfigurationDbContext, Client, int>
+        : AdminConfigurationRepository<Client,ClientDto>
     {
-        public ClientRepository(AdminConfigurationDbContext dbContext, ILogger<ApiScopeRepository> logger) 
-         : base(dbContext, logger)
+        public ClientRepository(AdminConfigurationDbContext dbContext, IMapper mapper, ILogger<ClientRepository> logger) 
+         : base(dbContext,mapper, logger)
         {
         }
       
@@ -56,29 +56,57 @@ namespace Skoruba.IdentityServer4.EntityFramework.Repositories
         }        
     }
 
-    /*
+    
 
     public class ClientSecretRepository
-     : Repository<AdminConfigurationDbContext, ClientSecret, ClientSecretDto, int>
+     : AdminConfigurationRepository<ClientSecret, ClientSecretDto>
     {
-        public ClientSecretRepository(AdminConfigurationDbContext dbContext, IMapper mapper) : base(dbContext, mapper)
+        public ClientSecretRepository(AdminConfigurationDbContext dbContext, IMapper mapper,ILogger<ClientSecretRepository> logger) 
+        : base(dbContext, mapper,logger)
         {
         }
     }
 
     public class ClientScopeRepository
-     : Repository<AdminConfigurationDbContext, ClientScope, ClientScope, int>
+     : AdminConfigurationRepository<ClientScope, ClientScope>
     {
-        public ClientScopeRepository(AdminConfigurationDbContext dbContext, IMapper mapper) : base(dbContext, mapper)
+        public ClientScopeRepository(AdminConfigurationDbContext dbContext, IMapper mapper,ILogger<ClientScopeRepository> logger) 
+        : base(dbContext, mapper,logger)
         {
         }
     }
     public class ClientPropertyRepository
-     : Repository<AdminConfigurationDbContext, ClientProperty, ClientPropertyDto, int>
+     : AdminConfigurationRepository<ClientProperty, ClientPropertyDto>
     {
-        public ClientPropertyRepository(AdminConfigurationDbContext dbContext, IMapper mapper) : base(dbContext, mapper)
+        public ClientPropertyRepository(AdminConfigurationDbContext dbContext, IMapper mapper,ILogger<ClientPropertyRepository> logger) 
+        : base(dbContext, mapper,logger)
         {
         }
     }
-    */
+    
+        public class ClientClaimRepository
+     : AdminConfigurationRepository<ClientClaim, ClientClaim>
+    {
+        public ClientClaimRepository(AdminConfigurationDbContext dbContext, IMapper mapper,ILogger<ClientClaimRepository> logger) 
+        : base(dbContext, mapper,logger)
+        {
+        }
+    }
+
+        public class ClientRedirectUriRepository
+        : AdminConfigurationRepository<ClientRedirectUri, ClientRedirectUri>
+        {
+            public ClientRedirectUriRepository(AdminConfigurationDbContext dbContext, IMapper mapper,ILogger<ClientRedirectUriRepository> logger) 
+            : base(dbContext, mapper,logger)
+            {
+            }
+        }
+        public class ClientGrantTypeRepository
+        : AdminConfigurationRepository<ClientGrantType, ClientGrantType>
+        {
+            public ClientGrantTypeRepository(AdminConfigurationDbContext dbContext, IMapper mapper,ILogger<ClientGrantTypeRepository> logger) 
+            : base(dbContext, mapper,logger)
+            {
+            }
+        }
 }
