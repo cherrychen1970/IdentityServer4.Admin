@@ -9,6 +9,8 @@ using Microsoft.Extensions.Hosting;
 using AutoMapper;
 
 using Skoruba.EntityFramework.DbContexts;
+using Skoruba.IdentityServer4.EntityFramework.DbContexts;
+using Skoruba.AspNetIdentity.EntityFramework;
 
 using Skoruba.Admin.Api.Configuration;
 using Skoruba.Admin.Api.ExceptionHandling;
@@ -72,11 +74,11 @@ namespace Skoruba.Admin.Api
 
         public void Migrate(IServiceProvider provider)
         {
-            //provider.EnsureDatabasesMigrate<AdminIdentityDbContext>();
-            //provider.EnsureDatabasesMigrate<AdminConfigurationDbContext>();
-            //provider.EnsureDatabasesMigrate<AdminPersistedGrantDbContext>();
-            //provider.EnsureDatabasesMigrate<AdminLogDbContext>();
-            //provider.EnsureDatabasesMigrate<AdminAuditLogDbContext>();
+            provider.EnsureDatabasesMigrate<AdminIdentityDbContext>();
+            provider.EnsureDatabasesMigrate<AdminConfigurationDbContext>();
+            provider.EnsureDatabasesMigrate<AdminPersistedGrantDbContext>();
+            provider.EnsureDatabasesMigrate<AdminLogDbContext>();
+            provider.EnsureDatabasesMigrate<AdminAuditLogDbContext>();
             provider.EnsureDatabasesMigrate<DataProtectionDbContext>();
 
         }

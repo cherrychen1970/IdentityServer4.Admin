@@ -129,7 +129,7 @@ namespace id4
             }
 
             //provider.NpgsqlMigrate();
-            seed.Seed();
+            //seed.Seed();
 
             app.UseDefaultFiles();
             app.UseStaticFiles();

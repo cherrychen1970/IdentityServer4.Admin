@@ -60,7 +60,7 @@ namespace Skoruba.Admin
 
             services.AddMvcExceptionFilters();
             services.AddAdminServices();
-            services.AddAspNetIdentityServices<Guid>();
+            services.AddAspNetIdentityServices();
             services.AddMvcWithLocalization(Configuration);
 
             // Add authorization policies for MVC

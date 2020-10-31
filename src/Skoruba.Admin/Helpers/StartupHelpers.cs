@@ -24,8 +24,6 @@ using Skoruba.AuditLogging.EntityFramework.Entities;
 using Skoruba.AuditLogging.EntityFramework.Extensions;
 using Skoruba.AuditLogging.EntityFramework.Repositories;
 using Skoruba.AuditLogging.EntityFramework.Services;
-using Skoruba.AspNetIdentity.Models;
-using Skoruba.IdentityServer4.Services;
 using Skoruba.Admin.ExceptionHandling;
 using Skoruba.Admin.Configuration;
 using Skoruba.Admin.Configuration.ApplicationParts;
@@ -36,12 +34,9 @@ using System.Linq;
 using Skoruba.EntityFramework.Shared.Configuration;
 using Skoruba.EntityFramework.PostgreSQL.Extensions;
 using Skoruba.Helpers;
-using Microsoft.AspNetCore.DataProtection.EntityFrameworkCore;
 using Skoruba.IdentityServer4.EntityFramework.DbContexts;
-using Skoruba.IdentityServer4.EntityFramework.Entities;
-
-using Skoruba.Admin.EntityModels;
-
+using Skoruba.AspNetIdentity.EntityFramework.Models;
+using Skoruba.AspNetIdentity.EntityFramework;
 
 namespace Skoruba.Admin.Helpers
 {
@@ -90,7 +85,7 @@ namespace Skoruba.Admin.Helpers
 ;            switch (databaseProvider.ProviderType)
             {
                 case DatabaseProviderType.PostgreSQL:
-                    services.RegisterNpgSqlDbContexts<TKey>(identityConnectionString);
+                    services.RegisterNpgSqlDbContexts(identityConnectionString);
                     break;
 
                 default:
@@ -259,8 +254,8 @@ namespace Skoruba.Admin.Helpers
             });
 
             services
-                .AddIdentity<AdminIdentityUser,AdminIdentityRole>(options => configuration.GetSection(nameof(IdentityOptions)).Bind(options))
-                .AddEntityFrameworkStores<EntityModels.AdminIdentityDbContext>()
+                .AddIdentity<User,Role>(options => configuration.GetSection(nameof(IdentityOptions)).Bind(options))
+                .AddEntityFrameworkStores<AdminIdentityDbContext>()
                 .AddDefaultTokenProviders();
 
             services.AddAuthentication(options =>

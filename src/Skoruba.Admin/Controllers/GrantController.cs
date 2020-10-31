@@ -3,8 +3,8 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Localization;
 using Microsoft.Extensions.Logging;
-using Skoruba.AspNetIdentity.Models.Grant;
-using Skoruba.AspNetIdentity.Services.Interfaces;
+using Skoruba.Repositories;
+using Skoruba.IdentityServer4.EntityFramework.Repositories;
 using Skoruba.Admin.ExceptionHandling;
 using Skoruba.Admin.Helpers;
 using Skoruba.Admin.Configuration.Constants;
@@ -15,10 +15,10 @@ namespace Skoruba.Admin.Controllers
     [TypeFilter(typeof(ControllerExceptionFilterAttribute))]
     public class GrantController : BaseController
     {
-        private readonly IPersistedGrantAspNetIdentityService _persistedGrantService;
+        private readonly IRepository<ClientGrantTypeRepository> _persistedGrantService;
         private readonly IStringLocalizer<GrantController> _localizer;
 
-        public GrantController(IPersistedGrantAspNetIdentityService persistedGrantService,
+        public GrantController(,
             ILogger<ConfigurationController> logger,
             IStringLocalizer<GrantController> localizer) : base(logger)
         {

@@ -14,7 +14,7 @@ namespace Skoruba.EntityFramework.PostgreSQL.Extensions
 {
     public static class DatabaseExtensions
     {
-        public static void AddNpgSqlDbContexts<TDbContext>(this IServiceCollection services, string connectionString, string migrationsAssembly = null)
+        public static void AddNpgSqlDbContext<TDbContext>(this IServiceCollection services, string connectionString, string migrationsAssembly = null)
         where TDbContext : DbContext
         {
             if (migrationsAssembly != null)

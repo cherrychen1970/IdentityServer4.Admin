@@ -59,7 +59,6 @@ namespace Skoruba.Repositories
         }
         virtual public async Task<TEntity> GetOne(TKey id)
         {            
-            var set = DbContext.Set<TEntity>().AsNoTracking();
             var item = await FindAsync(id);            
             return item;
         }

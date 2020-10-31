@@ -17,13 +17,20 @@ using ApiResource = IdentityServer4.EntityFramework.Entities.ApiResource;
 namespace Skoruba.IdentityServer4.EntityFramework.Repositories
 {
     public class ClientRepository
-        : AdminConfigurationRepository<Client,ClientDto>
+        : AdminConfigurationRepository<Client, ClientDto>
     {
-        public ClientRepository(AdminConfigurationDbContext dbContext, IMapper mapper, ILogger<ClientRepository> logger) 
-         : base(dbContext,mapper, logger)
+        public ClientRepository(AdminConfigurationDbContext dbContext, IMapper mapper, ILogger<ClientRepository> logger)
+         : base(dbContext, mapper, logger)
         {
         }
-      
+
+        override async public Task<Client> FindAsync(int id)
+             => await DbContext.Set<Client>()
+             .Include(x => x.Properties)
+             .Include(x => x.Claims)
+            .Include(x => x.RedirectUris)
+             .SingleOrDefaultAsync(x => x.Id == id);
+
         protected override IQueryable<Client> OnSelect(DbSet<Client> set)
         {
             return DbContext.Clients
@@ -37,7 +44,7 @@ namespace Skoruba.IdentityServer4.EntityFramework.Repositories
                 .Include(x => x.AllowedCorsOrigins)
                 .Include(x => x.Properties);
         }
-        
+
         public virtual async Task<List<string>> SearchScopesAsync(string scope, int limit = 0)
         {
             var identityResources = await DbContext.IdentityResources
@@ -53,16 +60,16 @@ namespace Skoruba.IdentityServer4.EntityFramework.Repositories
             var scopes = identityResources.Concat(apiScopes).TakeIf(x => x, limit > 0, limit).ToList();
 
             return scopes;
-        }        
+        }
     }
 
-    
+
 
     public class ClientSecretRepository
      : AdminConfigurationRepository<ClientSecret, ClientSecretDto>
     {
-        public ClientSecretRepository(AdminConfigurationDbContext dbContext, IMapper mapper,ILogger<ClientSecretRepository> logger) 
-        : base(dbContext, mapper,logger)
+        public ClientSecretRepository(AdminConfigurationDbContext dbContext, IMapper mapper, ILogger<ClientSecretRepository> logger)
+        : base(dbContext, mapper, logger)
         {
         }
     }
@@ -70,43 +77,43 @@ namespace Skoruba.IdentityServer4.EntityFramework.Repositories
     public class ClientScopeRepository
      : AdminConfigurationRepository<ClientScope, ClientScope>
     {
-        public ClientScopeRepository(AdminConfigurationDbContext dbContext, IMapper mapper,ILogger<ClientScopeRepository> logger) 
-        : base(dbContext, mapper,logger)
+        public ClientScopeRepository(AdminConfigurationDbContext dbContext, IMapper mapper, ILogger<ClientScopeRepository> logger)
+        : base(dbContext, mapper, logger)
         {
         }
     }
     public class ClientPropertyRepository
      : AdminConfigurationRepository<ClientProperty, ClientPropertyDto>
     {
-        public ClientPropertyRepository(AdminConfigurationDbContext dbContext, IMapper mapper,ILogger<ClientPropertyRepository> logger) 
-        : base(dbContext, mapper,logger)
-        {
-        }
-    }
-    
-        public class ClientClaimRepository
-     : AdminConfigurationRepository<ClientClaim, ClientClaim>
-    {
-        public ClientClaimRepository(AdminConfigurationDbContext dbContext, IMapper mapper,ILogger<ClientClaimRepository> logger) 
-        : base(dbContext, mapper,logger)
+        public ClientPropertyRepository(AdminConfigurationDbContext dbContext, IMapper mapper, ILogger<ClientPropertyRepository> logger)
+        : base(dbContext, mapper, logger)
         {
         }
     }
 
-        public class ClientRedirectUriRepository
-        : AdminConfigurationRepository<ClientRedirectUri, ClientRedirectUri>
+    public class ClientClaimRepository
+ : AdminConfigurationRepository<ClientClaim, ClientClaim>
+    {
+        public ClientClaimRepository(AdminConfigurationDbContext dbContext, IMapper mapper, ILogger<ClientClaimRepository> logger)
+        : base(dbContext, mapper, logger)
         {
-            public ClientRedirectUriRepository(AdminConfigurationDbContext dbContext, IMapper mapper,ILogger<ClientRedirectUriRepository> logger) 
-            : base(dbContext, mapper,logger)
-            {
-            }
         }
-        public class ClientGrantTypeRepository
-        : AdminConfigurationRepository<ClientGrantType, ClientGrantType>
+    }
+
+    public class ClientRedirectUriRepository
+    : AdminConfigurationRepository<ClientRedirectUri, ClientRedirectUri>
+    {
+        public ClientRedirectUriRepository(AdminConfigurationDbContext dbContext, IMapper mapper, ILogger<ClientRedirectUriRepository> logger)
+        : base(dbContext, mapper, logger)
         {
-            public ClientGrantTypeRepository(AdminConfigurationDbContext dbContext, IMapper mapper,ILogger<ClientGrantTypeRepository> logger) 
-            : base(dbContext, mapper,logger)
-            {
-            }
         }
+    }
+    public class ClientGrantTypeRepository
+    : AdminConfigurationRepository<ClientGrantType, ClientGrantType>
+    {
+        public ClientGrantTypeRepository(AdminConfigurationDbContext dbContext, IMapper mapper, ILogger<ClientGrantTypeRepository> logger)
+        : base(dbContext, mapper, logger)
+        {
+        }
+    }
 }
