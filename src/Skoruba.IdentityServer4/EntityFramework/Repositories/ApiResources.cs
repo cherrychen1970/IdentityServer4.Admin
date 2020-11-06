@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using IdentityServer4.EntityFramework.Entities;
 using AutoMapper;
 
-using Skoruba.Repositories;
+using Bluebird.Repositories;
 using Skoruba.IdentityServer4.Models;
 using Skoruba.IdentityServer4.EntityFramework.DbContexts;
 using ApiResource = IdentityServer4.EntityFramework.Entities.ApiResource;
@@ -18,8 +18,6 @@ namespace Skoruba.IdentityServer4.EntityFramework.Repositories
         public ApiResourceRepository(AdminConfigurationDbContext dbContext, IMapper mapper, ILogger<ApiResourceRepository> logger)
         : base(dbContext, mapper, logger)
         { }
-        override protected IQueryable<ApiResource> OnSelect(DbSet<ApiResource> set)
-        => set.Include(x => x.UserClaims);
     }
     public class ApiResourcePropertyRepository
   : AdminConfigurationRepository<ApiResourceProperty, ApiResourcePropertyDto>
@@ -35,8 +33,6 @@ namespace Skoruba.IdentityServer4.EntityFramework.Repositories
         public ApiScopeRepository(AdminConfigurationDbContext dbContext, IMapper mapper, ILogger<ApiScopeRepository> logger)
         : base(dbContext, mapper, logger)
         { }
-        override protected IQueryable<ApiScope> OnSelect(DbSet<ApiScope> set)
-        => set.Include(x => x.UserClaims);
     }
 
     public class ApiSecretRepository
@@ -45,8 +41,6 @@ namespace Skoruba.IdentityServer4.EntityFramework.Repositories
         public ApiSecretRepository(AdminConfigurationDbContext dbContext, IMapper mapper, ILogger<ApiSecretRepository> logger)
         : base(dbContext, mapper, logger)
         { }
-        override protected IQueryable<ApiSecret> OnSelect(DbSet<ApiSecret> set)
-        => set;
     }
 
     public class ApiScopeClaimRepository
@@ -55,8 +49,7 @@ namespace Skoruba.IdentityServer4.EntityFramework.Repositories
         public ApiScopeClaimRepository(AdminConfigurationDbContext dbContext, IMapper mapper, ILogger<ApiScopeClaimRepository> logger)
          : base(dbContext, mapper, logger)
         { }
-        override protected IQueryable<ApiScopeClaim> OnSelect(DbSet<ApiScopeClaim> set)
-        => set;
+
     }
 
     public class ApiResourceClaimRepository

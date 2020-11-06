@@ -1,12 +1,7 @@
-﻿
-// Copyright (c) Brock Allen & Dominick Baier. All rights reserved.
-// Licensed under the Apache License, Version 2.0. See LICENSE in the project root for license information.
-using Newtonsoft.Json.Serialization;
+﻿using Newtonsoft.Json.Serialization;
 using System;
-using IdentityServer4;
+
 using IdentityServer4.Configuration;
-using id4.Data;
-using id4.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
@@ -15,6 +10,10 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System.Reflection;
+using AutoMapper;
+
+using id4.Data;
+using id4.Models;
 using id4.Services;
 
 namespace id4
@@ -113,6 +112,8 @@ namespace id4
                 });
 
             services.AddScoped<SeedService>();
+            services.AddAutoMapper(typeof(Startup));
+            services.AddRepositories();
         }
 
         public void Configure(IApplicationBuilder app, SeedService seed, IServiceProvider provider)

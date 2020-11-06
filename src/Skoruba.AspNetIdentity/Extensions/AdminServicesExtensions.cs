@@ -1,8 +1,9 @@
 ﻿using System;
 using AutoMapper;
 
-using Skoruba.Repositories;
+using Bluebird.Repositories;
 
+using Skoruba.AspNetIdentity.Models;
 using Skoruba.AspNetIdentity.EntityFramework.Models;
 using Skoruba.AspNetIdentity.Resources;
 using Skoruba.AspNetIdentity.EntityFramework.Repositories;
@@ -32,13 +33,13 @@ namespace Microsoft.Extensions.DependencyInjection
             services.AddTransient<IdentityRepository>();
             //services.AddTransient<IPersistedGrantAspNetIdentityRepository, PersistedGrantAspNetIdentityRepository<TKey>>();
 
-            services.AddScoped<IRepository<User,string>,UserRepository>();
-            services.AddScoped<IRepository<UserClaim,int>,UserClaimRepository>();
-            services.AddScoped<IRepository<UserRole,int>,UserRoleRepository>();
+            services.AddScoped<IRepository<UserDto<string>,string>,UserRepository>();
+            services.AddScoped<IRepository<UserClaimDto<int>,int>,UserClaimRepository>();
+            services.AddScoped<IRepository<UserRoleDto<int>,int>,UserRoleRepository>();
             services.AddScoped<IRepository<UserLogin,string>,UserLoginRepository>();
-            services.AddScoped<IRepository<UserToken,string>,UserTokenRepository>();
-            services.AddScoped<IRepository<Role,string>,RoleRepository>();
-            services.AddScoped<IRepository<RoleClaim,int>,RoleClaimRepository>();
+            services.AddScoped<IRepository<UserToken,string>, UserTokenRepository>();
+            services.AddScoped<IRepository<RoleDto<string>,string>,RoleRepository>();
+            services.AddScoped<IRepository<RoleClaimDto<int>,int>,RoleClaimRepository>();
             
             //Resources
             services.AddScoped<IIdentityServiceResources, IdentityServiceResources>();

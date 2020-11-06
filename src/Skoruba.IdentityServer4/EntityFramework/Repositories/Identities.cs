@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using IdentityServer4.EntityFramework.Entities;
 using AutoMapper;
 
-using Skoruba.Repositories;
+using Bluebird.Repositories;
 using Skoruba.IdentityServer4.Models;
 using Skoruba.IdentityServer4.EntityFramework.DbContexts;
 using Microsoft.Extensions.Logging;

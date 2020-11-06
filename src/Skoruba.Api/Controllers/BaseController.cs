@@ -1,10 +1,7 @@
 using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.EntityFrameworkCore;
-using IdentityServer4.EntityFramework.DbContexts;
 using Skoruba.Admin.Api.ExceptionHandling;
-using Skoruba.Admin.Api.Configuration.Constants;
 
 namespace Skoruba.Admin.Api.Controllers
 {

@@ -4,10 +4,10 @@
 GET {{url}}/api/clients/5/redirectUris
 Authorization: Bearer {{token}}
 ###
-GET https://localhost:9000/api/clientSecrets
+GET {{url}}/api/clientSecrets
 Authorization: Bearer {{token}}
 ###
-GET https://localhost:9000/api/clientScopes
+GET {{url}}/api/clientScopes
 Authorization: Bearer {{token}}
 ###
 GET https://localhost:9000/api/clientClaims

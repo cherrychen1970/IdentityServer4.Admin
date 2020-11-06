@@ -18,7 +18,9 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<ProjectReference Include="..\Skoruba.Core\Skoruba.Core.csproj" />		
+		<ProjectReference Include="..\Skoruba.Core\Skoruba.Core.csproj" />	
+		<ProjectReference Include="..\..\bluebird\Webapi\Core\Bluebird.Core.csproj" />
+		<ProjectReference Include="..\..\bluebird\Webapi\AspNetCore\Bluebird.AspNetCore.csproj" />		
 	</ItemGroup>
 
 	<ItemGroup>

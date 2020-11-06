@@ -1,9 +1,10 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using IdentityServer4.EntityFramework.Entities;
+using Skoruba.IdentityServer4.Models;
 using Skoruba.IdentityServer4.Resources;
 using Skoruba.IdentityServer4.Services;
 using Skoruba.IdentityServer4.EntityFramework.Repositories;
-using Skoruba.Repositories;
+using Bluebird.Repositories;
 
 namespace Microsoft.Extensions.DependencyInjection
 {
@@ -14,25 +15,25 @@ namespace Microsoft.Extensions.DependencyInjection
             // TODO : add more repository
             //Repositories
             services.AddScoped<ClientRepository>();
-            services.AddScoped<IRepository<Client,int>,ClientRepository>();
+            services.AddScoped<IRepository<ClientDto,int>,ClientRepository>();
             services.AddScoped<IRepository<ClientScope,int>,  ClientScopeRepository>();
-            services.AddScoped<IRepository<ClientSecret,int>,  ClientSecretRepository>();
-            services.AddScoped<IRepository<ClientProperty,int>, ClientPropertyRepository>();
+            services.AddScoped<IRepository<ClientSecretDto,int>,  ClientSecretRepository>();
+            services.AddScoped<IRepository<ClientPropertyDto,int>, ClientPropertyRepository>();
             services.AddScoped<IRepository<ClientClaim,int>, ClientClaimRepository >();
             services.AddScoped<IRepository<ClientRedirectUri,int>, ClientRedirectUriRepository>();
             services.AddScoped<IRepository<ClientGrantType,int>, ClientGrantTypeRepository>();
             
             // identity
-            services.AddScoped<IRepository<IdentityResource,int>, IdentityResourceRepository>();
+            services.AddScoped<IRepository<IdentityResourceDto,int>, IdentityResourceRepository>();
             services.AddScoped<IRepository<IdentityClaim,int>, IdentityClaimRepository>();
-            services.AddScoped<IRepository<IdentityResourceProperty,int>, IdentityPropertyRepository>();
+            services.AddScoped<IRepository<IdentityResourcePropertyDto,int>, IdentityPropertyRepository>();
 
             // all the api resource repository
-            services.AddScoped<IRepository<ApiResource,int>, ApiResourceRepository>();
-            services.AddScoped<IRepository<ApiResourceProperty,int>, ApiResourcePropertyRepository>();            
+            services.AddScoped<IRepository<ApiResourceDto,int>, ApiResourceRepository>();
+            services.AddScoped<IRepository<ApiResourcePropertyDto,int>, ApiResourcePropertyRepository>();            
             services.AddScoped<IRepository<ApiResourceClaim,int>,ApiResourceClaimRepository>();
-            services.AddScoped<IRepository<ApiSecret,int>, ApiSecretRepository>();            
-            services.AddScoped<IRepository<ApiScope,int>, ApiScopeRepository>();
+            services.AddScoped<IRepository<ApiSecretDto,int>, ApiSecretRepository>();            
+            services.AddScoped<IRepository<ApiScopeDto,int>, ApiScopeRepository>();
             services.AddScoped<IRepository<ApiScopeClaim,int>, ApiScopeClaimRepository>();
             
             // TODO : use factory

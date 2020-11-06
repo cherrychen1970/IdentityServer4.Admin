@@ -4,11 +4,12 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Controllers;
 using IdentityServer4.EntityFramework.Entities;
 
-using Skoruba.Repositories;
+using Bluebird.Repositories;
 
 using Skoruba.IdentityServer4.EntityFramework.Repositories;
+using Skoruba.IdentityServer4.Models;
 using Skoruba.AspNetIdentity.EntityFramework.Repositories;
-using Skoruba.AspNetIdentity.EntityFramework.Models;
+using Skoruba.AspNetIdentity.Models;
 
 
 namespace Skoruba.Admin.Api.Controllers
@@ -17,35 +18,35 @@ namespace Skoruba.Admin.Api.Controllers
     {
         static public void AddDynamicControllers(this ControllerFeature feature)
         {
-            feature.AddDynamicController<ClientRepository, Client, int>();
-            feature.AddDynamicController<ClientSecretRepository, ClientSecret, int>();
+            feature.AddDynamicController<ClientRepository, ClientDto, int>();
+            feature.AddDynamicController<ClientSecretRepository, ClientSecretDto, int>();
             feature.AddDynamicController<ClientScopeRepository , ClientScope, int>();
-            feature.AddDynamicController<ClientPropertyRepository,ClientProperty,int>();
+            feature.AddDynamicController<ClientPropertyRepository,ClientPropertyDto,int>();
             feature.AddDynamicController<ClientClaimRepository,ClientClaim,int>();
             feature.AddDynamicController<ClientGrantTypeRepository,ClientGrantType,int>();
             feature.AddDynamicController<ClientRedirectUriRepository,ClientRedirectUri,int>();
 
-            feature.AddDynamicController<ApiResourceRepository, ApiResource, int>();
+            feature.AddDynamicController<ApiResourceRepository, ApiResourceDto, int>();
             feature.AddDynamicController<ApiResourceClaimRepository, ApiResourceClaim, int>();
-            feature.AddDynamicController<ApiResourcePropertyRepository, ApiResourceProperty, int>();
-            feature.AddDynamicController<ApiScopeRepository, ApiScope, int>();
+            feature.AddDynamicController<ApiResourcePropertyRepository, ApiResourcePropertyDto, int>();
+            feature.AddDynamicController<ApiScopeRepository, ApiScopeDto, int>();
             feature.AddDynamicController<ApiScopeClaimRepository, ApiScopeClaim, int>();
-            feature.AddDynamicController<ApiSecretRepository, ApiSecret, int>();
+            feature.AddDynamicController<ApiSecretRepository, ApiSecretDto, int>();
 
-            feature.AddDynamicController<IdentityResourceRepository, IdentityResource, int>();
-            feature.AddDynamicController<IdentityPropertyRepository, IdentityResourceProperty, int>();
+            feature.AddDynamicController<IdentityResourceRepository, IdentityResourceDto, int>();
+            feature.AddDynamicController<IdentityPropertyRepository, IdentityResourcePropertyDto, int>();
             feature.AddDynamicController<IdentityClaimRepository, IdentityClaim, int>();           
 
             ///////////////////////////////////////////////////////////////////////
             // AspNetIdentity 
             
-            feature.AddDynamicController<UserRepository, User, string>();           
+            feature.AddDynamicController<UserRepository, UserDto<string>, string>();           
             //feature.AddDynamicController<UserClaimRepository, UserClaim, int>();           
-            feature.AddDynamicController<UserRoleRepository, UserRole, int>();           
-            feature.AddDynamicController<UserLoginRepository, UserLogin, string>();           
-            feature.AddDynamicController<UserTokenRepository, UserToken, string>();           
-            feature.AddDynamicController<RoleRepository, Role, string>();           
-            feature.AddDynamicController<RoleClaimRepository, RoleClaim, int>();           
+            feature.AddDynamicController<UserRoleRepository, UserRoleDto<int>, int>();           
+            //feature.AddDynamicController<UserLoginRepository, UserLogin, string>();           
+            //feature.AddDynamicController<UserTokenRepository, UserToken, string>();           
+            feature.AddDynamicController<RoleRepository, RoleDto<string>, string>();           
+            feature.AddDynamicController<RoleClaimRepository, RoleClaimDto<int>, int>();           
         }
 
         static public void AddDynamicController<TRepository, TModel, TKey>(this ControllerFeature feature)

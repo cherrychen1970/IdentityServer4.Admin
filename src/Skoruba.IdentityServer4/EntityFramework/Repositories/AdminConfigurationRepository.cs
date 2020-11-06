@@ -1,18 +1,19 @@
 using Microsoft.EntityFrameworkCore;
 using AutoMapper;
 using Microsoft.Extensions.Logging;
-using Skoruba.Repositories;
+using Bluebird.Repositories.EntityFramework;
 
 using Skoruba.IdentityServer4.EntityFramework.DbContexts;
 
 namespace Skoruba.IdentityServer4.EntityFramework.Repositories
 {
-    public class AdminConfigurationRepository<TEntity,TModel> : EntityRepository<AdminConfigurationDbContext, TEntity, int>        
-        where TEntity : class        
+    public class AdminConfigurationRepository<TEntity,TModel> : Repository<AdminConfigurationDbContext, TEntity,TModel, int>        
+        where TEntity : class     
+        where TModel : class   
     {
         public AdminConfigurationRepository(AdminConfigurationDbContext context, IMapper mapper,ILogger logger
         //, IAuditEventLogger auditEventLogger
-        ) : base(context,logger)
+        ) : base(context,mapper,logger)
         {
         }        
     }

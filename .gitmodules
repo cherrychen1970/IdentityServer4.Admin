@@ -1,0 +1,3 @@
+[submodule "bluebird"]
+	path = bluebird
+	url = https://github.com/cherrychen1970/webapp.git

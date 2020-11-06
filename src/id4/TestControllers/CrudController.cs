@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using IdentityServer4.EntityFramework.DbContexts;
 
+using Bluebird.Linq;
+
 namespace id4.Api.TestControllers
 {
     public interface IMapper<TEntity,TModel>{
@@ -54,6 +56,14 @@ namespace id4.Api.TestControllers
             var model = _mapper.ToModel(item);
             return Ok(model);
         } 
+          
+        [HttpGet("{id}/{nested}")]
+        virtual public IActionResult GetManyNested(TKey id,string nested,int? page,string search)
+        {
+            var list = _context.Set<TEntity>().Select<TEntity>(new[] {"id",nested});
+                      
+            return Ok(list);
+        }
 
         [HttpPost]
         virtual public IActionResult Post(TModel model)    {
