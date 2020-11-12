@@ -1,6 +1,6 @@
 ﻿@using Microsoft.AspNetCore.Mvc.Localization
 @using Skoruba.Admin.Helpers
-@model Skoruba.Core.Dtos.Common.Pager
+@model Skoruba.Models.Pager
 @inject IViewLocalizer Localizer
 @{
     var currentPage = PagerHelpers.GetCurrentPage(Context.Request.Query["page"]);

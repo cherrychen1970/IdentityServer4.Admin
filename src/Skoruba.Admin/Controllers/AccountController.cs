@@ -9,7 +9,7 @@ namespace Skoruba.Admin.Controllers
     [Authorize]
     public class AccountController : BaseController
     {
-        public AccountController(ILogger<ConfigurationController> logger) : base(logger)
+        public AccountController(ILogger<AccountController> logger) : base(logger)
         {
         }
 

@@ -2,43 +2,32 @@
 // https://github.com/IdentityServer/IdentityServer4.EntityFramework
 
 // Modified by Jan Škoruba
-
+using System.Linq;
 using AutoMapper;
 using IdentityServer4.EntityFramework.Entities;
 using Skoruba.IdentityServer4.Models;
 using Skoruba.Models;
 
+
 namespace Skoruba.IdentityServer4.EntityFramework.Mappers
 {
+
     public class ClientMapperProfile : Profile
     {
         public ClientMapperProfile()
         {            
-            // entity to model
-            CreateMap<Client, ClientDto>(MemberList.Destination)
-                .ForMember(dest => dest.ProtocolType, opt => opt.Condition(srs => srs != null))
+            CreateMap<Client,test>();
+            CreateMap<Client, ClientDto>()
+                .ForMember(dest => dest.AllowedScopes, opt => opt.MapFrom(src=>src.AllowedScopes.Select(x=>x.Scope)) )
+                .ForMember(dest => dest.AllowedGrantTypes, opt => opt.MapFrom(src=>src.AllowedGrantTypes.Select(x=>x.GrantType)) )
+                .ForMember(dest => dest.RedirectUris, opt => opt.MapFrom(src=>src.RedirectUris.Select(x=>x.RedirectUri)) )
+                .ForMember(dest => dest.PostLogoutRedirectUris, opt => opt.MapFrom(src=>src.RedirectUris.Select(x=>x.RedirectUri)) )
+                .ForMember(dest => dest.AllowedCorsOrigins, opt => opt.MapFrom(src=>src.AllowedCorsOrigins.Select(x=>x.Origin)) )
+                .ForMember(dest => dest.IdentityProviderRestrictions, opt => opt.MapFrom(src=>src.IdentityProviderRestrictions.Select(x=>x.Provider)) )
                 .ReverseMap();
-
-            CreateMap<ClientGrantType, string>()
-                .ConstructUsing(src => src.GrantType)
-                .ReverseMap()
-                .ForMember(dest => dest.GrantType, opt => opt.MapFrom(src => src));
-
-            CreateMap<ClientRedirectUri, string>()
-                .ConstructUsing(src => src.RedirectUri)
-                .ReverseMap()
-                .ForMember(dest => dest.RedirectUri, opt => opt.MapFrom(src => src));
-
-            CreateMap<ClientPostLogoutRedirectUri, string>()
-                .ConstructUsing(src => src.PostLogoutRedirectUri)
-                .ReverseMap()
-                .ForMember(dest => dest.PostLogoutRedirectUri, opt => opt.MapFrom(src => src));
-
-            CreateMap<ClientScope, string>()
-                .ConstructUsing(src => src.Scope)
-                .ReverseMap()
-                .ForMember(dest => dest.Scope, opt => opt.MapFrom(src => src));
-
+                ;
+            CreateMap<ClientSecret, ClientSecretDto>().ReverseMap();
+/*
             CreateMap<ClientSecret, ClientSecretDto>(MemberList.Destination)
                 .ForMember(dest => dest.Type, opt => opt.Condition(srs => srs != null))
                 .ReverseMap();
@@ -46,18 +35,9 @@ namespace Skoruba.IdentityServer4.EntityFramework.Mappers
             CreateMap<ClientClaim, ClientClaimDto>(MemberList.None)
                 .ConstructUsing(src => new ClientClaimDto() { Type = src.Type, Value = src.Value })
                 .ReverseMap();
-
-            CreateMap<ClientIdPRestriction, string>()
-                .ConstructUsing(src => src.Provider)
-                .ReverseMap()
-                .ForMember(dest => dest.Provider, opt => opt.MapFrom(src => src));
-
-            CreateMap<ClientCorsOrigin, string>()
-                .ConstructUsing(src => src.Origin)
-                .ReverseMap()
-                .ForMember(dest => dest.Origin, opt => opt.MapFrom(src => src));
-
-            CreateMap<ClientProperty, ClientPropertyDto>(MemberList.Destination)
+*/
+            CreateMap<ClientClaim, ClientClaimDto>(MemberList.None).ReverseMap();
+            CreateMap<ClientProperty, ClientPropertyDto>()
                 .ReverseMap();
 
             

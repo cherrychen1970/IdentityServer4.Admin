@@ -16,7 +16,8 @@ namespace Microsoft.Extensions.DependencyInjection
             //Repositories
             services.AddScoped<ClientRepository>();
             services.AddScoped<IRepository<ClientDto,int>,ClientRepository>();
-            services.AddScoped<IRepository<ClientScope,int>,  ClientScopeRepository>();
+
+            //services.AddScoped<IRepository<ClientScope,int>,  AdminConfigurationRepository<ClientScope, string>>();
             services.AddScoped<IRepository<ClientSecretDto,int>,  ClientSecretRepository>();
             services.AddScoped<IRepository<ClientPropertyDto,int>, ClientPropertyRepository>();
             services.AddScoped<IRepository<ClientClaim,int>, ClientClaimRepository >();

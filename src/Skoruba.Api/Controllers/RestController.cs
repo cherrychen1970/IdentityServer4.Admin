@@ -42,19 +42,21 @@ namespace Skoruba.Admin.Api.Controllers
         [HttpGet("{id}/{child}")]
         public async Task<IActionResult> GetManyFromNested(TKey id,string child,int? page,string search)
         {
-            var item = _repository.GetOne(id);
-
-            var p = typeof(TModel).GetProp(child);
-            var result = p.GetValue(item);
-            IDictionary<string, object> expando = new ExpandoObject();
-            expando.Add("Id",id);
-            expando.Add(child,result);
-                        
-            return Ok(expando);
+            var item = _repository.GetOne(id,new[] {"id",child});                       
+            return Ok(item);
         }
 
+        [HttpPut("{id}/{child}")]
+        public async Task<IActionResult> UpdateNested(TKey id,ExpandoObject input)
+        {
+            var item = _repository.GetOne(id);
+            var values = input.ToDictionary(x=>x.Key,y=>y.Value,StringComparer.OrdinalIgnoreCase);
+            _repository.Patch(id,values);
+                                    
+            return Ok(input);
+        }
         [HttpPost]
-        [ValidateAntiForgeryToken]
+        //[ValidateAntiForgeryToken]
         public async Task<IActionResult> Post(TModel model)
         {
             _repository.Create(model);

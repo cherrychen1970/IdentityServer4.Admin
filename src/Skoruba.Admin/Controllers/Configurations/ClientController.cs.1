@@ -1,0 +1,179 @@
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Localization;
+using Microsoft.Extensions.Logging;
+using IdentityModel;
+using IdentityServer4.Models;
+//using IdentityServer4.EntityFramework.Entities;
+using Bluebird.Repositories;
+//using Skoruba.IdentityServer4.Models;
+using Skoruba.IdentityServer4.EntityFramework.Repositories;
+using Skoruba.IdentityServer4.Services;
+using Skoruba.Admin.Configuration.Constants;
+using Skoruba.Admin.ExceptionHandling;
+
+namespace Skoruba.Admin.Controllers
+{
+
+
+
+    public class ClientDto : Client, IPrimaryKey<int> {
+        public int Id {get;set;}
+    }
+
+    public class SecretDto : Secret,IPrimaryKey<int> {
+        public int Id {get;set;}
+    }
+
+    [Authorize(Policy = AuthorizationConsts.AdministrationPolicy)]
+    [TypeFilter(typeof(ControllerExceptionFilterAttribute))]
+    public class ClientController : BaseController
+    {
+        //private readonly IRepository<Client, int> _clientService;
+        private readonly IStringLocalizer<ClientController> _localizer;
+
+        public ClientController(
+            IRepository<Client, int> clientService,
+            IStringLocalizer<ClientController> localizer,
+            ILogger<ClientController> logger)
+            : base(logger)
+        {
+            _clientService = clientService;
+            _localizer = localizer;
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> ClientClaims(int id, int? page)
+        {
+            if (id == 0) return NotFound();
+
+            var client = await _clientService.GetOne(id);
+            var claims = client.Claims;
+
+            return View(claims);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> ClientProperties(int id, int? page)
+        {
+            if (id == 0) return NotFound();
+
+            var client = await _clientService.GetOne(id);
+            var properties = client.Properties;
+
+            return View(properties);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> ClientProperties(ClientPropertiesDto clientProperty)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(clientProperty);
+            }
+
+            await _clientService.AddClientPropertyAsync(clientProperty);
+            SuccessNotification(string.Format(_localizer["SuccessAddClientProperty"], clientProperty.ClientId, clientProperty.ClientName), _localizer["SuccessTitle"]);
+
+            return RedirectToAction(nameof(ClientProperties), new { Id = clientProperty.ClientId });
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> ClientClaims(ClientClaimsDto clientClaim)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(clientClaim);
+            }
+
+            await _clientService.AddClientClaimAsync(clientClaim);
+            SuccessNotification(string.Format(_localizer["SuccessAddClientClaim"], clientClaim.Value, clientClaim.ClientName), _localizer["SuccessTitle"]);
+
+            return RedirectToAction(nameof(ClientClaims), new { Id = clientClaim.ClientId });
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> ClientClaimDelete(int id)
+        {
+            if (id == 0) return NotFound();
+
+            var clientClaim = await _clientService.GetClientClaimAsync(id);
+
+            return View(nameof(ClientClaimDelete), clientClaim);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> ClientPropertyDelete(int id)
+        {
+            if (id == 0) return NotFound();
+
+            var clientProperty = await _clientService.GetClientPropertyAsync(id);
+
+            return View(nameof(ClientPropertyDelete), clientProperty);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> ClientClaimDelete(ClientClaimsDto clientClaim)
+        {
+            await _clientService.DeleteClientClaimAsync(clientClaim);
+            SuccessNotification(_localizer["SuccessDeleteClientClaim"], _localizer["SuccessTitle"]);
+
+            return RedirectToAction(nameof(ClientClaims), new { Id = clientClaim.ClientId });
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> ClientPropertyDelete(ClientPropertiesDto clientProperty)
+        {
+            await _clientService.DeleteClientPropertyAsync(clientProperty);
+            SuccessNotification(_localizer["SuccessDeleteClientProperty"], _localizer["SuccessTitle"]);
+
+            return RedirectToAction(nameof(ClientProperties), new { Id = clientProperty.ClientId });
+        }
+
+        
+        [HttpGet]
+        public async Task<IActionResult> ClientSecrets(int id, int? page)
+        {
+            if (id == 0) return NotFound();
+
+            var clientSecrets = await _clientService.GetClientSecretsAsync(id, page ?? 1);
+            _clientService.BuildClientSecretsViewModel(clientSecrets);
+
+            return View(clientSecrets);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> ClientSecrets(ClientSecretsDto clientSecret)
+        {
+            await _clientService.AddClientSecretAsync(clientSecret);
+            SuccessNotification(string.Format(_localizer["SuccessAddClientSecret"], clientSecret.ClientName), _localizer["SuccessTitle"]);
+
+            return RedirectToAction(nameof(ClientSecrets), new { Id = clientSecret.ClientId });
+        } 
+
+        [HttpGet]
+        public async Task<IActionResult> ClientSecretDelete(int id)
+        {
+            if (id == 0) return NotFound();
+
+            var clientSecret = await _clientService.GetClientSecretAsync(id);
+
+            return View(nameof(ClientSecretDelete), clientSecret);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> ClientSecretDelete(ClientSecretsDto clientSecret)
+        {
+            await _clientService.DeleteClientSecretAsync(clientSecret);
+            SuccessNotification(_localizer["SuccessDeleteClientSecret"], _localizer["SuccessTitle"]);
+
+            return RedirectToAction(nameof(ClientSecrets), new { Id = clientSecret.ClientId });
+        }       
+    }
+}

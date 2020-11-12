@@ -32,8 +32,8 @@ namespace Skoruba.Admin.Api
         {
             var adminApiConfiguration = Configuration.GetSection(nameof(AdminApiConfiguration)).Get<AdminApiConfiguration>();
             services.AddSingleton(adminApiConfiguration);
-            services.AddAutoMapper(typeof(Startup));
-            //services.AddAutoMapper(typeof(IdentityServer4.Marker), typeof(AspNetIdentity.Marker));
+            //services.AddAutoMapper(typeof(Startup));
+            services.AddAutoMapper(typeof(IdentityServer4.Marker), typeof(AspNetIdentity.Marker));
             services.AddNpgSqlDbContexts(Configuration["ConnectionStrings:IdentityConnection"]);
             services.AddDataProtection()
                 .SetApplicationName("Skoruba.IdentityServer4")

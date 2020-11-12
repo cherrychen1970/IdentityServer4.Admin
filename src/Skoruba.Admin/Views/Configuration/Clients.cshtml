@@ -1,6 +1,7 @@
 ﻿@using Microsoft.AspNetCore.Mvc.Localization
-@using Skoruba.Core.Dtos.Common
-@model Skoruba.IdentityServer4.Dtos.Configuration.ClientsDto
+@using Skoruba.Models
+@using Skoruba.IdentityServer4.Models
+@model Skoruba.Models.IPagedList<ClientDto>
 @inject IViewLocalizer Localizer
 
 @{
@@ -34,7 +35,7 @@
 					</tr>
 				</thead>
 				<tbody>
-					@foreach (var client in Model.Clients)
+					@foreach (var client in Model)
 					{
 						<tr>
 							<th><a class="btn btn-primary" asp-action="Client" asp-route-id="@client.Id">@Localizer["TableButtonEdit"]</a></th>

@@ -9,13 +9,17 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Microsoft.EntityFrameworkCore;
 using IdentityServer4.EntityFramework.DbContexts;
-using Skoruba.Repositories;
+using Bluebird.Repositories;
+using Skoruba.Models;
 using Skoruba.IdentityServer4.EntityFramework.Repositories;
 using Skoruba.IdentityServer4.Models;
 
 namespace Skoruba.Admin.Controllers
 {
-   
+    public interface IPrimaryKey<TKey>
+    {
+        TKey Id {get;set;}
+    }
     abstract public class RestController<TRepository, TModel> : BaseController
         where TRepository : IRepository<TModel, int>
         where TModel : class, IPrimaryKey<int>
@@ -45,7 +49,7 @@ namespace Skoruba.Admin.Controllers
                 return View();
             }
 
-            var client = await _repository.GetOne(id);
+            var client =  _repository.GetOne(id);
             //client = _clientService.BuildClientViewModel(client);
 
             return View(client);
@@ -56,23 +60,24 @@ namespace Skoruba.Admin.Controllers
         {
             if (id == 0) return NotFound();
 
-            var model = await _repository.GetOne(id);
+            var model =  _repository.GetOne(id);
             model.Id=0;
             //var client = _repository.BuildCloneViewModel(id, clientDto);
             return View(model);
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetMany(int? page, string search)
+        public async Task<IActionResult> GetMany(int page=0, string search=null)
         {
-            var result = await _repository.GetMany();
+            int total;
+            var result =  _repository.GetMany(null,out total,page).ToPagedList(10,total);
             return View(result);
         }
 
         [HttpGet("{child}")]
         public async Task<IActionResult> GetManyFromNested(string child,int? page, int id,string search)
         {
-            var item = await _repository.GetOne(id);
+            var item =  _repository.GetOne(id);
 
             var p = typeof(TModel).GetProperty(child);
             var result = p.GetValue(item);
@@ -90,16 +95,16 @@ namespace Skoruba.Admin.Controllers
             //Add new client
             if (model.Id == 0)
             {
-                var created = await _repository.Create(model);
+                var created =  _repository.Create(model);
                 SendSucessNotification(model, "create");
                 return RedirectToAction(nameof(GetOne), new { Id = created.Id });
             }
 
             //Update client
-            await _repository.Update(model.Id, model);
+             _repository.Update(model.Id, model);
             SendSucessNotification(model, "update");
 
-            await _repository.Create(model);
+             _repository.Create(model);
             return RedirectToAction(nameof(GetOne), new { Id = 1 });
         }
 
@@ -107,7 +112,7 @@ namespace Skoruba.Admin.Controllers
         public async Task<IActionResult> Delete(int id)
         {
             if (id == 0) return NotFound();
-            var model = await _repository.GetOne(id);
+            var model =  _repository.GetOne(id);
             return View(model);
         }
 
@@ -115,7 +120,7 @@ namespace Skoruba.Admin.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Delete(TModel model)
         {
-            await _repository.Delete(model);
+             _repository.Delete(model);
             return RedirectToAction(nameof(model));
         }
     }

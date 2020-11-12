@@ -1,5 +1,6 @@
 ﻿@using Microsoft.AspNetCore.Mvc.Localization
-@model Skoruba.IdentityServer4.Dtos.Configuration.ClientClaimsDto
+@using Skoruba.IdentityServer4.Models
+@model Skoruba.Models.IPagedList<ClientClaimDto>
 @inject IViewLocalizer Localizer
 
 @{
@@ -7,7 +8,7 @@
 	Layout = "_Layout";
 }
 
-<form asp-controller="Configuration" asp-action="ClientClaimDelete" Method="post">
+<form asp-controller="Clients/Claims" asp-action="Delete" Method="post">
 	<div class="row">
 
 		<div class="col-12">
