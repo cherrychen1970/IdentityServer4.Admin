@@ -1,21 +1,31 @@
 using System;
+using System.Linq;
+using Microsoft.Extensions.Logging;
+using AutoMapper;
+using AutoMapper.QueryableExtensions;
+using IdentityServer4.EntityFramework.Entities;
 using IdentityServer4.Models;
+using Bluebird.Repositories;
+using Bluebird.Linq;
 using Skoruba.Helpers;
 using Skoruba.IdentityServer4.Models;
 using Skoruba.IdentityServer4.Resources;
+using Skoruba.IdentityServer4.EntityFramework.DbContexts;
 
 namespace Skoruba.IdentityServer4.Services
 {
-    public class ClientService  : ClientBaseService
+    public class ClientService : ClientBaseService
     {
         //protected readonly IClientRepository ClientRepository;
-        protected readonly IClientServiceResources ClientServiceResources;        
+        protected readonly IClientServiceResources ClientServiceResources;
         private const string SharedSecret = "SharedSecret";
 
-        public ClientService(IClientServiceResources clientServiceResources)
+        public ClientService(IClientServiceResources clientServiceResources,
+        AdminConfigurationDbContext dbContext, IMapper mapper,
+        ILogger<ClientService> logger)
+         : base(dbContext, mapper, logger)
         {
-            //ClientRepository = clientRepository;
-            ClientServiceResources = clientServiceResources;            
+            ClientServiceResources = clientServiceResources;
         }
 
         private void HashClientSharedSecret(ClientSecretDto clientSecret)
@@ -95,15 +105,15 @@ namespace Skoruba.IdentityServer4.Services
 
             return client;
         }
-/*
-        public virtual ClientSecretsDto BuildClientSecretsViewModel(ClientSecretsDto clientSecrets)
-        {
-            clientSecrets.HashTypes = GetHashTypes();
-            clientSecrets.TypeList = GetSecretTypes();
+        /*
+                public virtual ClientSecretsDto BuildClientSecretsViewModel(ClientSecretsDto clientSecrets)
+                {
+                    clientSecrets.HashTypes = GetHashTypes();
+                    clientSecrets.TypeList = GetSecretTypes();
 
-            return clientSecrets;
-        }
-*/
+                    return clientSecrets;
+                }
+        */
         public virtual ClientDto BuildClientViewModel(ClientDto client = null)
         {
             if (client == null)
@@ -129,5 +139,78 @@ namespace Skoruba.IdentityServer4.Services
 
             return client;
         }
+
+        //
+        public override ClientDto Create(ClientDto model)
+        {
+            PrepareClientTypeForNewClient(model);
+            return base.Create(model);
+        }
+        public void UpdateClaims(int id, ClientClaimDto[] claims)
+        {
+            var claimsInput = _mapper.Map<ClientClaim[]>(claims);
+            foreach (var item in claimsInput)
+                item.ClientId = id;
+
+            var oldClaims = _context.ClientClaims.Where(x => x.ClientId == id).ToHashSet();
+            _context.UpdateCollection<ClientClaim>(oldClaims, claimsInput, (x, y) => x.Id == y.Id);
+        }
+
+        public dynamic GetRedirectUris(int id)
+        {
+            var list = _context.ClientRedirectUris.Where(x => x.ClientId == id).Select(x => x.RedirectUri);
+            return new { Id = id, RedirectUris = list };
+
+        }
+        public void UpdateRedirectUris(int id, string[] redirectUris)
+        {
+            var input = redirectUris.Select(x => new ClientRedirectUri { RedirectUri = x, ClientId = id, Id = 0 }).ToArray();
+            var old = _context.ClientRedirectUris.Where(x => x.ClientId == id).ToHashSet();
+            _context.UpdateCollection<ClientRedirectUri>(old, input, (x, y) => x.RedirectUri == y.RedirectUri, false);
+        }
+        public dynamic GetScopes(int id)
+        {
+            var list = _context.ClientScopes.Where(x => x.ClientId == id).Select(x => x.Scope);
+            return new { Id = id, AllowedScopes = list };
+        }
+        public void UpdateScopes(int id, string[] scopes)
+        {
+            var input = scopes.Select(x => new ClientScope { Scope = x, ClientId = id, Id = 0 }).ToArray();
+            var old = _context.ClientScopes.Where(x => x.ClientId == id).ToHashSet();
+            _context.UpdateCollection<ClientScope>(old, input, (x, y) => x.Scope == y.Scope, false);
+        }
+        //allowedGrantTypes
+        public dynamic GetGrantTypes(int id)
+        {
+            var list = _context.ClientGrantTypes.Where(x => x.ClientId == id).Select(x => x.GrantType);
+            return new { Id = id, AllowedGrantTypes = list };
+        }
+        public void UpdateGrantTypes(int id, string[] grantTypes)
+        {
+            var input = grantTypes.Select(x => new ClientGrantType { GrantType = x, ClientId = id, Id = 0 }).ToArray();
+            var old = _context.ClientGrantTypes.Where(x => x.ClientId == id).ToHashSet();
+            _context.UpdateCollection<ClientGrantType>(old, input, (x, y) => x.GrantType == y.GrantType, false);
+        }
+        public dynamic GetSecrets(int id)
+        {
+            var list = _context.ClientSecrets.Where(x => x.ClientId == id)
+                .ProjectTo<ClientSecretDto>(_cmapper).ToArray();
+              return new { Id = id, ClientSecrets = list };
+        }
+        public void UpdateSecrets(int id, ClientSecretDto[] secrets)
+        {
+            foreach (var item in secrets) 
+                HashClientSharedSecret(item);
+
+            var input = _mapper.Map<ClientSecret[]>(secrets);
+
+            foreach (var item in input) 
+                item.ClientId = id;
+
+            var old = _context.ClientSecrets.Where(x => x.ClientId == id).ToHashSet();
+            _context.UpdateCollection<ClientSecret>(old, input, (x, y) => x.Id == y.Id);
+        }
+
+
     }
 }

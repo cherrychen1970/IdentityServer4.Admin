@@ -7,6 +7,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using AutoMapper;
+using Bluebird.AspNetCore;
 
 using Skoruba.EntityFramework.DbContexts;
 using Skoruba.IdentityServer4.EntityFramework.DbContexts;
@@ -48,6 +49,7 @@ namespace Skoruba.Admin.Api
             services.AddAdminServices();
             services.AddAdminApiCors(adminApiConfiguration);
             services.AddMvcServices();
+            services.AddDefaultCors(new[] {"http://localhost:3000"});
 
             // CHERRY TESTING
             //services.AddAuditEventLogging(Configuration);

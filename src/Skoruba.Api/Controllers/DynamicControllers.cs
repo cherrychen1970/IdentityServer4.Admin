@@ -19,12 +19,12 @@ namespace Skoruba.Admin.Api.Controllers
         static public void AddDynamicControllers(this ControllerFeature feature)
         {
             feature.AddDynamicController<ClientRepository, ClientDto, int>();
-            feature.AddDynamicController<ClientSecretRepository, ClientSecretDto, int>();
-            feature.AddDynamicController<ClientScopeRepository , ClientScope, int>();
-            feature.AddDynamicController<ClientPropertyRepository,ClientPropertyDto,int>();
-            feature.AddDynamicController<ClientClaimRepository,ClientClaim,int>();
-            feature.AddDynamicController<ClientGrantTypeRepository,ClientGrantType,int>();
-            feature.AddDynamicController<ClientRedirectUriRepository,ClientRedirectUri,int>();
+            //feature.AddDynamicController<ClientSecretRepository, ClientSecretDto, int>();
+            //feature.AddDynamicController<ClientScopeRepository , ClientScope, int>();
+            //feature.AddDynamicController<ClientPropertyRepository,ClientPropertyDto,int>();
+            //feature.AddDynamicController<ClientClaimRepository,ClientClaimDto,int>();
+            //feature.AddDynamicController<ClientGrantTypeRepository,ClientGrantType,int>();
+            //feature.AddDynamicController<ClientRedirectUriRepository,ClientRedirectUri,int>();
 
             feature.AddDynamicController<ApiResourceRepository, ApiResourceDto, int>();
             feature.AddDynamicController<ApiResourceClaimRepository, ApiResourceClaim, int>();

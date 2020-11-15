@@ -14,15 +14,16 @@ namespace Microsoft.Extensions.DependencyInjection
         {
             // TODO : add more repository
             //Repositories
-            services.AddScoped<ClientRepository>();
-            services.AddScoped<IRepository<ClientDto,int>,ClientRepository>();
+            //services.AddScoped<ClientRepository>();
+            //services.AddScoped<ClientClaimRepository>();
+           // services.AddScoped<IRepository<ClientDto,int>,ClientRepository>();
 
             //services.AddScoped<IRepository<ClientScope,int>,  AdminConfigurationRepository<ClientScope, string>>();
-            services.AddScoped<IRepository<ClientSecretDto,int>,  ClientSecretRepository>();
-            services.AddScoped<IRepository<ClientPropertyDto,int>, ClientPropertyRepository>();
-            services.AddScoped<IRepository<ClientClaim,int>, ClientClaimRepository >();
-            services.AddScoped<IRepository<ClientRedirectUri,int>, ClientRedirectUriRepository>();
-            services.AddScoped<IRepository<ClientGrantType,int>, ClientGrantTypeRepository>();
+            //services.AddScoped<IRepository<ClientSecretDto,int>,  ClientSecretRepository>();
+            //services.AddScoped<IRepository<ClientPropertyDto,int>, ClientPropertyRepository>();
+            //services.AddScoped<IRepository<ClientClaimDto,int>, ClientClaimRepository >();
+            //services.AddScoped<IRepository<ClientRedirectUri,int>, ClientRedirectUriRepository>();
+            //services.AddScoped<IRepository<ClientGrantType,int>, ClientGrantTypeRepository>();
             
             // identity
             services.AddScoped<IRepository<IdentityResourceDto,int>, IdentityResourceRepository>();

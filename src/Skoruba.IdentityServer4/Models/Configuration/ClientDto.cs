@@ -6,16 +6,24 @@ using Skoruba.Models;
 
 namespace Skoruba.IdentityServer4.Models
 {
-        public class test
+    public class ClientEditDto
     {
-
+        public ClientEditDto()
+        {
+            AllowedScopes = new List<string>();
+            //Claims = new List<ClientClaimDto>();
+            //ClientSecrets = new List<ClientSecretDto>();
+            //Properties = new List<ClientPropertyDto>();
+        }
         public ClientType ClientType { get; set; }
-
         public int AbsoluteRefreshTokenLifetime { get; set; } = 2592000;
         public int AccessTokenLifetime { get; set; } = 3600;
+        //  public List<string> RedirectUris { get; set; }
+        public List<string> AllowedScopes { get; set; }
+        // public List<ClientSecretDto> ClientSecrets { get; set; }
     }
 
-    
+
     public class ClientDto
     {
         public ClientDto()
@@ -130,7 +138,7 @@ namespace Skoruba.IdentityServer4.Models
         public ClientDtoTest()
         {
         }
-                public List<string> AllowedScopes { get; set; }
+        public List<string> AllowedScopes { get; set; }
 
         public ClientType ClientType { get; set; }
 
