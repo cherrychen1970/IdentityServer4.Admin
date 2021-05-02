@@ -3,13 +3,14 @@
 
 GET {{baseAuthUrl}}/_api/clients
 ###
-DELETE {{baseAuthUrl}}/_api/clients/skoruba
+DELETE {{baseAuthUrl}}/_api/clients/2
 ###
 POST {{baseAuthUrl}}/_api/clients
 Content-Type: application/json
 
   {        
-    "clientId": "skoruba",        
+    "clientId": "skoruba2",        
+    "secrets":["changeme"],
     "requireClientSecret": false,
     "allowedGrantTypes": ["authorization_code","password"],
     "allowOfflineAccess": false,
@@ -22,3 +23,18 @@ Content-Type: application/json
     "allowedCorsOrigins": ["https://localhost:9000"],
   }  
 ###
+###
+POST {{baseAuthUrl}}/_api/clients
+Content-Type: application/json
+
+{
+    "clientId": "bitwarden",
+    "secrets": ["changeme"],
+    "allowedScopes": [
+      "openid",
+      "profile",
+      "email",
+      "role"
+    ],
+    "redirectUris": ["http://localhost:4000/signin-oidc"]
+}
