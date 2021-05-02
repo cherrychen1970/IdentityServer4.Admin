@@ -17,7 +17,7 @@ using Microsoft.EntityFrameworkCore;
 using IdentityServer4.Models;
 using Microsoft.Extensions.DependencyInjection;
 using Serilog;
-using id4.Data;
+//using id4.Data;
 using id4.Models;
 
 namespace id4
@@ -30,7 +30,7 @@ namespace id4
         private UserManager<AppUser> _userManager {get;}
 
         public SeedService(UserManager<AppUser> userManager, ConfigurationDbContext configDbContext,
-           ApplicationDbContext context,
+           Data.ApplicationDbContext context,
         ILogger<SeedService> logger,
         IConfiguration configuration)
         {
@@ -59,7 +59,7 @@ namespace id4
             var role = new IdentityResource(
                 name: "role",
                 displayName: "role",
-                claimTypes: new[] {
+                userClaims: new[] {
                     JwtClaimTypes.Role
                     });
 
@@ -129,27 +129,6 @@ namespace id4
                     }
             };
             _configDbContext.Clients.Add(client.ToEntity());
-
-            client = new Client
-            {
-                ClientId = _config["AdminUI:ClientId"],
-                ClientName = _config["AdminUI:Name"],
-                AllowedGrantTypes = GrantTypes.ResourceOwnerPassword,
-                RequireConsent = false,
-                //AccessTokenLifetime = _config.GetSection("IdentityServer:TokenLifetime"),
-
-                RedirectUris = _config.GetSection("RedirectUris").Get<ICollection<string>>(),
-                //PostLogoutRedirectUris = { SkorubaUri + "/" },
-
-                AllowedScopes =
-                    {
-                        IdentityServerConstants.StandardScopes.OpenId,
-                        IdentityServerConstants.StandardScopes.Profile,
-                        IdentityServerConstants.StandardScopes.Email
-                    }
-            };
-            _configDbContext.Clients.Add(client.ToEntity());
-
             _configDbContext.SaveChanges();
         }
     }
