@@ -38,7 +38,8 @@ namespace Skoruba.Admin.Api
             services.AddNpgSqlDbContexts(Configuration["ConnectionStrings:IdentityConnection"]);
             services.AddDataProtection()
                 .SetApplicationName("Skoruba.IdentityServer4")
-                .PersistKeysToDbContext<DataProtectionDbContext>();
+                .ProtectKeysWithDpapi();
+                //.PersistKeysToDbContext<DataProtectionDbContext>();
 
             services.AddEmailSenders(Configuration);
             services.AddScoped<ControllerExceptionFilterAttribute>();
@@ -48,8 +49,8 @@ namespace Skoruba.Admin.Api
             services.AddAspNetIdentityServices();
             services.AddAdminServices();
             services.AddAdminApiCors(adminApiConfiguration);
-            services.AddMvcServices();
-            services.AddDefaultCors(new[] {"http://localhost:3000"});
+            //services.AddMvcServices();
+            //services.AddDefaultCors(new[] {"http://localhost:3000"});
 
             // CHERRY TESTING
             //services.AddAuditEventLogging(Configuration);

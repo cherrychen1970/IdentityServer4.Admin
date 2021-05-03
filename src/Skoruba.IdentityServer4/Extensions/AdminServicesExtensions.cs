@@ -26,16 +26,16 @@ namespace Microsoft.Extensions.DependencyInjection
             //services.AddScoped<IRepository<ClientGrantType,int>, ClientGrantTypeRepository>();
             
             // identity
-            services.AddScoped<IRepository<IdentityResourceDto,int>, IdentityResourceRepository>();
-            services.AddScoped<IRepository<IdentityClaim,int>, IdentityClaimRepository>();
-            services.AddScoped<IRepository<IdentityResourcePropertyDto,int>, IdentityPropertyRepository>();
+            services.AddScoped<IRepository<IdentityResource,int>, IdentityResourceRepository>();
+            services.AddScoped<IRepository<IdentityResourceClaim,int>, IdentityClaimRepository>();
+            services.AddScoped<IRepository<IdentityResourceProperty,int>, IdentityPropertyRepository>();
 
             // all the api resource repository
-            services.AddScoped<IRepository<ApiResourceDto,int>, ApiResourceRepository>();
-            services.AddScoped<IRepository<ApiResourcePropertyDto,int>, ApiResourcePropertyRepository>();            
+            services.AddScoped<IRepository<ApiResource,int>, ApiResourceRepository>();
+            services.AddScoped<IRepository<ApiResourceProperty,int>, ApiResourcePropertyRepository>();            
             services.AddScoped<IRepository<ApiResourceClaim,int>,ApiResourceClaimRepository>();
-            services.AddScoped<IRepository<ApiSecretDto,int>, ApiSecretRepository>();            
-            services.AddScoped<IRepository<ApiScopeDto,int>, ApiScopeRepository>();
+            services.AddScoped<IRepository<ApiResourceSecret,int>, ApiSecretRepository>();            
+            services.AddScoped<IRepository<ApiScope,int>, ApiScopeRepository>();
             services.AddScoped<IRepository<ApiScopeClaim,int>, ApiScopeClaimRepository>();
             
             // TODO : use factory

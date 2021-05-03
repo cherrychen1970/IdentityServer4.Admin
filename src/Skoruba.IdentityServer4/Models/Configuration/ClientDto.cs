@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using Skoruba.IdentityServer4.Models;
 using Skoruba.Models;
+using Bluebird.Entity;
 
 namespace Skoruba.IdentityServer4.Models
 {
@@ -24,7 +25,7 @@ namespace Skoruba.IdentityServer4.Models
     }
 
 
-    public class ClientDto
+    public class ClientDto : IKey<int>
     {
         public ClientDto()
         {

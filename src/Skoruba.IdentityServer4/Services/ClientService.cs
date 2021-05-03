@@ -141,19 +141,18 @@ namespace Skoruba.IdentityServer4.Services
         }
 
         //
-        public override ClientDto Create(ClientDto model)
-        {
-            PrepareClientTypeForNewClient(model);
-            return base.Create(model);
-        }
+
         public void UpdateClaims(int id, ClientClaimDto[] claims)
         {
+            throw new NotImplementedException();
+            /*
             var claimsInput = _mapper.Map<ClientClaim[]>(claims);
             foreach (var item in claimsInput)
                 item.ClientId = id;
 
             var oldClaims = _context.ClientClaims.Where(x => x.ClientId == id).ToHashSet();
             _context.UpdateCollection<ClientClaim>(oldClaims, claimsInput, (x, y) => x.Id == y.Id);
+        */
         }
 
         public dynamic GetRedirectUris(int id)
@@ -164,9 +163,10 @@ namespace Skoruba.IdentityServer4.Services
         }
         public void UpdateRedirectUris(int id, string[] redirectUris)
         {
+            throw new NotImplementedException();
             var input = redirectUris.Select(x => new ClientRedirectUri { RedirectUri = x, ClientId = id, Id = 0 }).ToArray();
             var old = _context.ClientRedirectUris.Where(x => x.ClientId == id).ToHashSet();
-            _context.UpdateCollection<ClientRedirectUri>(old, input, (x, y) => x.RedirectUri == y.RedirectUri, false);
+            //_context.UpdateCollection<ClientRedirectUri>(old, input, (x, y) => x.RedirectUri == y.RedirectUri, false);
         }
         public dynamic GetScopes(int id)
         {
@@ -175,9 +175,10 @@ namespace Skoruba.IdentityServer4.Services
         }
         public void UpdateScopes(int id, string[] scopes)
         {
+            throw new NotImplementedException();
             var input = scopes.Select(x => new ClientScope { Scope = x, ClientId = id, Id = 0 }).ToArray();
             var old = _context.ClientScopes.Where(x => x.ClientId == id).ToHashSet();
-            _context.UpdateCollection<ClientScope>(old, input, (x, y) => x.Scope == y.Scope, false);
+           // _context.UpdateCollection<ClientScope>(old, input, (x, y) => x.Scope == y.Scope, false);
         }
         //allowedGrantTypes
         public dynamic GetGrantTypes(int id)
@@ -187,14 +188,15 @@ namespace Skoruba.IdentityServer4.Services
         }
         public void UpdateGrantTypes(int id, string[] grantTypes)
         {
+            throw new NotImplementedException();
             var input = grantTypes.Select(x => new ClientGrantType { GrantType = x, ClientId = id, Id = 0 }).ToArray();
             var old = _context.ClientGrantTypes.Where(x => x.ClientId == id).ToHashSet();
-            _context.UpdateCollection<ClientGrantType>(old, input, (x, y) => x.GrantType == y.GrantType, false);
+            //_context.UpdateCollection<ClientGrantType>(old, input, (x, y) => x.GrantType == y.GrantType, false);
         }
         public dynamic GetSecrets(int id)
         {
             var list = _context.ClientSecrets.Where(x => x.ClientId == id)
-                .ProjectTo<ClientSecretDto>(_cmapper).ToArray();
+                .ProjectTo<ClientSecretDto>(_mapperProvider).ToArray();
               return new { Id = id, ClientSecrets = list };
         }
         public void UpdateSecrets(int id, ClientSecretDto[] secrets)
@@ -208,7 +210,8 @@ namespace Skoruba.IdentityServer4.Services
                 item.ClientId = id;
 
             var old = _context.ClientSecrets.Where(x => x.ClientId == id).ToHashSet();
-            _context.UpdateCollection<ClientSecret>(old, input, (x, y) => x.Id == y.Id);
+            throw new NotImplementedException();
+           // _context.UpdateCollection<ClientSecret>(old, input, (x, y) => x.Id == y.Id);
         }
 
 

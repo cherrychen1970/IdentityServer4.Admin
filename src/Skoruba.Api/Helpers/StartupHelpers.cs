@@ -73,11 +73,13 @@ namespace Skoruba.Admin.Api.Helpers
         /// Register services for MVC
         /// </summary>
         /// <param name="services"></param>
+        /*
         public static void AddMvcServices(this IServiceCollection services)
         {
             var me = System.Reflection.Assembly.GetExecutingAssembly();
             services.AddLocalization(opts => { opts.ResourcesPath = ConfigurationConsts.ResourcesPath; });
             services.TryAddTransient(typeof(IGenericControllerLocalizer<>), typeof(GenericControllerLocalizer<>));
+            
             services.AddControllersWithViews(o => { o.Conventions.Add(new GenericControllerRouteConvention()); })
                     .AddApplicationPart(me)
                     .AddNewtonsoftJson(options =>
@@ -87,7 +89,9 @@ namespace Skoruba.Admin.Api.Helpers
                     })
                     .AddDataAnnotationsLocalization()
                     .AddDynamicControllers();
+            
         }
+        */
 
 
         public static IMvcBuilder AddGenericControllers(this IMvcBuilder mvcBuilder)

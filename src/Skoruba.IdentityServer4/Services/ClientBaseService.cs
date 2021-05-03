@@ -14,7 +14,7 @@ using Skoruba.IdentityServer4.EntityFramework.Repositories;
 namespace Skoruba.IdentityServer4.Services
 {
     public class ClientBaseService :
-         AdminConfigurationRepository<Client, ClientDto>
+         AdminConfigurationRepository<Client>
     //: IClientRepository    
     {
         //protected readonly ConfDbContext DbContext;        

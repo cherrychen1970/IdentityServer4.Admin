@@ -24,7 +24,7 @@ namespace Skoruba.IdentityServer4.EntityFramework.Mappers
 
             // model to entity
             CreateMap<IdentityResourceDto, IdentityResource>(MemberList.Source)
-                .ForMember(x => x.UserClaims, opts => opts.MapFrom(src => src.UserClaims.Select(x => new IdentityClaim { Type = x })));
+                .ForMember(x => x.UserClaims, opts => opts.MapFrom(src => src.UserClaims.Select(x => new IdentityResourceClaim { Type = x })));
         }
     }
 }

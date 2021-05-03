@@ -13,14 +13,14 @@ using Microsoft.Extensions.Logging;
 namespace Skoruba.IdentityServer4.EntityFramework.Repositories
 {
     public class ApiResourceRepository
-    : AdminConfigurationRepository<ApiResource, ApiResourceDto>
+    : AdminConfigurationRepository<ApiResource>
     {
         public ApiResourceRepository(AdminConfigurationDbContext dbContext, IMapper mapper, ILogger<ApiResourceRepository> logger)
         : base(dbContext, mapper, logger)
         { }
     }
     public class ApiResourcePropertyRepository
-  : AdminConfigurationRepository<ApiResourceProperty, ApiResourcePropertyDto>
+  : AdminConfigurationRepository<ApiResourceProperty>
     {
         public ApiResourcePropertyRepository(AdminConfigurationDbContext dbContext, IMapper mapper, ILogger<ApiResourcePropertyRepository> logger)
             : base(dbContext, mapper, logger)
@@ -28,7 +28,7 @@ namespace Skoruba.IdentityServer4.EntityFramework.Repositories
         }
     }
     public class ApiScopeRepository
-    : AdminConfigurationRepository<ApiScope, ApiScopeDto>
+    : AdminConfigurationRepository<ApiScope>
     {
         public ApiScopeRepository(AdminConfigurationDbContext dbContext, IMapper mapper, ILogger<ApiScopeRepository> logger)
         : base(dbContext, mapper, logger)
@@ -36,7 +36,7 @@ namespace Skoruba.IdentityServer4.EntityFramework.Repositories
     }
 
     public class ApiSecretRepository
-    : AdminConfigurationRepository<ApiSecret, ApiSecretDto>
+    : AdminConfigurationRepository<ApiResourceSecret>
     {
         public ApiSecretRepository(AdminConfigurationDbContext dbContext, IMapper mapper, ILogger<ApiSecretRepository> logger)
         : base(dbContext, mapper, logger)
@@ -44,7 +44,7 @@ namespace Skoruba.IdentityServer4.EntityFramework.Repositories
     }
 
     public class ApiScopeClaimRepository
-    : AdminConfigurationRepository<ApiScopeClaim, ApiScopeClaim>
+    : AdminConfigurationRepository<ApiScopeClaim>
     {
         public ApiScopeClaimRepository(AdminConfigurationDbContext dbContext, IMapper mapper, ILogger<ApiScopeClaimRepository> logger)
          : base(dbContext, mapper, logger)
@@ -53,7 +53,7 @@ namespace Skoruba.IdentityServer4.EntityFramework.Repositories
     }
 
     public class ApiResourceClaimRepository
-    : AdminConfigurationRepository<ApiResourceClaim, ApiResourceClaim>
+    : AdminConfigurationRepository<ApiResourceClaim>
     {
         public ApiResourceClaimRepository(AdminConfigurationDbContext dbContext, IMapper mapper, ILogger<ApiResourceClaimRepository> logger)
          : base(dbContext, mapper, logger)

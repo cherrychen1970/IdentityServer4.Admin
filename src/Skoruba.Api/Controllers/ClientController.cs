@@ -18,7 +18,7 @@ using Skoruba.IdentityServer4.Services;
 namespace Skoruba.Admin.Api.Controllers
 {
     [Route("_api/[controller]")]
-    public class ClientsController : RestAsyncController<ClientService, ClientDto, int>
+    public class ClientsController : RestAsyncController<ClientService, ClientDto, Client,int>
     {
         IMapper _mapper1;
         IConfigurationProvider _mapper;
@@ -27,22 +27,16 @@ namespace Skoruba.Admin.Api.Controllers
         public ClientsController(
             ClientService repository,
             AdminConfigurationDbContext context,
+            Bluebird.Auth.IUserSession session,
             //ClientClaimRepository claimRepository,
         IMapper mapper,
         ILogger<BaseController> logger)
-        : base(repository, logger)
+        : base(repository,mapper, session, logger)
         {
             _mapper1 = mapper;
             _mapper = mapper.ConfigurationProvider;
             _context = context;
             //_claimRepository = claimRepository;
-        }
-
-        [HttpGet("{child}/{id}")]
-        public async Task<IActionResult> GetManyFromNested(int id, string child, int? page, string search)
-        {
-            var item = _repository.GetOne(id, new[] { "id", child });
-            return Ok(item);
         }
 
         [HttpGet("claims/{id}")]
@@ -56,7 +50,7 @@ namespace Skoruba.Admin.Api.Controllers
         public async Task<IActionResult> UpdateClaims(int id, ClientClaimsDto input)
         {
             _repository.UpdateClaims(id, input.Claims.ToArray());
-            _repository.SaveChanges();
+            await _repository.SaveChangesAsync();
             return await GetClaims(id);
         }
         [HttpGet("redirectUris/{id}")]
@@ -71,7 +65,7 @@ namespace Skoruba.Admin.Api.Controllers
         {
             var data = input.AsDynamic<ClientDto>();
             _repository.UpdateRedirectUris(id, data.RedirectUris.ToArray());
-            _repository.SaveChanges();
+            await _repository.SaveChangesAsync();
             return await GetRedirectUris(id);
         }
         [HttpGet("scopes/{id}")]
@@ -86,7 +80,7 @@ namespace Skoruba.Admin.Api.Controllers
         {
             var data = input.AsDynamic<ClientDto>();
             _repository.UpdateScopes(id, data.AllowedScopes.ToArray());
-            _repository.SaveChanges();
+            await _repository.SaveChangesAsync();
             return await GetScopes(id);
         }
         [HttpGet("grantTypes/{id}")]
@@ -100,7 +94,7 @@ namespace Skoruba.Admin.Api.Controllers
         {
             var data = input.AsDynamic<ClientDto>();
             _repository.UpdateGrantTypes(id, data.AllowedGrantTypes.ToArray());
-            _repository.SaveChanges();
+            await _repository.SaveChangesAsync();
             return await GetGrantTypes(id);
         }
         [HttpGet("secrets/{id}")]
@@ -115,7 +109,7 @@ namespace Skoruba.Admin.Api.Controllers
             var data = input.AsDynamic<ClientDto>();
             var secrets = _mapper1.Map<List<ClientSecretDto>>(data.ClientSecrets);
             _repository.UpdateSecrets(id, secrets.ToArray());
-            _repository.SaveChanges();
+            await _repository.SaveChangesAsync();
             return await GetSecrets(id);
         }        
         [HttpGet("edit/{id}")]
@@ -129,8 +123,9 @@ namespace Skoruba.Admin.Api.Controllers
         public async Task<IActionResult> Update(int id, ClientEditDto input)
         {
             _repository.UpdateScopes(id, input.AllowedScopes.ToArray());
-            _repository.Update(id, input);
-            _repository.SaveChanges();
+            new NotImplementedException();
+            //_repository.Update(id, input);
+            await _repository.SaveChangesAsync();
             return await GetEdit(id);
         }
     }

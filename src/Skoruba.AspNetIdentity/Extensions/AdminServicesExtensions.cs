@@ -33,13 +33,13 @@ namespace Microsoft.Extensions.DependencyInjection
             services.AddTransient<IdentityRepository>();
             //services.AddTransient<IPersistedGrantAspNetIdentityRepository, PersistedGrantAspNetIdentityRepository<TKey>>();
 
-            services.AddScoped<IRepository<UserDto<string>,string>,UserRepository>();
-            services.AddScoped<IRepository<UserClaimDto<int>,int>,UserClaimRepository>();
-            services.AddScoped<IRepository<UserRoleDto<int>,int>,UserRoleRepository>();
+            services.AddScoped<IRepository<User,string>,UserRepository>();
+            services.AddScoped<IRepository<UserClaim,int>,UserClaimRepository>();
+            services.AddScoped<IRepository<UserRole,int>,UserRoleRepository>();
             services.AddScoped<IRepository<UserLogin,string>,UserLoginRepository>();
             services.AddScoped<IRepository<UserToken,string>, UserTokenRepository>();
-            services.AddScoped<IRepository<RoleDto<string>,string>,RoleRepository>();
-            services.AddScoped<IRepository<RoleClaimDto<int>,int>,RoleClaimRepository>();
+            services.AddScoped<IRepository<Role,string>,RoleRepository>();
+            services.AddScoped<IRepository<RoleClaim,int>,RoleClaimRepository>();
             
             //Resources
             services.AddScoped<IIdentityServiceResources, IdentityServiceResources>();

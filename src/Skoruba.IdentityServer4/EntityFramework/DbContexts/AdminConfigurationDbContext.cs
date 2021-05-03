@@ -16,13 +16,13 @@ namespace Skoruba.IdentityServer4.EntityFramework.DbContexts
 
         public DbSet<IdentityResourceProperty> IdentityResourceProperties { get; set; }
 
-        public DbSet<ApiSecret> ApiSecrets { get; set; }
+        public DbSet<ApiResourceSecret> ApiSecrets { get; set; }
 
-        public DbSet<ApiScope> ApiScopes { get; set; }
+        //public DbSet<ApiScope> ApiScopes { get; set; }
 
         public DbSet<ApiScopeClaim> ApiScopeClaims { get; set; }
 
-        public DbSet<IdentityClaim> IdentityClaims { get; set; }
+        public DbSet<IdentityResourceClaim> IdentityResourceClaims { get; set; }
 
         public DbSet<ApiResourceClaim> ApiResourceClaims { get; set; }
 

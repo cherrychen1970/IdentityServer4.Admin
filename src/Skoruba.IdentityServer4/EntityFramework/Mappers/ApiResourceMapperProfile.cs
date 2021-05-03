@@ -22,7 +22,7 @@ namespace Skoruba.IdentityServer4.EntityFramework.Mappers
             CreateMap<ApiScope, ApiScopeDto>(MemberList.Destination)
                 .ForMember(x => x.UserClaims, opt => opt.MapFrom(src => src.UserClaims.Select(x => x.Type)));
 
-            CreateMap<ApiSecret, ApiSecretDto>(MemberList.Destination)
+            CreateMap<ApiResourceSecret, ApiSecretDto>(MemberList.Destination)
                 .ForMember(dest => dest.Type, opt => opt.Condition(srs => srs != null));
 
             CreateMap<ApiResourceProperty, ApiResourcePropertyDto>(MemberList.Destination)

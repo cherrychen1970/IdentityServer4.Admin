@@ -4,8 +4,10 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Skoruba.Admin.Api.Configuration.ApplicationParts
 {
+    /*
     public class GenericControllerRouteConvention : IControllerModelConvention
     {
+        
         public void Apply(ControllerModel controller)
         {
             if (controller.ControllerType.IsGenericType)
@@ -31,4 +33,5 @@ namespace Skoruba.Admin.Api.Configuration.ApplicationParts
             }
         }
     }
+    */
 }
